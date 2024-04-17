@@ -48,3 +48,25 @@ export async function fetchVenuesById(venuesId) {
     console.error("Error fetching listing:", error);
   }
 }
+
+
+// Search
+export async function searchVenues(query) {
+  try {
+    const response = await fetch(`${apiUrl}/venues/search?q=${query}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error(`Failed to search venues. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error searching venues:", error);
+  }
+}
