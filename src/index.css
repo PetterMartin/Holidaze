@@ -1,13 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&subset=latin&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&subset=latin&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-gutter: stable;
+}
 
 html,
 body,
 :root {
-    height: 100%;
-    font-family: 'Nunito', sans-serif;
+  height: 100%;
+  font-family: "Nunito", sans-serif;
 }
+
+#closeButton:hover .text-black {
+  color: white;
+}
+

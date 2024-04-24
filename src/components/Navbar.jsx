@@ -3,14 +3,16 @@ import { useState, useEffect } from "react";
 import { getProfile } from "../libs/api";
 import RegisterModal from "./modal/RegisterModal";
 import LoginModal from "./modal/LoginModal";
+import CreateVenueModal from "./modal/CreateVenueModal";
 import LogoutButton from "./buttons/LogoutButton.jsx";
-import DefaultUserImage from "../../public/assets/images/defaultUser.png"; // Import the default user image
+import DefaultUserImage from "../../public/assets/images/defaultUser.png"; 
 import { useAuth } from "./auth/Auth";
 
 const Navbar = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [userProfile, setUserProfile] = useState(null); // State to store user profile data
+  const [isCreateVenueModalOpen, setIsCreateVenueModalOpen] = useState(false); // Add state for CreateVenueModal
+  const [userProfile, setUserProfile] = useState(null);
   const { isLoggedIn } = useAuth(); // Access isLoggedIn state from useAuth hook
 
   useEffect(() => {
@@ -47,19 +49,35 @@ const Navbar = () => {
     setIsLoginModalOpen(false);
   };
 
+  const openCreateVenueModal = () => {
+    setIsCreateVenueModalOpen(true);
+  };
+
+  const closeCreateVenueModal = () => {
+    setIsCreateVenueModalOpen(false);
+  };
+
   return (
-    <div className=" py-4 px-8">
+    <div className="py-4 px-8">
       <nav className="flex justify-between items-center text-rose-500">
         <div className="flex gap-8">
-          <Link to="/" className="text-xl font-bold hover:underline ">
+          <Link to="/" className="text-xl font-bold hover:underline">
             Home
           </Link>
           <Link to="/venues" className="text-xl font-bold hover:underline">
             Venues
           </Link>
         </div>
+
+        <button
+          className="text-xl font-bold hover:underline"
+          onClick={openCreateVenueModal}
+        >
+          Create Venue
+        </button>
+
         <div className="flex gap-4 items-center">
-        {isLoggedIn && userProfile ? (
+          {isLoggedIn && userProfile ? (
             <>
               <img
                 src={
@@ -71,8 +89,8 @@ const Navbar = () => {
                 alt={userProfile.avatar.alt}
                 className="w-12 h-12 rounded-full"
               />
-              <Link to="/profile" className="text-xl font-bold">
-              {userProfile.name}
+              <Link to={`/profile?name=${userProfile.name}`} className="text-xl font-bold hover:underline">
+                {userProfile.name}
               </Link>
             </>
           ) : isLoggedIn ? (
@@ -108,6 +126,14 @@ const Navbar = () => {
         <LoginModal
           isModalOpen={isLoginModalOpen}
           setModalOpen={closeLoginModal}
+        />
+      )}
+
+      {/* Render CreateVenueModal */}
+      {isCreateVenueModalOpen && (
+        <CreateVenueModal
+          isModalOpen={isCreateVenueModalOpen}
+          setModalOpen={closeCreateVenueModal}
         />
       )}
     </div>

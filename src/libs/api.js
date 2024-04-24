@@ -25,7 +25,7 @@ export async function fetchAllVenues() {
 
 export async function fetchVenuesById(venuesId) {
   const url = new URL(
-    `${apiUrl}/holidaze/venues/${venuesId}`
+    `${apiUrl}/holidaze/venues/${venuesId}?_owner=true&_bookings=true`
   );
 
   const options = {
@@ -46,6 +46,69 @@ export async function fetchVenuesById(venuesId) {
     }
   } catch (error) {
     console.error("Error fetching listing:", error);
+  }
+}
+
+/**
+ * Fetch venues created by a specific profile
+ */
+export async function fetchVenuesByProfile(userName) {
+  const url = new URL(
+    `${apiUrl}/holidaze/profiles/${userName}/venues`
+  );
+
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      "X-Noroff-API-Key": import.meta.env.VITE_API_KEY
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log(data)
+
+    if (response.ok) {
+      return data.data || [];
+    } else {
+      console.error(`Failed to fetch user venues. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error fetching user venues:", error);
+    return [];
+  }
+}
+
+/**
+ * Create a new venue
+ */
+export async function createVenue(venueData) {
+  const url = `${apiUrl}/holidaze/venues`;
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      "X-Noroff-API-Key": import.meta.env.VITE_API_KEY
+    },
+    body: JSON.stringify(venueData)
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(`Failed to create venue. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error creating venue:", error);
+    throw error;
   }
 }
 
@@ -175,3 +238,65 @@ export async function updateProfile(userName, updatedData, token) {
 
   return response.json();
 }
+
+/**
+ * Fetch all bookings made by a specific profile
+ */
+export async function fetchBookingsByProfile(userName) {
+  const url = new URL(
+    `${apiUrl}/holidaze/profiles/${userName}/bookings`
+  );
+
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      "X-Noroff-API-Key": import.meta.env.VITE_API_KEY
+    },
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    } else {
+      console.error(`Failed to fetch user bookings. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error fetching user bookings:", error);
+  }
+}
+
+/**
+ * Create a new booking
+ */
+export async function createBooking(bookingData) {
+  const url = `${apiUrl}/holidaze/bookings`;
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      "X-Noroff-API-Key": import.meta.env.VITE_API_KEY
+    },
+    body: JSON.stringify(bookingData)
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(`Failed to create booking. Status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error creating booking:", error);
+    throw error;
+  }
+}
+

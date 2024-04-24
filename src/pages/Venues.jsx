@@ -1,10 +1,12 @@
-import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { fetchAllVenues, searchVenues } from "../libs/api";
+import SingleVenueModal from "../components/modal/SingleVenueModal";
 
 const Venues = () => {
   const [venues, setVenues] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedVenueId, setSelectedVenueId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -37,6 +39,12 @@ const Venues = () => {
     handleSearch(query);
   };
 
+  // Function to open modal for selected venue
+  const handleVenueClick = async (venueId) => {
+    setSelectedVenueId(venueId);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="p-8">
       <div className="mb-4">
@@ -50,11 +58,10 @@ const Venues = () => {
       </div>
       <div className="grid grid-cols-3 gap-4">
         {venues.map((venue) => (
-          <Link
-            to={`/singlevenue?id=${venue.id}`}
+          <div
             key={venue.id}
             className="p-4 border border-gray-300 rounded-md cursor-pointer"
-            data-cy="venue"
+            onClick={() => handleVenueClick(venue.id)}
           >
             <div>
               <img
@@ -65,9 +72,14 @@ const Venues = () => {
               <h2 className="text-xl font-bold">{venue.name}</h2>
               <p className="text-gray-600">{venue.description}</p>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
+      <SingleVenueModal
+        isModalOpen={isModalOpen}
+        setModalOpen={setIsModalOpen}
+        venueId={selectedVenueId}
+      />
     </div>
   );
 };
