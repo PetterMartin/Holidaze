@@ -1,8 +1,10 @@
-import { useEffect, useState, useLayoutEffect } from "react";
-import { getProfile, fetchVenuesById, createBooking } from "../../libs/api";
-import Calendar from "../../components/calendar/Calendar";
 import { Link } from "@tanstack/react-router";
 import { gsap } from "gsap";
+import { useEffect, useState, useLayoutEffect } from "react";
+import { getProfile } from "../../libs/api/Profiles";
+import { fetchVenuesById } from "../../libs/api/Venues";
+import Calendar from "../../components/calendar/Calendar";
+import BookingForm from "../booking/BookingForm";
 
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -10,17 +12,18 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
   const [venue, setVenue] = useState(null);
   const [ownerProfile, setOwnerProfile] = useState(null);
   const [hasOpened, setHasOpened] = useState(false);
-  const [bookingData, setBookingData] = useState({
-    dateFrom: "",
-    dateTo: "",
-    guests: 0,
-  });
+  const [bookedDates, setBookedDates] = useState([]);
+  const [price, setPrice] = useState(0); // State for price
+  const [maxGuests, setMaxGuests] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const venueData = await fetchVenuesById(venueId);
         setVenue(venueData.data);
+
+        setPrice(venueData.data.price);
+        setMaxGuests(venueData.data.maxGuests);
 
         const ownerProfileData = await getProfile(venueData.data.owner.name);
         setOwnerProfile(ownerProfileData.data);
@@ -77,23 +80,15 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
     });
   };
 
-  // Handle input change for booking data
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBookingData({ ...bookingData, [name]: value });
-  };
-
-  // Handle booking submission
-  const handleBookingSubmit = async () => {
-    try {
-      // Send booking data to the API
-      await createBooking({ ...bookingData, venueId });
-      // Optionally, you can show a success message or perform other actions after successful booking
-      console.log("Booking successful!");
-    } catch (error) {
-      console.error("Error creating booking:", error);
+  useEffect(() => {
+    if (venue && venue.bookings) {
+      const dates = venue.bookings.map((booking) => ({
+        start: new Date(booking.dateFrom),
+        end: new Date(booking.dateTo),
+      }));
+      setBookedDates(dates);
     }
-  };
+  }, [venue]);
 
   return (
     <>
@@ -101,7 +96,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
         <>
           <div
             id="modalBackground"
-            className="fixed inset-0 flex items-center justify-end bg-neutral-800/50 overflow-hidden"
+            className="fixed inset-0 z-50 flex items-center justify-end bg-neutral-800/50 overflow-hidden"
           >
             <div id="single-venue" className="flex w-3/4 h-full">
               <button
@@ -120,47 +115,44 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                     className="rounded-3xl mb-2 w-full h-96"
                   />
                   {ownerProfile && (
-                    <Link to={`/profile?name=${ownerProfile.name}`}>
+                    <Link
+                      to={`/profile?name=${ownerProfile.name}`}
+                      onClick={() => setModalOpen(false)} // Close modal on profile link click
+                    >
                       <p>{ownerProfile.name}</p>
                     </Link>
                   )}
 
+                  {/* Display booked dates */}
+                  <div className="flex items-center gap-4 mb-4">
+                    <h2 className="text-xl font-semibold mb-2">
+                      Booked Dates:
+                    </h2>
+                    <ul>
+                      {bookedDates.length > 0 ? (
+                        <div className="mb-4">
+                          <ul>
+                            {bookedDates.map((booking, index) => (
+                              <li key={index}>
+                                {booking.start.toLocaleDateString()} -{" "}
+                                {booking.end.toLocaleDateString()}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : (
+                        <p>No booked dates</p>
+                      )}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p>Price: ${price}</p>
+                    <p>Max Guests: {maxGuests}</p>
+                  </div>
+
                   {/* Booking form */}
-                  <form
-                    onSubmit={handleBookingSubmit}
-                    className="flex flex-col gap-4"
-                  >
-                    <input
-                      type="date"
-                      name="dateFrom"
-                      value={bookingData.dateFrom}
-                      onChange={handleInputChange}
-                      className="border border-gray-300 rounded-md p-2"
-                      placeholder="Select Date From"
-                    />
-                    <input
-                      type="date"
-                      name="dateTo"
-                      value={bookingData.dateTo}
-                      onChange={handleInputChange}
-                      className="border border-gray-300 rounded-md p-2"
-                      placeholder="Select Date To"
-                    />
-                    <input
-                      type="number"
-                      name="guests"
-                      value={bookingData.guests}
-                      onChange={handleInputChange}
-                      className="border border-gray-300 rounded-md p-2"
-                      placeholder="Number of Guests"
-                    />
-                    <button
-                      type="submit"
-                      className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-                    >
-                      Book Now
-                    </button>
-                  </form>
+                  <BookingForm venueId={venueId} />
 
                   <Calendar />
                 </div>

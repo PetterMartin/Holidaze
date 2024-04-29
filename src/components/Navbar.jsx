@@ -1,12 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { getProfile } from "../libs/api";
+import { useAuth } from "../libs/api/auth/Auth.jsx";
+import { getProfile } from "../libs/api/Profiles.js";
+
 import RegisterModal from "./modal/RegisterModal";
 import LoginModal from "./modal/LoginModal";
 import CreateVenueModal from "./modal/CreateVenueModal";
 import LogoutButton from "./buttons/LogoutButton.jsx";
 import DefaultUserImage from "../../public/assets/images/defaultUser.png"; 
-import { useAuth } from "./auth/Auth";
 
 const Navbar = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);

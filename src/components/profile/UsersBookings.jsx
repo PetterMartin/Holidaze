@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchBookingsByProfile } from "../../libs/api";
-import { useAuth } from "../auth/Auth";
+import { useAuth } from "../../libs/api/auth/Auth";
+import { fetchBookingsByProfile } from "../../libs/api/Bookings";
 
 function UsersBookings() {
   const searchParams = new URLSearchParams(window.location.search);

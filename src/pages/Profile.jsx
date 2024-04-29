@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getProfile, updateProfile } from "../libs/api";
+import { useAuth } from "../libs/api/auth/Auth";
+import { getProfile, updateProfile } from "../libs/api/Profiles";
 import defaultUser from "../../public/assets/images/defaultUser.png";
-import { useAuth } from "../components/auth/Auth";
 import UsersVenues from "../components/profile/UsersVenues";
 import UsersBookings from "../components/profile/UsersBookings";
 

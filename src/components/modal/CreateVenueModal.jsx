@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createVenue } from "../../libs/api";
+import { createVenue } from "../../libs/api/Venues";
 import { AiOutlineClose } from "react-icons/ai";
 
 const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
@@ -33,24 +33,22 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
   
-    console.log("Name:", name);
-    console.log("Value:", value);
-  
     if (name === "mediaUrl") {
       setMediaUrl(value);
     } else if (name === "price" || name === "maxGuests") {
-      // Parse the value to an integer
       const parsedValue = parseInt(value);
-      console.log("Parsed Value:", parsedValue);
       setFormData({
         ...formData,
         [name]: parsedValue,
       });
     } else if (name.startsWith("media")) {
-      // Handle changes to the media field
       const mediaIndex = parseInt(name.replace("media", ""));
       const updatedMedia = [...formData.media];
-      updatedMedia[mediaIndex][name.split(".")[1]] = value;
+      const property = name.split(".")[1];
+      updatedMedia[mediaIndex] = {
+        ...updatedMedia[mediaIndex],
+        [property]: value,
+      };
       setFormData({
         ...formData,
         media: updatedMedia,
@@ -62,6 +60,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
       });
     }
   };
+  
 
   const handleMetaChange = (e) => {
     const { name, checked } = e.target;

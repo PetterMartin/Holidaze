@@ -4,7 +4,7 @@ import "./index.css";
 import "../src/index.css";
 import { RouterProvider } from "@tanstack/react-router";
 import { router } from "../src/root.js";
-import { AuthProvider } from "./components/auth/Auth.jsx";
+import { AuthProvider } from "./libs/api/auth/Auth.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchAllVenues, searchVenues } from "../libs/api";
+import { fetchAllVenues, searchVenues } from "../libs/api/Venues";
 import SingleVenueModal from "../components/modal/SingleVenueModal";
 
 const Venues = () => {
@@ -11,6 +11,11 @@ const Venues = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    // Update body overflow based on modal state
+    document.body.style.overflow = isModalOpen ? "hidden" : "auto";
+  }, [isModalOpen]);
 
   const fetchData = async () => {
     try {
@@ -64,13 +69,17 @@ const Venues = () => {
             onClick={() => handleVenueClick(venue.id)}
           >
             <div>
-              <img
-                src={venue.media[0].url}
-                alt={venue.media[0].alt}
-                className="rounded-md mb-2"
-              />
-              <h2 className="text-xl font-bold">{venue.name}</h2>
-              <p className="text-gray-600">{venue.description}</p>
+              {venue.media && venue.media.length > 0 && (
+                <>
+                  <img
+                    src={venue.media[0].url}
+                    alt={venue.media[0].alt}
+                    className="rounded-md mb-2"
+                  />
+                  <h2 className="text-xl font-bold">{venue.name}</h2>
+                  <p className="text-gray-600">{venue.description}</p>
+                </>
+              )}
             </div>
           </div>
         ))}

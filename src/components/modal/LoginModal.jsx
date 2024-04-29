@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { loginUser } from "../../libs/api";
+import { useState, useEffect } from "react";
+import { useAuth } from "../../libs/api/auth/Auth";
+import { loginUser } from "../../libs/api/Authentication";
 import { AiOutlineClose, AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { useAuth } from "../auth/Auth";
 
 const labels = ["Email", "Password"];
 
