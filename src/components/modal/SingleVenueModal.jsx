@@ -98,7 +98,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
             id="modalBackground"
             className="fixed inset-0 z-50 flex items-center justify-end bg-neutral-800/50 overflow-hidden"
           >
-            <div id="single-venue" className="flex w-3/4 h-full">
+            <div id="single-venue" className="flex w-full md:w-3/4 h-full">
               <button
                 id="closeButton"
                 className="w-10 h-9 m-4 bg-white rounded-full flex items-center justify-center hover:bg-black"

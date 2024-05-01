@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { useAuth } from "../libs/api/auth/Auth.jsx";
+import { useAuth } from "../context/auth/Auth.jsx";
 import { getProfile } from "../libs/api/Profiles.js";
 
 import RegisterModal from "./modal/RegisterModal";

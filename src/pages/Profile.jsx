@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../libs/api/auth/Auth";
+import { useAuth } from "../context/auth/Auth";
 import { getProfile, updateProfile } from "../libs/api/Profiles";
 import defaultUser from "../../public/assets/images/defaultUser.png";
 import UsersVenues from "../components/profile/UsersVenues";

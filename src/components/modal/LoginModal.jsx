@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-import { useAuth } from "../../libs/api/auth/Auth";
+import { useAuth } from "../../context/auth/Auth";
 import { loginUser } from "../../libs/api/Authentication";
 import { AiOutlineClose, AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";

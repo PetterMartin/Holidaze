@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useAuth } from "../../libs/api/auth/Auth";
+import { useAuth } from "../../context/auth/Auth";
 import { BiLogOutCircle } from "react-icons/bi";
 
 export default function LogoutButton() {
