@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchAllVenues, searchVenues } from "../libs/api/Venues";
+import { fetchAllVenues } from "../libs/api/Venues";
 import { FaStar } from "react-icons/fa";
 import SearchBar from "../components/header/Searchbar";
 import SingleVenueModal from "../components/modal/SingleVenueModal";
@@ -29,13 +29,30 @@ const Venues = () => {
   };
 
   // Function to handle search
-  const handleSearch = async ({ guests }) => {
+  const handleSearch = async ({ guests, searchText }) => {
     try {
       // Fetch all venues
       const data = await fetchAllVenues();
   
       // Filter venues based on the number of guests
-      const filteredVenues = data.data.filter((venue) => venue.maxGuests >= guests);
+      let filteredVenues = data.data.filter((venue) => venue.maxGuests >= guests);
+  
+      // Filter venues based on searchText
+      if (searchText) {
+        const search = searchText.toLowerCase();
+        filteredVenues = filteredVenues.filter((venue) => {
+          const location = venue.location;
+          if (!location) return false; // If location object is null, exclude the venue
+          const city = location.city ? location.city.toLowerCase() : "";
+          const country = location.country ? location.country.toLowerCase() : "";
+          const continent = location.continent ? location.continent.toLowerCase() : "";
+          return (
+            city.includes(search) ||
+            country.includes(search) ||
+            continent.includes(search)
+          );
+        });
+      }
   
       // Update the state with filtered venues
       setVenues(filteredVenues);
