@@ -4,42 +4,145 @@ import { generateDate, months } from "../../utils/generateDate";
 import cn from "../../utils/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
-export default function Calendar() {
+export default function Calendar({ handleDateChange }) {
   const days = ["S", "M", "T", "W", "T", "F", "S"];
   const currentDate = dayjs();
   const [today, setToday] = useState(currentDate);
-  const [selectDate, setSelectDate] = useState(currentDate);
+  const [selectedDates, setSelectedDates] = useState([]);
+
+  const nextMonth = today.add(1, "month");
+
+  const isDateSelected = (date) => {
+    return selectedDates.some((d) => d.isSame(date, "day"));
+  };
+
+  const handleDateClick = (date) => {
+    let newSelectedDates = [];
+  
+    // If there are already two selected dates
+    if (selectedDates.length === 2) {
+      if (isDateSelected(date)) {
+        // If the clicked date is already selected, remove it
+        newSelectedDates = selectedDates.filter((d) => !d.isSame(date, "day"));
+      } else {
+        // Find the closest date and replace it with the clicked date
+        const closestDateIndex = selectedDates.findIndex(
+          (d) =>
+            Math.abs(d.diff(date, "day")) ===
+            Math.min(...selectedDates.map((d) => Math.abs(d.diff(date, "day"))))
+        );
+        newSelectedDates = [...selectedDates];
+        newSelectedDates[closestDateIndex] = date;
+      }
+    } else if (selectedDates.length === 1) {
+      // If there's only one selected date, add or replace the second one
+      if (isDateSelected(date)) {
+        // If the clicked date is already selected, remove it
+        newSelectedDates = selectedDates.filter((d) => !d.isSame(date, "day"));
+      } else {
+        // Add or replace the second selected date
+        newSelectedDates = [...selectedDates, date];
+      }
+    } else {
+      // If there are no selected dates, add the clicked date
+      newSelectedDates = [date];
+    }
+  
+    // Update the selected dates state and call handleDateChange
+    setSelectedDates(newSelectedDates);
+    handleDateChange(newSelectedDates);
+  };
+  
+
+  const isBetweenSelectedDates = (date) => {
+    if (selectedDates.length === 2) {
+      const [start, end] = selectedDates.sort((a, b) => a - b);
+      return date.isAfter(start) && date.isBefore(end);
+    }
+    return false;
+  };
+
   return (
-    <div className="flex">
-      <div className="w-96 h-96 ">
-        <div className="flex justify-between items-center">
-          <h1 className="select-none font-semibold">
+    <div className="flex gap-8">
+      {/* Current Month Calendar */}
+      <div className="w-80 h-80 mr-8">
+        <div className="flex items-center justify-between">
+          <button
+            className="flex gap-10 items-center"
+            onClick={() => {
+              setToday(today.month(today.month() - 1));
+            }}
+          >
+            <GrFormPrevious className="w-5 h-5 cursor-pointer hover:scale-105 transition-all" />
+          </button>
+          <h1 className="select-none text-lg font-semibold">
             {months[today.month()]}, {today.year()}
           </h1>
-          <div className="flex gap-10 items-center ">
-            <GrFormPrevious
-              className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
-              onClick={() => {
-                setToday(today.month(today.month() - 1));
-              }}
-            />
-            <h1
-              className=" cursor-pointer hover:scale-105 transition-all"
-              onClick={() => {
-                setToday(currentDate);
-              }}
-            >
-              Today
-            </h1>
-            <GrFormNext
-              className="w-5 h-5 cursor-pointer hover:scale-105 transition-all"
-              onClick={() => {
-                setToday(today.month(today.month() + 1));
-              }}
-            />
-          </div>
+          <div></div>
         </div>
-        <div className="grid grid-cols-7 ">
+        <div className="grid grid-cols-7">
+          {days.map((day, index) => {
+            return (
+              <h1
+                key={index}
+                className="text-sm text-center h-14 w-14 grid place-content-center text-gray-500 select-none"
+              >
+                {day}
+              </h1>
+            );
+          })}
+        </div>
+        <div className="grid grid-cols-7">
+          {generateDate(today.month(), today.year()).map(
+            ({ date, currentMonth, today }, index) => {
+              return (
+                <div
+                  key={index}
+                  className="p-2 text-center h-14 grid place-content-center text-sm border-t"
+                >
+                  <h1
+                    className={cn(
+                      currentMonth ? "" : "text-gray-400",
+                      today
+                        ? "bg-gray-700 text-white"
+                        : "",
+                      isDateSelected(date)
+                        ? "bg-gradient-to-b from-rose-400 to-rose-500 text-white"
+                        : isBetweenSelectedDates(date)
+                        ? "bg-rose-200"
+                        : "",
+                      "h-10 w-10 rounded-full grid place-content-center hover:bg-rose-200 transition-all cursor-pointer select-none"
+                    )}
+                    onClick={() => {
+                      handleDateClick(date);
+                    }}
+                  >
+                    {date.date()}
+                  </h1>
+                </div>
+              );
+            }
+          )}
+        </div>
+      </div>
+
+      {/* Next Month Calendar */}
+      <div className="w-80 h-80">
+        <div className="flex justify-between items-center">
+          <div></div>
+          <h1 className="select-none text-lg font-semibold">
+            {months[nextMonth.month()]}, {nextMonth.year()}
+          </h1>
+          <button
+            className="flex gap-10 items-center"
+            onClick={() => {
+              setToday(nextMonth.month(nextMonth.month() + 1));
+            }}
+          >
+            <GrFormNext className="w-5 h-5 cursor-pointer hover:scale-105 transition-all" />
+          </button>
+        </div>
+        <div className="grid grid-cols-7">
           {days.map((day, index) => {
             return (
               <h1
@@ -52,8 +155,8 @@ export default function Calendar() {
           })}
         </div>
 
-        <div className=" grid grid-cols-7 ">
-          {generateDate(today.month(), today.year()).map(
+        <div className="grid grid-cols-7">
+          {generateDate(nextMonth.month(), nextMonth.year()).map(
             ({ date, currentMonth, today }, index) => {
               return (
                 <div
@@ -63,15 +166,18 @@ export default function Calendar() {
                   <h1
                     className={cn(
                       currentMonth ? "" : "text-gray-400",
-                      today ? "bg-red-600 text-white" : "",
-                      selectDate.toDate().toDateString() ===
-                        date.toDate().toDateString()
+                      today
                         ? "bg-black text-white"
                         : "",
-                      "h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
+                      isDateSelected(date)
+                        ? "bg-gradient-to-b from-rose-400 to-rose-500 text-white"
+                        : isBetweenSelectedDates(date)
+                        ? "bg-rose-200"
+                        : "",
+                      "h-10 w-10 rounded-full grid place-content-center hover:bg-rose-200 transition-all cursor-pointer select-none"
                     )}
                     onClick={() => {
-                      setSelectDate(date);
+                      handleDateClick(date);
                     }}
                   >
                     {date.date()}
@@ -81,12 +187,6 @@ export default function Calendar() {
             }
           )}
         </div>
-      </div>
-      <div className="h-96 w-96 sm:px-5">
-        <h1 className=" font-semibold">
-          Schedule for {selectDate.toDate().toDateString()}
-        </h1>
-        <p className="text-gray-400">No meetings for today.</p>
       </div>
     </div>
   );

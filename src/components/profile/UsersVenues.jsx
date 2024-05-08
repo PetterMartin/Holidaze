@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchVenuesByProfile } from "../../libs/api/Venues";
 import { useAuth } from "../../context/auth/Auth";
 import { getProfile } from "../../libs/api/Profiles";
-import SingleVenueModal from "../modal/SingleVenueModal";
+import SingleVenueModal from "../modal/singlevenuemodal/SingleVenueModal";
 import UpdateVenueModal from "../modal/UpdateVenueModal";
 import { FaStar } from "react-icons/fa";
 import LikeButton from "../buttons/LikeButton";

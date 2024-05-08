@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchAllVenues } from "../libs/api/Venues";
 import { FaStar } from "react-icons/fa";
 import SearchBar from "../components/header/Searchbar";
-import SingleVenueModal from "../components/modal/SingleVenueModal";
+import SingleVenueModal from "../components/modal/singlevenuemodal/SingleVenueModal";
 import LikeButton from "../components/buttons/LikeButton";
 
 const Venues = () => {
@@ -31,18 +31,15 @@ const Venues = () => {
   // Function to handle search
   const handleSearch = async ({ guests, searchText }) => {
     try {
-      // Fetch all venues
       const data = await fetchAllVenues();
   
-      // Filter venues based on the number of guests
       let filteredVenues = data.data.filter((venue) => venue.maxGuests >= guests);
   
-      // Filter venues based on searchText
       if (searchText) {
         const search = searchText.toLowerCase();
         filteredVenues = filteredVenues.filter((venue) => {
           const location = venue.location;
-          if (!location) return false; // If location object is null, exclude the venue
+          if (!location) return false; 
           const city = location.city ? location.city.toLowerCase() : "";
           const country = location.country ? location.country.toLowerCase() : "";
           const continent = location.continent ? location.continent.toLowerCase() : "";
@@ -54,7 +51,6 @@ const Venues = () => {
         });
       }
   
-      // Update the state with filtered venues
       setVenues(filteredVenues);
     } catch (error) {
       console.error("Error searching venues:", error);
@@ -103,7 +99,7 @@ const Venues = () => {
 
                   <div className="flex flex-col h-40 justify-between pt-3 pb-4 px-4">
                     <div className="flex flex-col">
-                      <h1 className="md:text-xl font-semibold text-gray-700">
+                      <h1 className="text-xl text-gray-700">
                         {venue.name.charAt(0).toUpperCase() +
                           venue.name.slice(1)}
                       </h1>
@@ -136,7 +132,7 @@ const Venues = () => {
                       <div className="font-semibold text-gray-700">
                         ${venue.price.toFixed(0)}{" "}
                         <span className="text-sm text-gray-500 font-thin">
-                          / per night
+                          / night
                         </span>
                       </div>
                       <div className="flex gap-2 items-center">

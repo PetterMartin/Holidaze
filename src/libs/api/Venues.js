@@ -151,7 +151,6 @@ export async function deleteVenue(venueId) {
   const options = {
     method: "DELETE",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
     },

@@ -9,7 +9,7 @@ const UpdateVenueModal = ({
   description,
   media,
   onUpdateSuccess,
-  onDeleteSuccess, // Callback function from UsersVenues component
+  onDeleteSuccess, 
 }) => {
   const [venueName, setVenueName] = useState(name || "");
   const [venueDescription, setVenueDescription] = useState(description || "");
