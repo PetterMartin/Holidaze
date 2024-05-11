@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { FaArrowRight, FaUsers } from "react-icons/fa";
-import { BsFillCalendarMinusFill } from "react-icons/bs";
-import { MdLocationOn, MdKeyboardArrowDown } from "react-icons/md";
+import { FaArrowRight } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
+import { LuCalendarDays } from "react-icons/lu";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { PiUsersThree } from "react-icons/pi";
 import SearchModal from "../modal/SearchModal";
 import DateModal from "../modal/DateModal";
 import GuestCounter from "../buttons/GuestCounter";
@@ -34,15 +36,15 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex flex-col w-3/4 mb-10">
-      <div className="flex justify-between items-center bg-white border-2 py-2 px-2 ps-8 rounded-full mt-6">
-        <div className="flex justify-between w-full">
+    <div className="flex flex-col mb-8">
+      <div className="flex justify-between items-center bg-white border-2 py-2 px-2 ps-8 rounded-3xl mt-6">
+        <div className="flex w-full">
           {/* Location section */}
           <div
             className="flex items-center gap-8 cursor-pointer"
             onClick={toggleSearchModal}
           >
-            <MdLocationOn size={25} />
+            <IoLocationOutline size={25} />
             <div className="flex flex-col">
               <p className="text-sm text-gray-400">Where do you want to go?</p>
               <button className="flex items-center text-gray-600 font-semibold max-w-[180px] truncate">
@@ -52,15 +54,15 @@ const SearchBar = ({ onSearch }) => {
             </div>
           </div>
 
-          <div className="border border-gray-300 rounded-full"></div>
+          <div className="border border-gray-300 rounded-full mx-6"></div>
 
           {/* Guests section */}
           <div className="hidden lg:block">
             <div
-              className="flex items-center gap-8 cursor-pointer"
+              className="flex items-center gap-8 cursor-pointer mt-1"
               onClick={toggleDateModal}
             >
-              <BsFillCalendarMinusFill size={20} />
+              <LuCalendarDays size={22} />
               <div className="flex flex-col">
                 <p className="text-sm text-gray-400">Date</p>
                 <button className="flex items-center text-gray-600 font-semibold max-w-[180px] truncate">
@@ -71,18 +73,18 @@ const SearchBar = ({ onSearch }) => {
             </div>
           </div>
 
-          <div className="border border-gray-300 rounded-full"></div>
+          <div className="border border-gray-300 rounded-full mx-6"></div>
 
           {/* Guest section */}
           <div className="flex items-center gap-6">
-            <FaUsers size={25} />
+            <PiUsersThree size={28} />
             <GuestCounter onGuestChange={setGuests} />
           </div>
         </div>
 
         {/* Search button */}
         <button
-          className="flex justify-center items-center gap-6 ms-16 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ps-8 pe-4 py-4 rounded-full transition duration-200 ease-in-out hover:opacity-80"
+          className="flex justify-center items-center gap-6 ms-12 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ps-8 pe-4 py-3 rounded-xl transition duration-200 ease-in-out hover:opacity-80"
           onClick={handleSearch}
         >
           Search

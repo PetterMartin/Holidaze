@@ -1,13 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/auth/Auth.jsx";
-import { getProfile } from "../libs/api/Profiles.js";
+import { useAuth } from "../../context/auth/Auth.jsx";
+import { getProfile } from "../../libs/api/Profiles.js";
 
-import RegisterModal from "./modal/RegisterModal";
-import LoginModal from "./modal/LoginModal";
-import CreateVenueModal from "./modal/CreateVenueModal";
-import LogoutButton from "./buttons/LogoutButton.jsx";
-import DefaultUserImage from "../../public/assets/images/defaultUser.png"; 
+import RegisterModal from "../modal/RegisterModal.jsx";
+import LoginModal from "../modal/LoginModal.jsx";
+import CreateVenueModal from "../modal/CreateVenueModal.jsx";
+import DefaultUserImage from "../../../public/assets/images/defaultUser.png"; 
 
 const Navbar = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -59,14 +58,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="py-4 px-8">
+    <div className="pt-4 px-8">
       <nav className="flex justify-between items-center text-rose-500">
         <div className="flex gap-8">
           <Link to="/" className="text-xl font-bold hover:underline">
-            Home
-          </Link>
-          <Link to="/venues" className="text-xl font-bold hover:underline">
-            Venues
+            Holidaze
           </Link>
         </div>
 
@@ -112,7 +108,6 @@ const Navbar = () => {
               </p>
             </>
           )}
-          {isLoggedIn && <LogoutButton />}
         </div>
       </nav>
 

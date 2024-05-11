@@ -11,8 +11,7 @@ export default function LogoutButton() {
 
     return (
         <>
-            <Link to="/" className="flex gap-4 w-full logout-button hover:bg-gray-100/50 p-3 whitespace-nowrap text-rose-500" onClick={handleLogout}>
-                <div>Logout</div>
+            <Link to="/" className="flex items-center w-full logout-button hover:bg-gray-100/50 p-3 text-rose-500" onClick={handleLogout}>
                 <BiLogOutCircle className="text-xl me-8" />
             </Link>
         </>

@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth/Auth";
 import { fetchBookingsByProfile } from "../../libs/api/Bookings";
 
-function UsersBookings() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const userName = searchParams.get("name");
+function UsersBookings({ userName }) {
   const [bookings, setBookings] = useState([]);
   const { user } = useAuth();
 
@@ -26,7 +24,8 @@ function UsersBookings() {
   }, [userName, user]);
 
   return (
-    <main className="container mx-auto lg:px-20 mt-4 text-black">
+    <main className="container mx-auto lg:px-20 text-gray-700">
+      <h1 className="text-3xl font-semibold px-2 mb-4">My Bookings</h1>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
         {bookings.map(({ id, dateFrom, dateTo, guests }) => (
           <div key={id} className="relative">

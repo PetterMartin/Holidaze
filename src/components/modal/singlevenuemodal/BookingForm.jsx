@@ -69,6 +69,14 @@ const BookingForm = ({ venue }) => {
       onSubmit={handleBookingSubmit}
       className="flex flex-col bg-gray-100 border rounded-xl p-6 gap-6 max-h-[500px]"
     >
+        {showDateModal && (
+          <div className="absolute top-40 left-0 ml-[-480px]">
+            <DateModal
+              onClose={() => setShowDateModal(false)}
+              handleDateChange={handleDateChange}
+            />
+          </div>
+        )}
       {venue && ( // Add conditional rendering here
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-gray-700">
@@ -133,16 +141,10 @@ const BookingForm = ({ venue }) => {
       </div>
 
       {/* Conditional rendering of DateModal */}
-      {showDateModal && (
-        <DateModal
-          onClose={() => setShowDateModal(false)}
-          handleDateChange={handleDateChange}
-        />
-      )}
 
       <button
         type="submit"
-        className="bg-gradient-to-b from-rose-400 to-rose-500 text-white py-3 px-4 rounded-lg transition duration-300 ease-in-out hover:opacity-80"
+        className="bg-gradient-to-b from-rose-400 to-rose-500 text-white py-3 px-4 mb-16 rounded-lg transition duration-300 ease-in-out hover:opacity-80"
       >
         Reserve
       </button>

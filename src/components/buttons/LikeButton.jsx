@@ -11,11 +11,11 @@ const LikeButton = () => {
 
   return (
     <div 
-      className="relative cursor-pointer transition hover:opacity-80 "
+      className="relative cursor-pointer transition hover:opacity-80 p-2 rounded-full bg-opacity-70 backdrop-filter backdrop-blur-xl flex items-center justify-center"
       onClick={handleClick}
     >
-      <AiOutlineHeart size={24} className="fill-white absolute -top-[2px] -right-[2px]" />
-      <AiFillHeart size={20} className={isClicked ? "fill-rose-500" : "fill-neutral-500/70"} />
+      <AiOutlineHeart size={18} className="fill-white absolute" />
+      <AiFillHeart size={20} className={isClicked ? "fill-rose-500" : "fill-transparent"} />
     </div>
   );
 };

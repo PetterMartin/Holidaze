@@ -49,6 +49,8 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
 
       setLoginStatus("success");
       setModalOpen(false);
+
+      window.location.reload();
     } catch (error) {
       console.error("Login failed:", error.message);
       setLoginStatus("error");
