@@ -66,7 +66,7 @@ const SearchBar = ({ onSearch }) => {
               <div className="flex flex-col">
                 <p className="text-sm text-gray-400">Date</p>
                 <button className="flex items-center text-gray-600 font-semibold max-w-[180px] truncate">
-                  {searchText || "Add Dates"}
+                  {"Add Dates"}
                   <MdKeyboardArrowDown size={25} />
                 </button>
               </div>

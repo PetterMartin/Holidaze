@@ -2,6 +2,8 @@ import SingleVenueModal from "../../components/modal/singlevenuemodal/SingleVenu
 import LikeButton from "../../components/buttons/LikeButton";
 import LocationDetails from "../../components/modal/singlevenuemodal/LocationDetails";
 import { FaStar } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
+import { LuCalendarDays } from "react-icons/lu";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiUsersThree } from "react-icons/pi";
 
@@ -11,6 +13,9 @@ const AllVenues = ({
   setSelectedVenueId,
   isModalOpen,
   setIsModalOpen,
+  searchText,
+  guests,
+  searchClicked,
 }) => {
   const handleVenueClick = async (venueId) => {
     setSelectedVenueId(venueId);
@@ -26,35 +31,35 @@ const AllVenues = ({
   };
 
   return (
-    <div className="container mx-auto ps-8">
-      <div className="flex justify-between mb-2">
-        <h1 className="text-3xl font-semibold mb-4 ms-1 text-gray-700">
-          All Venues
-        </h1>
+    <div className="mx-auto ps-28 pe-6">
+      <div className="flex justify-between mb-2 text-gray-700">
+        <h1 className="text-3xl font-semibold mb-4 ms-1">All Venues</h1>
 
-        <div className="flex gap-4 text-sm">
-          <div className="flex items-center gap-12 px-4 bg-gray-100 rounded-full">
-            <div className="flex items-center gap-2">
-              <PiUsersThree size={20} />
-              <p>2 guests</p>
+        {searchClicked && (
+          <div className="flex gap-4 text-sm pe-4">
+            <div className="flex items-center gap-12 px-4 border-2 rounded-full cursor-pointer hover:border-gray-500 transition duration-300 ease-in-out">
+              <div className="flex items-center gap-2">
+                <IoLocationOutline size={20} />
+                <p>{searchText}</p>
+              </div>
+              <MdKeyboardArrowDown size={20} />
             </div>
-            <MdKeyboardArrowDown size={20}/>
-          </div>
-          <div className="flex items-center gap-12 px-4 bg-gray-100 rounded-full">
-            <div className="flex items-center gap-2">
-              <PiUsersThree size={20} />
-              <p>2 guests</p>
+            <div className="flex items-center gap-12 px-4 border-2 rounded-full cursor-pointer hover:border-gray-500 transition duration-300 ease-in-out">
+              <div className="flex items-center gap-2">
+                <LuCalendarDays size={18} />
+                <p>24-26 july</p>
+              </div>
+              <MdKeyboardArrowDown size={20} />
             </div>
-            <MdKeyboardArrowDown size={20}/>
-          </div>
-          <div className="flex items-center gap-12 px-4 bg-gray-100 rounded-full">
-            <div className="flex items-center gap-2">
-              <PiUsersThree size={20} />
-              <p>2 guests</p>
+            <div className="flex items-center gap-12 px-4 border-2 rounded-full cursor-pointer hover:border-gray-500 transition duration-300 ease-in-out">
+              <div className="flex items-center gap-2">
+                <PiUsersThree size={20} />
+                <p>{guests} guests</p>
+              </div>
+              <MdKeyboardArrowDown size={20} />
             </div>
-            <MdKeyboardArrowDown size={20}/>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-auto h-screen">
