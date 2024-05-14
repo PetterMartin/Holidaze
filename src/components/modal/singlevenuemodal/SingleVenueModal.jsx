@@ -94,7 +94,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
               <div className="hidden xl:block">
                 <button
                   id="closeButton"
-                  className="w-10 h-9 m-4 bg-white rounded-full flex items-center justify-center hover:bg-black"
+                  className="w-9 h-9 m-4 bg-white rounded-full flex items-center justify-center hover:bg-black"
                   onClick={closeModal}
                 >
                   <AiOutlineClose size={14} className="text-black" />

@@ -4,6 +4,8 @@ import { getProfile, updateProfile } from "../libs/api/Profiles";
 import defaultUser from "../../public/assets/images/defaultUser.png";
 import UsersVenues from "../components/profile/UsersVenues";
 import UsersBookings from "../components/profile/UsersBookings";
+import Banner from "../components/profile/Banner";
+import ProfileInformation from "../components/profile/ProfileInformation";
 
 export default function Profile() {
   const { user: authUser } = useAuth();
@@ -21,7 +23,8 @@ export default function Profile() {
       try {
         const storedToken = localStorage.getItem("jwt");
 
-        if (userName && storedToken) { // Use userName instead of userId
+        if (userName && storedToken) {
+          // Use userName instead of userId
           try {
             const profile = await getProfile(userName, storedToken); // Use userName instead of userId
 
@@ -98,41 +101,21 @@ export default function Profile() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center px-8">
       {isProfileLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="banner-container relative w-full">
-          {userProfile.banner ? (
-            <img
-              src={userProfile.banner.url}
-              alt={userProfile.banner.alt}
-              className="object-cover w-full h-72"
-            />
-          ) : (
-            <div className="bg-gradient-to-r w-full h-72 from-blue-600 to-blue-400"></div>
-          )}
+        <div className="relative w-full mt-4">
+          <Banner
+            bannerUrl={userProfile?.banner?.url}
+            bannerAlt={userProfile?.banner?.alt}
+            isAuthenticated={isAuthenticated}
+            isUser={userName === authUser?.data?.name}
+            handleUpdateBannerUrl={handleUpdateBannerUrl} 
+            handleBannerUrlChange={handleBannerUrlChange} 
+          />
           <div className="flex justify-center items-center gap-8 p-4">
-            <div className="flex flex-col">
-              <div className="mx-auto flex items-center justify-center relative">
-                <div className="h-40 w-40 relative">
-                  <div className="absolute inset-1.5 rounded-full bg-white overflow-hidden p-2">
-                    <img
-                      src={
-                        userProfile.avatar.url ===
-                        "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400"
-                          ? defaultUser
-                          : userProfile.avatar.url
-                      }
-                      alt={userProfile.avatar.alt}
-                      className="object-cover w-full h-full rounded-full"
-                    />
-                  </div>
-                </div>
-              </div>
-              <h1 className="text-3xl font-semibold">{userProfile.name}</h1>
-              <p className="text-gray-600">Email: {userProfile.email}</p>
-            </div>
+            <ProfileInformation userProfile={userProfile} defaultUser={defaultUser}/>
             {userName &&
               isAuthenticated &&
               authUser &&
@@ -182,8 +165,8 @@ export default function Profile() {
               )}
           </div>
 
-          <UsersVenues userName={userName} /> 
-          <UsersBookings userName={userName} /> 
+          <UsersVenues userName={userName} />
+          <UsersBookings userName={userName} />
         </div>
       )}
     </div>

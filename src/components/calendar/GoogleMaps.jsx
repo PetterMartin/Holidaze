@@ -7,7 +7,7 @@ export default function GoogleMaps({ venue }) {
     { lat: 60.3913, lng: 5.3221 }, // Bergen
     { lat: 63.4305, lng: 10.3951 }, // Trondheim
     { lat: 69.6496, lng: 18.956 }, // Tromsø
-    { lat: 58.9679, lng: 5.7331 }, // Fauske
+    { lat: 67.25903313507271, lng: 15.390365580500585 }, // Fauske
   ];
 
   const getRandomCity = () => {

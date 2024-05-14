@@ -67,7 +67,7 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
               <SidebarItem icon={<AiOutlineHeart />} text="Favorites" />
             </div>
 
-            <div className="px-2 py-6">
+            <div className="px-2 py-10">
               <div className="border-b-2 rounded-full"></div>
             </div>
 
@@ -132,7 +132,7 @@ export function SidebarItem({ icon, text, isActive, alert, onClick }) {
       </span>
       {alert && (
         <div
-          className={`absolute top-1 right-1 w-2 h-2 rounded bg-red-400 ${
+          className={`absolute top-1 right-1 w-2 h-2 rounded bg-cyan-400 ${
             expanded ? "" : "top-1"
           }`}
         />

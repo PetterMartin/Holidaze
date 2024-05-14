@@ -86,7 +86,7 @@ const RegisterModal = ({ isModalOpen, setModalOpen }) => {
                 {/* HEADER */}
                 <div className="flex items-center py-4 rounded-t justify-center relative border-b-[1px]">
                   <button
-                    className="p-1 border-0 hover:opacity-70 transition absolute left-9"
+                    className="p-1 border-0 hover:text-gray-400 transition absolute left-9"
                     onClick={closeModal}
                   >
                     <AiOutlineClose size={18} />

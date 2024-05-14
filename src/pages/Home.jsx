@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SearchBar from "../components/header/Searchbar";
+import SearchBar from "../components/nav/Searchbar";
 import Sidebar from "../components/nav/Sidebar";
 import AllVenues from "../components/profile/AllVenues";
 import useVenueSearch from "../hooks/useVenueSearch";
@@ -19,7 +19,8 @@ const Home = () => {
   const [showVenues, setShowVenues] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [guestNumber, setGuestNumber] = useState(0);
-  const [searchClicked, setSearchClicked] = useState(false); 
+  const [searchClicked, setSearchClicked] = useState(false);
+  const [selectedLayout, setSelectedLayout] = useState("grid4"); 
 
   useEffect(() => {
     if (!isProfileLoading && userProfile) {
@@ -69,12 +70,17 @@ const Home = () => {
     setShowVenues(true); // Set showVenues to true to show UsersVenues
   };
 
+  const handleLayoutClick = (layout) => {
+    setSelectedLayout(layout);
+  };
+
+
   return (
     <div className="flex flex-col items-center">
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} selectedLayout={selectedLayout} handleLayoutClick={handleLayoutClick} />
       <div className="flex">
         {isAuthenticated && (
-          <div className="sticky top-0 h-full z-50">
+          <div className="sticky top-0 h-full z-20">
             <Sidebar
               onVenuesClick={onVenuesClick}
               onBookingsClick={() => setShowBookings(true)}
@@ -97,6 +103,7 @@ const Home = () => {
             searchText={searchText}
             guests={guestNumber}
             searchClicked={searchClicked}
+            selectedLayout={selectedLayout}
           />
         )}
       </div>
