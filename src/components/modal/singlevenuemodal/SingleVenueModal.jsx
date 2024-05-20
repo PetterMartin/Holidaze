@@ -10,6 +10,7 @@ import Host from "./Host";
 
 import { AiOutlineClose, AiFillFlag } from "react-icons/ai";
 import { FaShower, FaUsers } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa6";
 import { IoBed } from "react-icons/io5";
 import { LuShare } from "react-icons/lu";
 import { MdBedroomChild } from "react-icons/md";
@@ -97,7 +98,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                   className="w-9 h-9 m-4 bg-white rounded-full flex items-center justify-center hover:bg-black"
                   onClick={closeModal}
                 >
-                  <AiOutlineClose size={14} className="text-black" />
+                  <FaArrowLeft size={14} className="text-black" />
                 </button>
               </div>
 
@@ -108,7 +109,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                     className="w-10 h-9 m-4 bg-white rounded-full flex items-center justify-center hover:bg-black"
                     onClick={closeModal}
                   >
-                    <AiOutlineClose size={14} className="text-black" />
+                    <FaArrowLeft size={14} className="text-black" />
                   </button>
                 </div>
                 <div className="ps-8 pe-4">

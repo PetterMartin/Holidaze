@@ -123,19 +123,6 @@ export default function Profile() {
                 <div className="flex flex-col gap-2">
                   <input
                     type="text"
-                    value={newBannerUrl}
-                    onChange={handleBannerUrlChange}
-                    placeholder="Enter new Banner URL"
-                    className="border border-gray-300 rounded px-2 py-1"
-                  />
-                  <button
-                    onClick={handleUpdateBannerUrl}
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                  >
-                    Update Banner URL
-                  </button>
-                  <input
-                    type="text"
                     value={newAvatarUrl}
                     onChange={handleAvatarUrlChange}
                     placeholder="Enter new Avatar URL"
@@ -165,7 +152,7 @@ export default function Profile() {
               )}
           </div>
 
-          <UsersVenues userName={userName} />
+          <UsersVenues userName={userName} userProfile={userProfile} isAuthenticated={isAuthenticated} />
           <UsersBookings userName={userName} />
         </div>
       )}

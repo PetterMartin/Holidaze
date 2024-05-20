@@ -37,23 +37,22 @@ export const AuthProvider = ({ children }) => {
     };
   
     fetchUserData();
-  }, [isLoggedIn]);
-  
+  }, []);
 
   const login = async (userData) => {
     window.localStorage.setItem("jwt", userData.token);
     window.localStorage.setItem("user_email", userData.email);
     window.localStorage.setItem("user_name", userData.name);
-    await setUser(userData);
-    await setIsLoggedIn(true);
+    setUser(userData);
+    setIsLoggedIn(true);
   };
 
   const logout = async () => {
-    await setUser(null);
+    setUser(null);
     localStorage.removeItem("jwt");
     localStorage.removeItem("user_name");
     localStorage.removeItem("user_email");
-    await setIsLoggedIn(false);
+    setIsLoggedIn(false);
   };
 
   return (

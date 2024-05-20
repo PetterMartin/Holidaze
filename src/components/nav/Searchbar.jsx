@@ -38,7 +38,7 @@ const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
   };
 
   return (
-    <div className="flex justify-between w-full px-6 py-2">
+    <div className="flex justify-between w-full px-6 pb-2">
       {/* Venue Switch */}
       <div className="hidden lg:flex items-center mt-4">
         <div className="flex items-center rounded-xl cursor-pointer">

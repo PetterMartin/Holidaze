@@ -66,16 +66,21 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <button
-          className="text-xl font-bold hover:underline"
+        <div className="flex gap-4 font-bold">
+          <div>Home</div>
+          <div>Destinations</div>
+          <button
+          className=""
           onClick={openCreateVenueModal}
         >
           Create Venue
         </button>
+        </div>
 
         <div className="flex gap-4 items-center">
           {isLoggedIn && userProfile ? (
             <>
+            <Link to={`/profile?name=${userProfile.name}`}>
               <img
                 src={
                   userProfile.avatar.url ===
@@ -86,8 +91,6 @@ const Navbar = () => {
                 alt={userProfile.avatar.alt}
                 className="w-12 h-12 rounded-full"
               />
-              <Link to={`/profile?name=${userProfile.name}`} className="text-xl font-bold hover:underline">
-                {userProfile.name}
               </Link>
             </>
           ) : isLoggedIn ? (

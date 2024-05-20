@@ -37,13 +37,16 @@ function UsersVenues({ userName }) {
       try {
         if (isLoggedIn) {
           const profile = await getProfile(userName); // Use userName here
-          setUserProfile(profile.data); // Store user profile data in state
+          const storedUserName = localStorage.getItem("user_name"); // Get the logged-in user's name from localStorage
+          if (profile.data.name === storedUserName) {
+            setUserProfile(profile.data); // Store user profile data in state if it matches
+          }
         }
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
     };
-
+  
     fetchUserProfile();
   }, [isLoggedIn, userName]);
 
@@ -102,7 +105,9 @@ function UsersVenues({ userName }) {
 
   return (
     <main className="container mx-auto ps-8">
-      <h1 className="text-3xl font-semibold mb-4 ms-1 text-gray-700">My Venues</h1>
+      <h1 className="text-3xl font-semibold mb-4 ms-1 text-gray-700">
+        My Venues
+      </h1>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {venues.map(
           (venue) =>
@@ -123,18 +128,16 @@ function UsersVenues({ userName }) {
                     <div className="absolute top-4 left-4 z-10">
                       <LikeButton onClick={handleLikeButtonClick} />
                     </div>
-                    <div className="absolute top-4 right-4 z-10">
-                      {isLoggedIn &&
-                        userProfile &&
-                        userProfile.name === userName && (
-                          <button
-                            onClick={(e) => handleUpdateVenueClick(e, venue.id)}
-                            className="text-sm py-2 px-4 bg-white text-black font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-black hover:text-white"
-                          >
-                            Update Venue
-                          </button>
-                        )}
-                    </div>
+                    {userProfile && userProfile.name === userName && (
+                      <div className="absolute top-4 right-4 z-10">
+                        <button
+                          onClick={(e) => handleUpdateVenueClick(e, venue.id)}
+                          className="text-sm py-2 px-4 bg-white text-black font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-black hover:text-white"
+                        >
+                          Update Venue
+                        </button>
+                      </div>
+                    )}
                     <div className="absolute top-4 right-14 flex gap-2 items-center text-white py-2 px-3 rounded-full bg-opacity-70 backdrop-filter backdrop-blur-xl">
                       <FaStar size={15} />
                       <div className="mt-1 text-sm">{venue.rating}.0</div>
