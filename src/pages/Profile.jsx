@@ -103,7 +103,7 @@ export default function Profile() {
   return (
     <div className="flex flex-col items-center px-8">
       {isProfileLoading ? (
-        <p>Loading...</p>
+        <p>Loading..</p>
       ) : (
         <div className="relative w-full mt-4">
           <Banner
