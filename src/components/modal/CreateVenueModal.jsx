@@ -2,10 +2,13 @@ import { useState } from "react";
 import { createVenue } from "../../libs/api/Venues";
 import { AiOutlineClose } from "react-icons/ai";
 import GuestCounter from "../buttons/GuestCounter";
-import GeoMap from "../calendar/GeoMap";
+import Located from "./createvenue/Located";
+import MediaUrlInput from "./createvenue//MediaUrlInput";
+import MetaCheckBox from "./createvenue/MetaCheckBox";
 import NameAndDescription from "./createvenue/NameAndDescription";
 
 const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
+  const [step, setStep] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -40,6 +43,14 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
     });
   };
 
+  const handleNext = () => {
+    setStep(step + 1);
+  };
+
+  const handlePrevious = () => {
+    setStep(step - 1);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -64,7 +75,6 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
         media: updatedMedia,
       });
     } else if (name === "lat" || name === "lng") {
-      // Update latitude and longitude
       setFormData({
         ...formData,
         location: {
@@ -111,7 +121,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
       media: updatedMedia,
     });
 
-    console.log("Submitting formData:", formData); 
+    console.log("Submitting formData:", formData);
 
     try {
       const response = await createVenue(formData);
@@ -119,12 +129,72 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
       setModalOpen(false);
     } catch (error) {
       console.error("Error creating venue:", error);
-      setError(error.message); 
+      setError(error.message);
     }
   };
 
   const closeModal = () => {
-    setModalOpen(false); 
+    setModalOpen(false);
+  };
+  const renderStep = () => {
+    switch (step) {
+      case 0:
+        return (
+          <NameAndDescription
+            formData={formData}
+            handleChange={handleChange}
+          />
+        );
+      case 1:
+        return (
+          <Located
+            formData={formData}
+            handleChange={handleChange}
+            handlePositionChange={handlePositionChange}
+          />
+        );
+        case 2:
+        return (
+          <MediaUrlInput
+            mediaUrl={mediaUrl}
+            handleChange={handleChange}
+          />
+        );
+      case 3:
+        return (
+          <MediaUrlInput
+            mediaUrl={mediaUrl}
+            handleChange={handleChange}
+          />
+        );
+      case 4:
+        return (
+          <div className="flex gap-6">
+            <MetaCheckBox
+              name="wifi"
+              checked={formData.meta.wifi}
+              handleChange={handleMetaChange}
+            />
+            <MetaCheckBox
+              name="parking"
+              checked={formData.meta.parking}
+              handleChange={handleMetaChange}
+            />
+            <MetaCheckBox
+              name="breakfast"
+              checked={formData.meta.breakfast}
+              handleChange={handleMetaChange}
+            />
+            <MetaCheckBox
+              name="pets"
+              checked={formData.meta.pets}
+              handleChange={handleMetaChange}
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
@@ -147,130 +217,35 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
                 <div className="relative flex-auto">
                   {error && <div className="text-red-600 mb-4">{error}</div>}
                   <form onSubmit={handleSubmit}>
-                  <NameAndDescription formData={formData} handleChange={handleChange} />
-
-                    <div className="flex items-center">
-                      <div className="relative mb-6 w-2/3">
-                        <p className="font-semibold text-gray-700 ms-2">
-                          Price per night
-                        </p>
-                        <input
-                          type="number"
-                          name="price"
-                          value={formData.price}
-                          onChange={handleChange}
-                          required
-                          className=" p-2 font-light bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
-                        />
-                      </div>
-                      <div className="relative mb-6">
-                        <p className="font-semibold text-gray-700 mb-2">
-                          Number of guests
-                        </p>
-                        <GuestCounter onGuestChange={handleGuestChange} />
-                      </div>
+                    {renderStep()}
+                    <div className="mt-4 flex justify-between">
+                      {step > 0 && (
+                        <button
+                          type="button"
+                          onClick={handlePrevious}
+                          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
+                        >
+                          Previous
+                        </button>
+                      )}
+                      {step < 4 && (
+                        <button
+                          type="button"
+                          onClick={handleNext}
+                          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                        >
+                          Next
+                        </button>
+                      )}
+                      {step === 4 && (
+                        <button
+                          type="submit"
+                          className="w-full bg-gradient-to-b from-rose-600 to-rose-500 text-white font-semibold rounded-md py-2 transition duration-200 ease-in-out hover:opacity-80"
+                        >
+                          Create Venue
+                        </button>
+                      )}
                     </div>
-
-                    <h1 className="font-semibold text-gray-700 ms-2">Where are you located?</h1>
-                    <div className="flex flex-col gap-2">
-                        <div className="h-40 md:h-80 overflow-hidden">
-                          <GeoMap onPositionChange={handlePositionChange} />
-                        </div>
-                        <div className="mb-4">
-                          <label className="block text-sm font-medium text-neutral-800 mb-1">
-                            Latitude
-                          </label>
-                          <input
-                            type="number"
-                            name="lat"
-                            value={formData.location.lat}
-                            onChange={handleChange}
-                            className="w-full border-gray-300 rounded-md shadow-sm focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50"
-                          />
-                        </div>
-                        <div className="mb-4">
-                          <label className="block text-sm font-medium text-neutral-800 mb-1">
-                            Longitude
-                          </label>
-                          <input
-                            type="number"
-                            name="lng"
-                            value={formData.location.lng}
-                            onChange={handleChange}
-                            className="w-full border-gray-300 rounded-md shadow-sm focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50"
-                          />
-                        </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-neutral-800 mb-1">
-                        Image URL
-                      </label>
-                      <input
-                        type="text"
-                        name="mediaUrl"
-                        value={mediaUrl}
-                        onChange={handleChange}
-                        required
-                        className="w-full border-gray-300 rounded-md shadow-sm focus:border-neutral-500 focus:ring focus:ring-neutral-200 focus:ring-opacity-50"
-                      />
-                    </div>
-                    <div className="flex gap-6">
-                      <div className="mb-4">
-                        <label className="block text-sm font-medium text-neutral-800 mb-1">
-                          Wifi
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="wifi"
-                          checked={formData.meta.wifi}
-                          onChange={handleMetaChange}
-                          className="mr-2"
-                        />
-                      </div>
-                      <div className="mb-4">
-                        <label className="block text-sm font-medium text-neutral-800 mb-1">
-                          Parking
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="parking"
-                          checked={formData.meta.parking}
-                          onChange={handleMetaChange}
-                          className="mr-2"
-                        />
-                      </div>
-                      <div className="mb-4">
-                        <label className="block text-sm font-medium text-neutral-800 mb-1">
-                          Breakfast
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="breakfast"
-                          checked={formData.meta.breakfast}
-                          onChange={handleMetaChange}
-                          className="mr-2"
-                        />
-                      </div>
-                      <div className="mb-4">
-                        <label className="block text-sm font-medium text-neutral-800 mb-1">
-                          Pets
-                        </label>
-                        <input
-                          type="checkbox"
-                          name="pets"
-                          checked={formData.meta.pets}
-                          onChange={handleMetaChange}
-                          className="mr-2"
-                        />
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      className="w-full bg-gradient-to-b from-rose-600 to-rose-500 text-white font-semibold rounded-md py-2 transition duration-200 ease-in-out hover:opacity-80"
-                    >
-                      Create Venue
-                    </button>
                   </form>
                 </div>
               </div>
