@@ -41,7 +41,6 @@ const GuestCounter = ({ onGuestChange }) => {
   return (
     <div className="flex items-center gap-6">
       <div className="flex flex-col">
-        <p className="text-sm text-gray-400">Number of guests</p>
         <div className="flex items-center">
           <button
             type="button" // Set type="button" to prevent form submission

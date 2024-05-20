@@ -106,7 +106,10 @@ const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
             {/* Guest section */}
             <div className="flex items-center gap-6">
               <PiUsersThree size={28} />
-              <GuestCounter onGuestChange={setGuests} />
+              <div>
+                <p className="text-sm text-gray-400">Number of guests</p>
+                <GuestCounter onGuestChange={setGuests} />
+              </div>
             </div>
           </div>
 

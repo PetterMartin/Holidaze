@@ -6,6 +6,7 @@ import useVenueSearch from "../hooks/useVenueSearch";
 import UsersBookings from "../components/profile/UsersBookings";
 import UsersVenues from "../components/profile/UsersVenues";
 import useFetchUserProfile from "../hooks/useFetchUserProfile";
+import MobileSidebar from "../components/nav/MobileSidebar";
 
 const Home = () => {
   const userId = localStorage.getItem("user_name");
@@ -20,7 +21,7 @@ const Home = () => {
   const [searchText, setSearchText] = useState("");
   const [guestNumber, setGuestNumber] = useState(0);
   const [searchClicked, setSearchClicked] = useState(false);
-  const [selectedLayout, setSelectedLayout] = useState("grid4"); 
+  const [selectedLayout, setSelectedLayout] = useState("grid4");
 
   useEffect(() => {
     if (!isProfileLoading && userProfile) {
@@ -57,7 +58,6 @@ const Home = () => {
       console.error("Error searching venues:", error);
     }
   };
-  
 
   const onHomeClick = () => {
     setShowBookings(false); // Set showBookings to false to hide UsersBookings
@@ -74,10 +74,18 @@ const Home = () => {
     setSelectedLayout(layout);
   };
 
-
   return (
     <div className="flex flex-col items-center">
-      <SearchBar onSearch={handleSearch} selectedLayout={selectedLayout} handleLayoutClick={handleLayoutClick} />
+      <SearchBar
+        onSearch={handleSearch}
+        selectedLayout={selectedLayout}
+        handleLayoutClick={handleLayoutClick}
+      />
+      <MobileSidebar
+        onVenuesClick={onVenuesClick}
+        onBookingsClick={() => setShowBookings(true)}
+        onHomeClick={onHomeClick}
+      />
       <div className="flex">
         {isAuthenticated && (
           <div className="sticky top-0 h-full z-20">

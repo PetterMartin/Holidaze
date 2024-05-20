@@ -47,27 +47,19 @@ const AllVenues = ({
         </div>
 
         {searchClicked && (
-          <div className="flex gap-4 text-sm pe-4">
-            <div className="flex items-center gap-12 px-4 border-2 rounded-full cursor-pointer hover:border-gray-500 transition duration-300 ease-in-out">
-              <div className="flex items-center gap-2">
-                <IoLocationOutline size={20} />
-                <p>{searchText}</p>
-              </div>
-              <MdKeyboardArrowDown size={20} />
+          <div className="flex gap-6 text-sm pe-4">
+            <div className="flex items-center gap-2">
+              <IoLocationOutline size={20} />
+              <p>{searchText}</p>
             </div>
-            <div className="flex items-center gap-12 px-4 border-2 rounded-full cursor-pointer hover:border-gray-500 transition duration-300 ease-in-out">
-              <div className="flex items-center gap-2">
-                <LuCalendarDays size={18} />
-                <p>24-26 july</p>
-              </div>
-              <MdKeyboardArrowDown size={20} />
+            <div className="flex items-center gap-2">
+              <LuCalendarDays size={18} />
+              <p>24-26 july</p>
             </div>
-            <div className="flex items-center gap-12 px-4 border-2 rounded-full cursor-pointer hover:border-gray-500 transition duration-300 ease-in-out">
-              <div className="flex items-center gap-2">
-                <PiUsersThree size={20} />
-                <p>{guests} guests</p>
-              </div>
-              <MdKeyboardArrowDown size={20} />
+
+            <div className="flex items-center gap-2">
+              <PiUsersThree size={20} />
+              <p>{guests} guests</p>
             </div>
           </div>
         )}
@@ -86,7 +78,7 @@ const AllVenues = ({
             venue.media.length > 0 && (
               <div
                 key={venue.id}
-                className="border border-gray-200 rounded-2xl cursor-pointer hover:shadow-lg transition duration-200 ease-in-out"
+                className="border rounded-2xl cursor-pointer hover:shadow-lg transition duration-200 ease-in-out"
                 onClick={() => handleVenueClick(venue.id)}
               >
                 <div>

@@ -28,8 +28,8 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
   }, []);
 
   return (
-    <aside className="hidden xl:block fixed top-[450px] left-0 transform -translate-y-1/2" ref={sidebarRef}>
-      <nav className="flex flex-col gap-4 border-2 rounded-tr-3xl rounded-br-3xl">
+    <aside className="hidden lg:block fixed" ref={sidebarRef}>
+      <nav className="flex flex-col gap-4 border-2 rounded-tr-3xl rounded-br-3xl fixed top-[450px] left-0 transform -translate-y-1/2">
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-4 py-2 text-lg">
             <div>
@@ -67,7 +67,7 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
               <SidebarItem icon={<AiOutlineHeart />} text="Favorites" />
             </div>
 
-            <div className="px-2 py-10">
+            <div className="px-2 py-14">
               <div className="border-b-2 rounded-full"></div>
             </div>
 
@@ -89,7 +89,7 @@ export function SidebarItem({ icon, text, isActive, alert, onClick }) {
   SidebarItem.propTypes = {
     icon: PropTypes.element,
     text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    isActive: PropTypes.bool, // Renamed from active to isActive
+    isActive: PropTypes.bool,
     alert: PropTypes.bool,
     onClick: PropTypes.func,
     bitcoinItem: PropTypes.bool,

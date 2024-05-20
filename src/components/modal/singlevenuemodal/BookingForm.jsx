@@ -69,14 +69,14 @@ const BookingForm = ({ venue }) => {
       onSubmit={handleBookingSubmit}
       className="flex flex-col bg-gray-100 border rounded-xl p-6 gap-6 max-h-[500px]"
     >
-        {showDateModal && (
-          <div className="absolute top-40 left-0 ml-[-480px]">
-            <DateModal
-              onClose={() => setShowDateModal(false)}
-              handleDateChange={handleDateChange}
-            />
-          </div>
-        )}
+      {showDateModal && (
+        <div className="absolute top-40 left-0 ml-[-480px]">
+          <DateModal
+            onClose={() => setShowDateModal(false)}
+            handleDateChange={handleDateChange}
+          />
+        </div>
+      )}
       {venue && ( // Add conditional rendering here
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-gray-700">
@@ -120,9 +120,12 @@ const BookingForm = ({ venue }) => {
           </button>
         </div>
       </div>
-      <GuestCounter
-        onGuestChange={(guests) => setBookingData({ ...bookingData, guests })}
-      />
+      <div>
+        <p className="text-sm text-gray-400">Number of guests</p>
+        <GuestCounter
+          onGuestChange={(guests) => setBookingData({ ...bookingData, guests })}
+        />
+      </div>
 
       <div className="flex flex-col gap-2 border-t-2 border-b-2 text-sm">
         <div className="flex justify-between mt-6">

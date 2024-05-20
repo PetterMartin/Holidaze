@@ -95,7 +95,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
               <div className="hidden xl:block">
                 <button
                   id="closeButton"
-                  className="w-9 h-9 m-4 bg-white rounded-full flex items-center justify-center hover:bg-black"
+                  className="w-9 h-9 m-4 bg-white border-2 rounded-full flex items-center justify-center transition duration-200 ease-in-out hover:bg-gray-700 hover:border-gray-700 hover:text-white"
                   onClick={closeModal}
                 >
                   <FaArrowLeft size={14} className="text-black" />
