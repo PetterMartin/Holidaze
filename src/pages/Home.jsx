@@ -97,7 +97,13 @@ const Home = () => {
           </div>
         )}
         {showBookings ? (
-          <UsersBookings userName={userId} />
+          <UsersBookings
+            userName={userId}
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            selectedVenueId={selectedVenueId}
+            setSelectedVenueId={setSelectedVenueId}
+          />
         ) : showVenues ? (
           <UsersVenues userName={userId} />
         ) : (

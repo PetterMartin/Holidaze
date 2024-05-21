@@ -5,7 +5,6 @@ import LocationDetails from "../../components/modal/singlevenuemodal/LocationDet
 import { FaStar } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
 import { LuCalendarDays } from "react-icons/lu";
-import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiUsersThree } from "react-icons/pi";
 
 const AllVenues = ({

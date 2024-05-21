@@ -1,19 +1,24 @@
 const NameAndDescription = ({ formData, handleChange }) => {
-    return (
-        <>
-          <p className="font-semibold text-gray-700 ms-2">Name of venue</p>
-          <div className="w-full relative mb-6">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="peer w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
-            />
-            <label
-              className="
-              text-gray-400
+  return (
+    <>
+      <h1 className="text-2xl font-semibold text-gray-800">
+        How would you describe your home?
+      </h1>
+      <div className="font-light text-neutral-500 mt-2 mb-6">
+        Short and sweet works best!
+      </div>
+      <div className="w-full relative mb-6">
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          className="peer w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
+        />
+        <label
+          className="
+              text-gray-800
         absolute 
         duration-150 
         transform 
@@ -27,22 +32,21 @@ const NameAndDescription = ({ formData, handleChange }) => {
         peer-focus:scale-75
         peer-focus:-translate-y-4
       "
-            >
-              Name of venue
-            </label>
-          </div>
-          <p className="font-semibold text-gray-700 ms-2">Description</p>
-          <div className="w-full relative mb-6">
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              required
-              className="peer w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
-            />
-            <label
-              className="
-              text-gray-400
+        >
+          Title (required)
+        </label>
+      </div>
+      <div className="w-full relative mb-6">
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+          className="peer w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
+        />
+        <label
+          className="
+              text-gray-800
         absolute 
         duration-150 
         transform 
@@ -56,12 +60,12 @@ const NameAndDescription = ({ formData, handleChange }) => {
         peer-focus:scale-75
         peer-focus:-translate-y-4
       "
-            >
-              What best describes your home?
-            </label>
-          </div>
-        </>
-      );
-    };
+        >
+          Description (required)
+        </label>
+      </div>
+    </>
+  );
+};
 
-export default NameAndDescription
+export default NameAndDescription;

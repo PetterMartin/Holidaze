@@ -2,8 +2,8 @@ import { useState } from "react";
 import { createVenue } from "../../libs/api/Venues";
 import { AiOutlineClose } from "react-icons/ai";
 import GuestCounter from "../buttons/GuestCounter";
-import Located from "./createvenue/Located";
-import MediaUrlInput from "./createvenue//MediaUrlInput";
+import LocationDetailsForm from "./createvenue/LocationDetailsForm";
+import MediaUrlInput from "./createvenue/MediaUrlInput";
 import MetaCheckBox from "./createvenue/MetaCheckBox";
 import NameAndDescription from "./createvenue/NameAndDescription";
 
@@ -12,7 +12,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    media: [{ url: "", alt: "" }],
+    media: [],
     price: 0,
     maxGuests: 0,
     rating: 0,
@@ -62,18 +62,6 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
         ...formData,
         [name]: parsedValue,
       });
-    } else if (name.startsWith("media")) {
-      const mediaIndex = parseInt(name.replace("media", ""));
-      const updatedMedia = [...formData.media];
-      const property = name.split(".")[1];
-      updatedMedia[mediaIndex] = {
-        ...updatedMedia[mediaIndex],
-        [property]: value,
-      };
-      setFormData({
-        ...formData,
-        media: updatedMedia,
-      });
     } else if (name === "lat" || name === "lng") {
       setFormData({
         ...formData,
@@ -112,15 +100,27 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const updatedMedia = [...formData.media];
-    updatedMedia[0].url = mediaUrl;
+  const handleAddImageUrl = () => {
+    if (mediaUrl) {
+      setFormData({
+        ...formData,
+        media: [...formData.media, { url: mediaUrl, alt: "" }],
+      });
+      setMediaUrl("");
+    }
+  };
+
+  const handleRemoveImage = (index) => {
+    const newMedia = [...formData.media];
+    newMedia.splice(index, 1);
     setFormData({
       ...formData,
-      media: updatedMedia,
+      media: newMedia,
     });
+  };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     console.log("Submitting formData:", formData);
 
     try {
@@ -136,6 +136,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
   const renderStep = () => {
     switch (step) {
       case 0:
@@ -147,24 +148,21 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
         );
       case 1:
         return (
-          <Located
+          <LocationDetailsForm
             formData={formData}
             handleChange={handleChange}
             handlePositionChange={handlePositionChange}
           />
         );
-        case 2:
-        return (
-          <MediaUrlInput
-            mediaUrl={mediaUrl}
-            handleChange={handleChange}
-          />
-        );
+      case 2:
       case 3:
         return (
           <MediaUrlInput
             mediaUrl={mediaUrl}
             handleChange={handleChange}
+            handleAddImageUrl={handleAddImageUrl}
+            handleRemoveImage={handleRemoveImage}
+            media={formData.media}
           />
         );
       case 4:
@@ -190,6 +188,15 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
               checked={formData.meta.pets}
               handleChange={handleMetaChange}
             />
+            <GuestCounter onGuestChange={handleGuestChange} />
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              placeholder="Enter price"
+              className="border border-gray-300 rounded-md p-2"
+            />
           </div>
         );
       default:
@@ -201,7 +208,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
     <>
       {isModalOpen && (
         <div className="flex justify-center items-center pt-6 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70">
-          <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-3/5 my-6 mx-auto h-full">
+          <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full">
             <div className="h-full lg:h-auto md:h-auto  border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-one">
               <div className="flex items-center p-6 rounded-t justify-center relative border-b">
                 <button
@@ -213,26 +220,25 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
                 <div className="text-lg font-semibold">Create Venue</div>
               </div>
               <div className="p-6">
-                <h1 className="text-lg font-semibold ps-1 pb-4">Details</h1>
                 <div className="relative flex-auto">
                   {error && <div className="text-red-600 mb-4">{error}</div>}
                   <form onSubmit={handleSubmit}>
                     {renderStep()}
-                    <div className="mt-4 flex justify-between">
+                    <div className="mt-4 flex justify-between gap-4 font-semibold">
                       {step > 0 && (
                         <button
                           type="button"
                           onClick={handlePrevious}
-                          className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
+                          className="w-full border-2 border-gray-700 rounded-md p-4 transition duration-200 ease-in-out hover:bg-gray-700 hover:text-white"
                         >
-                          Previous
+                          Back
                         </button>
                       )}
                       {step < 4 && (
                         <button
                           type="button"
                           onClick={handleNext}
-                          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                          className="w-full bg-gradient-to-b from-rose-400 to-rose-500 text-white p-4 rounded-md transition duration-200 ease-in-out hover:opacity-80"
                         >
                           Next
                         </button>
@@ -240,7 +246,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
                       {step === 4 && (
                         <button
                           type="submit"
-                          className="w-full bg-gradient-to-b from-rose-600 to-rose-500 text-white font-semibold rounded-md py-2 transition duration-200 ease-in-out hover:opacity-80"
+                          className="w-full bg-gradient-to-b from-rose-600 to-rose-500 text-white rounded-md p-4 transition duration-200 ease-in-out hover:opacity-80"
                         >
                           Create Venue
                         </button>

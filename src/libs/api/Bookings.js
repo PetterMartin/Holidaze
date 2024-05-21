@@ -5,7 +5,7 @@ import { apiUrl } from "../constants";
  */
 export async function fetchBookingsByProfile(userName) {
     const url = new URL(
-      `${apiUrl}/holidaze/profiles/${userName}/bookings`
+      `${apiUrl}/holidaze/profiles/${userName}/bookings?_customer=true&_venue=true`
     );
   
     const options = {
