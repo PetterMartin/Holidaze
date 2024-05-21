@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { createVenue } from "../../libs/api/Venues";
 import { AiOutlineClose } from "react-icons/ai";
-import GuestCounter from "../buttons/GuestCounter";
+import Category from "./createvenue/Category";
 import LocationDetailsForm from "./createvenue/LocationDetailsForm";
 import MediaUrlInput from "./createvenue/MediaUrlInput";
-import MetaCheckBox from "./createvenue/MetaCheckBox";
 import NameAndDescription from "./createvenue/NameAndDescription";
+import Information from "./createvenue/Information";
+import Pricing from "./createvenue/Pricing";
 
 const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
   const [step, setStep] = useState(0);
@@ -140,12 +141,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
   const renderStep = () => {
     switch (step) {
       case 0:
-        return (
-          <NameAndDescription
-            formData={formData}
-            handleChange={handleChange}
-          />
-        );
+        return <Category />;
       case 1:
         return (
           <LocationDetailsForm
@@ -155,7 +151,6 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
           />
         );
       case 2:
-      case 3:
         return (
           <MediaUrlInput
             mediaUrl={mediaUrl}
@@ -165,38 +160,29 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
             media={formData.media}
           />
         );
+      case 3:
+        return (
+          <Information
+            formData={formData} // Pass formData here
+            handleGuestChange={handleGuestChange}
+            handleMetaChange={handleMetaChange}
+          />
+        );
       case 4:
         return (
-          <div className="flex gap-6">
-            <MetaCheckBox
-              name="wifi"
-              checked={formData.meta.wifi}
-              handleChange={handleMetaChange}
+          <div>
+            <NameAndDescription
+              formData={formData}
+              handleChange={handleChange}
             />
-            <MetaCheckBox
-              name="parking"
-              checked={formData.meta.parking}
-              handleChange={handleMetaChange}
-            />
-            <MetaCheckBox
-              name="breakfast"
-              checked={formData.meta.breakfast}
-              handleChange={handleMetaChange}
-            />
-            <MetaCheckBox
-              name="pets"
-              checked={formData.meta.pets}
-              handleChange={handleMetaChange}
-            />
-            <GuestCounter onGuestChange={handleGuestChange} />
-            <input
-              type="number"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              placeholder="Enter price"
-              className="border border-gray-300 rounded-md p-2"
-            />
+          </div>
+        );
+      case 5:
+        return <Pricing formData={formData} handleChange={handleChange} />;
+      case 6:
+        return (
+          <div>
+            <h1>Hello</h1>
           </div>
         );
       default:
@@ -234,7 +220,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
                           Back
                         </button>
                       )}
-                      {step < 4 && (
+                      {step < 6 && (
                         <button
                           type="button"
                           onClick={handleNext}
@@ -243,7 +229,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
                           Next
                         </button>
                       )}
-                      {step === 4 && (
+                      {step === 6 && (
                         <button
                           type="submit"
                           className="w-full bg-gradient-to-b from-rose-600 to-rose-500 text-white rounded-md p-4 transition duration-200 ease-in-out hover:opacity-80"

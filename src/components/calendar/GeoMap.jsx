@@ -9,11 +9,11 @@ import {
 import { FaArrowRight } from "react-icons/fa";
 
 export default function GeoMap({ onPositionChange, handleSearch }) {
-  const [city, setCity] = useState(""); 
-  const [position, setPosition] = useState({ lat: 53.54, lng: 10 }); 
-  const [zoom, setZoom] = useState(1.7); 
+  const [city, setCity] = useState("");
+  const [position, setPosition] = useState({ lat: 53.54, lng: 10 });
+  const [zoom, setZoom] = useState(1.7);
   const [searchPerformed, setSearchPerformed] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleCityChange = (event) => {
     setCity(event.target.value);
@@ -34,7 +34,7 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
       setPosition({ lat: location.lat, lng: location.lng });
       onPositionChange({ lat: location.lat, lng: location.lng });
       if (zoom === 1.7) {
-        setZoom(12);
+        setZoom(9);
       }
       handleSearch();
       setSearchPerformed(true);
@@ -47,7 +47,7 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
-      <div className="flex gap-6">
+      <div className="flex items-center gap-6">
         <div className="w-full relative">
           <input
             type="text"
@@ -72,20 +72,20 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
         peer-focus:-translate-y-4
       "
           >
-            Anywhere 
+            Anywhere
           </label>
         </div>
-        <button
-          className="flex justify-center items-center gap-6 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ps-8 pe-4 py-3 rounded-xl transition duration-200 ease-in-out hover:opacity-80"
-          type="button"
-          onClick={performSearch} 
-        >
-          Search <FaArrowRight />
-        </button>
+        <div>
+          <button
+            className="flex justify-center items-center gap-6 font-semibold bg-gray-700 text-white ps-8 pe-4 py-3 rounded-xl transition duration-200 ease-in-out hover:opacity-80"
+            type="button"
+            onClick={performSearch}
+          >
+            Search <FaArrowRight />
+          </button>
+        </div>
       </div>
-      {errorMessage && (
-          <p className="text-red-500">{errorMessage}</p>
-        )}
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       <div className="h-72 border-2 rounded-lg overflow-hidden my-4">
         <Map
           center={position}
@@ -93,7 +93,7 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
           mapId={import.meta.env.VITE_MAP_ID}
           className="h-full"
         >
-          {searchPerformed && ( 
+          {searchPerformed && (
             <AdvancedMarker position={position}>
               <Pin
                 background={"white"}

@@ -10,7 +10,7 @@ const MediaUrlInput = ({ mediaUrl, handleChange, handleAddImageUrl, media, handl
     <div className="relative flex-auto">
       <div>
         <div className="flex gap-2 text-2xl font-semibold text-gray-800">
-          Take a picture of your listing{" "}
+          Upload an image of your venue{" "}
           <BsCamera size={25} className="m-0.5 ms-2" />
         </div>
         <div className="font-light text-gray-500 mt-2 mb-6">
@@ -68,7 +68,7 @@ const MediaUrlInput = ({ mediaUrl, handleChange, handleAddImageUrl, media, handl
               peer-focus:-translate-y-4
             "
           >
-            Upload Image (optional)
+            Upload image (optional)
           </label>
         </div>
         <IoAddCircle

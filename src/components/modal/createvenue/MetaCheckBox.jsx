@@ -1,16 +1,24 @@
 const MetaCheckBox = ({ name, checked, handleChange }) => {
-    return (
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-neutral-800 mb-1">{name}</label>
+  // Define the text based on the name
+  let labelText = name === "pets" ? `Can you bring ${name}?` : `Does your venue include ${name}`;
+
+  return (
+    <div className="flex justify-between mb-6 pt-6 border-t">
+      <div>
+        <label className="capitalize font-semibold text-gray-800 mb-1">{name}</label>
+        <div className="text-sm font-light text-neutral-500">{labelText}</div>
+      </div>
+      <label className="inline-flex items-center">
         <input
           type="checkbox"
+          className="form-checkbox h-6 w-6 cursor-pointer me-2"
           name={name}
           checked={checked}
           onChange={handleChange}
-          className="mr-2"
         />
-      </div>
-    );
-  };
-  
-  export default MetaCheckBox;
+      </label>
+    </div>
+  );
+};
+
+export default MetaCheckBox;
