@@ -46,7 +46,7 @@ const NameAndDescription = ({ formData, handleChange }) => {
         />
         <label
           className="
-              text-gray-800
+              text-gray-00
         absolute 
         duration-150 
         transform 

@@ -8,7 +8,7 @@ import LocationDetails from "./LocationDetails";
 import VenuesFeatures from "./VenuesFeatures";
 import Host from "./Host";
 
-import { AiOutlineClose, AiFillFlag } from "react-icons/ai";
+import { AiFillFlag } from "react-icons/ai";
 import { FaShower, FaUsers } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoBed } from "react-icons/io5";

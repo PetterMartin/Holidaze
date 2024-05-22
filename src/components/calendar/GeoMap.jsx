@@ -14,6 +14,7 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
   const [zoom, setZoom] = useState(1.7);
   const [searchPerformed, setSearchPerformed] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleCityChange = (event) => {
     setCity(event.target.value);
@@ -77,11 +78,20 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
         </div>
         <div>
           <button
-            className="flex justify-center items-center gap-6 font-semibold bg-gray-700 text-white ps-8 pe-4 py-3 rounded-xl transition duration-200 ease-in-out hover:opacity-80"
+            className="flex justify-center items-center gap-6 font-semibold bg-gray-700 text-white ps-8 pe-4 py-3 rounded-xl relative"
             type="button"
             onClick={performSearch}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            Search <FaArrowRight />
+            Search
+            <span
+              className={`transition-transform duration-200 ease-in-out ${
+                isHovered ? "translate-x-2" : "-translate-x-2"
+              }`}
+            >
+              <FaArrowRight />
+            </span>{" "}
           </button>
         </div>
       </div>
@@ -95,11 +105,7 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
         >
           {searchPerformed && (
             <AdvancedMarker position={position}>
-              <Pin
-                background={"white"}
-                borderColor={"grey"}
-                glyphColor={"grey"}
-              />
+              <Pin background={"white"} borderColor={"grey"} glyphColor={"grey"} />
             </AdvancedMarker>
           )}
         </Map>

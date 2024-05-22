@@ -2,12 +2,12 @@ import { useState, useRef } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 const GuestCounter = ({ onGuestChange }) => {
-  const [guests, setGuests] = useState(0);
+  const [guests, setGuests] = useState(1);
   const timerRef = useRef(null);
   const delay = 400;
 
   const decreaseGuests = () => {
-    setGuests((prevGuests) => Math.max(prevGuests - 1, 0)); // Ensure guests never go below 1
+    setGuests((prevGuests) => Math.max(prevGuests - 1, 1)); 
   };
 
   const increaseGuests = () => {

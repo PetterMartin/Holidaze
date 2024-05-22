@@ -15,6 +15,7 @@ const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [guests, setGuests] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleSearch = () => {
     onSearch({ guests, searchText });
@@ -115,11 +116,20 @@ const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
 
           {/* Search button */}
           <button
-            className="flex justify-center items-center gap-6 ms-12 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ps-8 pe-4 py-3 rounded-xl transition duration-200 ease-in-out hover:opacity-80"
+            className="flex justify-center items-center gap-6 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ms-8 ps-8 pe-4 py-3 rounded-xl relative"
+            type="button"
             onClick={handleSearch}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
             Search
-            <FaArrowRight />
+            <span
+              className={`transition-transform duration-200 ease-in-out ${
+                isHovered ? "translate-x-2" : "-translate-x-2"
+              }`}
+            >
+              <FaArrowRight />
+            </span>{" "}
           </button>
         </div>
         {isSearchModalOpen && (

@@ -5,14 +5,14 @@ const Information = ({ formData, handleGuestChange, handleMetaChange }) => {
   return (
     <div>
       <h1 className="text-2xl font-semibold">
-      Accommodation Details
+      Lodging Details
       </h1>
       <div className="font-light text-neutral-500 mt-2">
       What features does your place offer?
       </div>
       <div className="flex justify-between mt-6">
         <div className="flex flex-col">
-          <div className="font-semibold">Guests</div>
+          <div className="font-semibold">Guests (required)</div>
           <div className="text-sm text-neutral-500 mb-6">
             How many guests do you allow?
           </div>
