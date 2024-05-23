@@ -46,7 +46,7 @@ function UsersVenues({ userName }) {
         console.error("Error fetching user profile:", error);
       }
     };
-  
+
     fetchUserProfile();
   }, [isLoggedIn, userName]);
 
@@ -104,11 +104,13 @@ function UsersVenues({ userName }) {
   };
 
   return (
-    <main className="container mx-auto ps-8">
+    <main className="">
       <h1 className="text-3xl font-semibold mb-4 ms-1 text-gray-700">
-        My Venues
+        {userProfile && userProfile.name === userName
+          ? "My Venues"
+          : `${userName}'s Venues`}
       </h1>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-2 gap-6">
         {venues.map(
           (venue) =>
             venue.media &&
@@ -119,30 +121,44 @@ function UsersVenues({ userName }) {
                 onClick={() => handleVenueClick(venue.id)}
               >
                 <div>
-                  <div className="relative">
-                    <img
-                      src={venue.media[0].url}
-                      alt={venue.media[0].alt}
-                      className="w-full h-64 object-cover rounded-2xl mb-1"
-                    />
-                    <div className="absolute top-4 left-4 z-10">
-                      <LikeButton onClick={handleLikeButtonClick} />
-                    </div>
-                    {userProfile && userProfile.name === userName && (
-                      <div className="absolute top-4 right-4 z-10">
-                        <button
-                          onClick={(e) => handleUpdateVenueClick(e, venue.id)}
-                          className="text-sm py-2 px-4 bg-white text-black font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-black hover:text-white"
-                        >
-                          Update Venue
-                        </button>
+                  {userProfile && userProfile.name === userName ? (
+                    <div className="relative">
+                      <img
+                        src={venue.media[0].url}
+                        alt={venue.media[0].alt}
+                        className="w-full h-96 object-cover rounded-t-2xl mb-1"
+                      />
+                      {userProfile && userProfile.name === userName && (
+                        <div className="absolute top-4 right-4 z-10">
+                          <button
+                            onClick={(e) => handleUpdateVenueClick(e, venue.id)}
+                            className="text-sm py-2 px-4 bg-white text-black font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-black hover:text-white"
+                          >
+                            Update Venue
+                          </button>
+                        </div>
+                      )}
+                      <div className="absolute top-4 right-14 flex gap-2 items-center text-white py-2 px-3 rounded-full bg-opacity-70 backdrop-filter backdrop-blur-xl">
+                        <FaStar size={15} />
+                        <div className="mt-1 text-sm">{venue.rating}.0</div>
                       </div>
-                    )}
-                    <div className="absolute top-4 right-14 flex gap-2 items-center text-white py-2 px-3 rounded-full bg-opacity-70 backdrop-filter backdrop-blur-xl">
-                      <FaStar size={15} />
-                      <div className="mt-1 text-sm">{venue.rating}.0</div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="relative">
+                      <img
+                        src={venue.media[0].url}
+                        alt={venue.media[0].alt}
+                        className="w-full h-96 object-cover rounded-2xl mb-1"
+                      />
+                      <div className="absolute top-4 left-4 z-10">
+                        <LikeButton onClick={handleLikeButtonClick} />
+                      </div>
+                      <div className="absolute top-4 right-14 flex gap-2 items-center text-white py-2 px-3 rounded-full bg-opacity-70 backdrop-filter backdrop-blur-xl">
+                        <FaStar size={15} />
+                        <div className="mt-1 text-sm">{venue.rating}.0</div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="flex flex-col pt-3 px-4 pb-4">
                     <div className="flex flex-col gap-1">

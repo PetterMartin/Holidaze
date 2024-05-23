@@ -91,7 +91,7 @@ function UsersBookings({
   };
 
   return (
-    <div className="mx-auto lg:ps-28 px-6">
+    <div className="">
       <h1 className="text-3xl font-semibold mb-6 ms-1">My Bookings</h1>
       <div className="h-screen">
         {currentBookings.length > 0 && (

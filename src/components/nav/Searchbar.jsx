@@ -39,9 +39,9 @@ const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
   };
 
   return (
-    <div className="flex justify-between w-full px-6 pb-2">
+    <div className="flex justify-center w-full px-6 pb-2">
       {/* Venue Switch */}
-      <div className="hidden lg:flex items-center mt-4">
+      <div className="hidden mt-4">
         <div className="flex items-center rounded-xl cursor-pointer">
           <div
             className={`p-4 text-${
@@ -144,7 +144,7 @@ const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
       </div>
 
       {/* Filter */}
-      <div className="flex items-center">
+      <div className="hidden">
         <button className="flex items-center gap-3 mt-4 border-2 px-5 py-4 rounded-xl text-sm font-semibold hover:border-rose-400 transition duration-300 ease-in-out">
           {" "}
           <IoFilter />

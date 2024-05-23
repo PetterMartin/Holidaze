@@ -1,43 +1,20 @@
 import { useState, useEffect } from "react";
 import SearchBar from "../components/nav/Searchbar";
-import Sidebar from "../components/nav/Sidebar";
 import AllVenues from "../components/profile/AllVenues";
 import useVenueSearch from "../hooks/useVenueSearch";
-import UsersBookings from "../components/profile/UsersBookings";
-import UsersVenues from "../components/profile/UsersVenues";
-import useFetchUserProfile from "../hooks/useFetchUserProfile";
-import MobileSidebar from "../components/nav/MobileSidebar";
 
 const Home = () => {
-  const userId = localStorage.getItem("user_name");
-  const { userProfile, isProfileLoading } = useFetchUserProfile(userId);
   const { venues, searchVenues } = useVenueSearch();
   const [selectedVenueId, setSelectedVenueId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showAllVenues, setShowAllVenues] = useState(false);
-  const [showBookings, setShowBookings] = useState(false);
-  const [showVenues, setShowVenues] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [guestNumber, setGuestNumber] = useState(0);
   const [searchClicked, setSearchClicked] = useState(false);
   const [selectedLayout, setSelectedLayout] = useState("grid4");
 
   useEffect(() => {
-    if (!isProfileLoading && userProfile) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, [isProfileLoading, userProfile]);
-
-  useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = isModalOpen ? "hidden" : "auto";
-  }, [isModalOpen]);
 
   const fetchData = async () => {
     try {
@@ -51,7 +28,6 @@ const Home = () => {
     try {
       setSearchText(searchText);
       setGuestNumber(guests);
-
       setSearchClicked(true);
       await searchVenues({ guests, searchText });
     } catch (error) {
@@ -59,67 +35,43 @@ const Home = () => {
     }
   };
 
-  const onHomeClick = () => {
-    setShowBookings(false); // Set showBookings to false to hide UsersBookings
-    setShowVenues(false); // Set showVenues to false to hide UsersVenues
-  };
-
-  const onVenuesClick = () => {
-    setShowAllVenues(true); // Set showAllVenues to true when clicking on Venues in the Sidebar
-    setShowBookings(false); // Set showBookings to false to hide UsersBookings
-    setShowVenues(true); // Set showVenues to true to show UsersVenues
-  };
-
   const handleLayoutClick = (layout) => {
     setSelectedLayout(layout);
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <SearchBar
-        onSearch={handleSearch}
-        selectedLayout={selectedLayout}
-        handleLayoutClick={handleLayoutClick}
+    <div className="flex flex-col items-center relative">
+      <img
+        src="/assets/images/House.jpeg"
+        alt="Background"
+        className="w-full h-[450px] object-cover"
       />
-      <MobileSidebar
-        onVenuesClick={onVenuesClick}
-        onBookingsClick={() => setShowBookings(true)}
-        onHomeClick={onHomeClick}
-      />
-      <div className="flex">
-        {isAuthenticated && (
-          <div className="sticky top-0 h-full z-20">
-            <Sidebar
-              onVenuesClick={onVenuesClick}
-              onBookingsClick={() => setShowBookings(true)}
-              onHomeClick={onHomeClick}
-            />
-          </div>
-        )}
-        {showBookings ? (
-          <UsersBookings
-            userName={userId}
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            selectedVenueId={selectedVenueId}
-            setSelectedVenueId={setSelectedVenueId}
-          />
-        ) : showVenues ? (
-          <UsersVenues userName={userId} />
-        ) : (
-          <AllVenues
-            venues={venues}
-            selectedVenueId={selectedVenueId}
-            setSelectedVenueId={setSelectedVenueId}
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            showAllVenues={showAllVenues}
-            searchText={searchText}
-            guests={guestNumber}
-            searchClicked={searchClicked}
-            selectedLayout={selectedLayout}
-          />
-        )}
+      <div className="absolute inset-0">
+        <div className="bg-gray-700 opacity-30 h-[450px]"></div>
+      </div>
+      <div className="text-container flex flex-col items-center gap-2 absolute top-36 left-[50%] transform translate-x-[-50%] -translate-y-[-50%] text-white z-40">
+        <h1 className="with-shadow text-6xl font-bold">Apartments for a day</h1>
+        <p className="text-lg">Find and choose the perfect home for you</p>
+      </div>
+      <div className="absolute top-[390px] w-full z-40">
+        <SearchBar
+          onSearch={handleSearch}
+          selectedLayout={selectedLayout}
+          handleLayoutClick={handleLayoutClick}
+        />
+      </div>
+      <div className="mt-auto">
+        <AllVenues
+          venues={venues}
+          selectedVenueId={selectedVenueId}
+          setSelectedVenueId={setSelectedVenueId}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          searchText={searchText}
+          guests={guestNumber}
+          searchClicked={searchClicked}
+          selectedLayout={selectedLayout}
+        />
       </div>
     </div>
   );

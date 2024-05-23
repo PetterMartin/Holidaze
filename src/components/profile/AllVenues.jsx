@@ -34,10 +34,9 @@ const AllVenues = ({
   };
 
   return (
-    <div className="mx-auto lg:ps-28 px-6">
+    <div className="mt-20 mx-auto px-14">
       <div className="flex justify-between mb-2 text-gray-700">
         <div className="flex items-center gap-2">
-          <h1 className="text-3xl font-semibold mb-4 ms-1">All Venues</h1>
           {searchClicked && (
             <p className="mb-3 text-sm text-gray-400">
               ({numberOfVenues} Results)
@@ -69,7 +68,7 @@ const AllVenues = ({
           selectedLayout === "grid4"
             ? "md:grid-cols-2 lg:grid-cols-4"
             : "md:grid-cols-1 lg:grid-cols-2"
-        } gap-6 lg:overflow-auto h-screen`}
+        } gap-6`}
       >
         {venues.map(
           (venue) =>
@@ -86,7 +85,7 @@ const AllVenues = ({
                       src={venue.media[0].url}
                       alt={venue.media[0].alt}
                       className={`w-full ${
-                        selectedLayout === "grid2" ? "h-72" : "h-48"
+                        selectedLayout === "grid2" ? "h-96" : "h-48"
                       } object-cover rounded-t-2xl mb-1`}
                     />
                     <div className="absolute top-4 left-4 z-10">
