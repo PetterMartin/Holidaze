@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import SearchBar from "../components/nav/Searchbar";
 import AllVenues from "../components/profile/AllVenues";
 import useVenueSearch from "../hooks/useVenueSearch";
+import Highlights from "../components/carousel/Highlights";
 
 const Home = () => {
   const { venues, searchVenues } = useVenueSearch();
@@ -60,6 +61,7 @@ const Home = () => {
           handleLayoutClick={handleLayoutClick}
         />
       </div>
+      <Highlights />
       <div className="mt-auto">
         <AllVenues
           venues={venues}
