@@ -34,7 +34,10 @@ const AllVenues = ({
   };
 
   return (
-    <div className="mt-20 mx-auto px-14">
+    <div className="mt-6 mx-auto px-14">
+      <h1 id="title" className="mb-6 text-3xl font-semibold text-gray-700">
+        Find your new home
+      </h1>
       <div className="flex justify-between mb-2 text-gray-700">
         <div className="flex items-center gap-2">
           {searchClicked && (
@@ -48,7 +51,7 @@ const AllVenues = ({
           <div className="flex gap-6 text-sm pe-4">
             <div className="flex items-center gap-2">
               <IoLocationOutline size={20} />
-              <p>{searchText}</p>
+              <p className="capitalize">{searchText}</p>
             </div>
             <div className="flex items-center gap-2">
               <LuCalendarDays size={18} />
@@ -57,7 +60,9 @@ const AllVenues = ({
 
             <div className="flex items-center gap-2">
               <PiUsersThree size={20} />
-              <p>{guests} guests</p>
+              <p>
+                {guests} {guests === 1 ? "Guest" : "Guests"}
+              </p>
             </div>
           </div>
         )}

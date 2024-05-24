@@ -29,7 +29,7 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
 
   return (
     <aside className="hidden lg:block fixed" ref={sidebarRef}>
-      <nav className="flex flex-col gap-4 border-2 rounded-tr-3xl rounded-br-3xl fixed top-[450px] left-0 transform -translate-y-1/2">
+      <nav className="flex flex-col gap-4 border-2 rounded-tr-3xl rounded-br-3xl fixed top-[420px] left-0 transform -translate-y-1/2">
         <SidebarContext.Provider value={{ expanded }}>
           <ul className="flex-1 px-4 py-2 text-lg">
             <div>

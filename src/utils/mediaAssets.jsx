@@ -1,8 +1,8 @@
 
-import house1 from "/assets/videos/FirstHouse.mp4"
-import house2 from "/assets/videos/SecondHouse.mp4";
-import house3 from "/assets/videos/ThirdHouse.mp4";
-import house4 from "/assets/videos/FourthHouse.mp4";
+import house1 from "/assets/videos/ItalyVilla.mp4"
+import house2 from "/assets/videos/Lofoten.mp4";
+import house3 from "/assets/videos/NewZealand.mp4";
+import house4 from "/assets/videos/SpanishCastle.mp4";
 
 import replay from "/assets/images/replay.svg";
 import play from "/assets/images/play.svg";

@@ -91,12 +91,12 @@ function UsersBookings({
   };
 
   return (
-    <div className="">
+    <div className="mt-16">
       <h1 className="text-3xl font-semibold mb-6 ms-1">My Bookings</h1>
       <div className="h-screen">
         {currentBookings.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold mb-4">Current Bookings</h2>
+            <h2 className="text-xl font-semibold mb-4">Upcoming Trips</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:overflow-auto">
               {renderBookings(currentBookings)}
             </div>
@@ -104,7 +104,7 @@ function UsersBookings({
         )}
         {previousBookings.length > 0 && (
           <div>
-            <h2 className="text-xl font-semibold my-4">Previous Bookings</h2>
+            <h2 className="text-xl font-semibold my-4">Previous Trips</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:overflow-auto">
               {renderBookings(previousBookings, true)}
             </div>

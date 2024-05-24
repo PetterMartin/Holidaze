@@ -104,7 +104,7 @@ function UsersVenues({ userName }) {
   };
 
   return (
-    <main className="">
+    <main className="mt-16">
       <h1 className="text-3xl font-semibold mb-4 ms-1 text-gray-700">
         {userProfile && userProfile.name === userName
           ? "My Venues"
