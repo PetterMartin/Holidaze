@@ -10,7 +10,12 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiUsersThree } from "react-icons/pi";
 import { TfiLayoutGrid2Alt, TfiLayoutGrid4Alt } from "react-icons/tfi";
 
-const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
+const SearchBar = ({
+  onSearch,
+  selectedLayout,
+  handleLayoutClick,
+  selectedDates,
+}) => {
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -139,7 +144,13 @@ const SearchBar = ({ onSearch, selectedLayout, handleLayoutClick }) => {
           />
         )}
         <div className="flex justify-center">
-          {isDateModalOpen && <DateModal onClose={handleCloseModal} />}
+          {isDateModalOpen && (
+            <DateModal
+              onSearchTextChange={handleSearchTextChange}
+              onClose={handleCloseModal}
+              selectedDates={selectedDates}
+            />
+          )}
         </div>
       </div>
 

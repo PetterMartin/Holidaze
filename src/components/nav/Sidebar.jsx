@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, createContext, useRef } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiLogOutCircle } from "react-icons/bi";
 import { BsChatSquareText } from "react-icons/bs";
-import { LuCalendarDays } from "react-icons/lu";
+import { LuCalendarDays, LuUsers } from "react-icons/lu";
 import { PiWarehouse } from "react-icons/pi";
 import { TbHelpSquareRounded, TbSmartHome } from "react-icons/tb";
 import PropTypes from "prop-types";
@@ -60,6 +60,10 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
                   onVenuesClick();
                   setActiveItem("Venues"); // Set activeItem to "Bookings" when clicked
                 }}
+              />
+              <SidebarItem
+                icon={<LuUsers />}
+                text="Guests"
               />
 
               <SidebarItem icon={<BsChatSquareText />} text="Messages" alert />

@@ -1,8 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import VideoCarousel from "./VideoCarousel";
+import CitySlides from "./CitySlides"
 
-const Highlights = ({ searchText, onSearch }) => {
+const Highlights = ({ onSearch }) => {
   useGSAP(() => {
     gsap.to("#title", { opacity: 1, y: 0 });
     gsap.to(".link", { opacity: 1, y: 0, duration: 1, stagger: 0.25 });
@@ -11,7 +12,7 @@ const Highlights = ({ searchText, onSearch }) => {
   return (
     <section
       id="highlights"
-      className="w-screen overflow-hidden h-full px-12 pt-28 bg-zinc"
+      className="w-screen overflow-hidden h-full px-12 pt-28"
     >
       <div className="screen-max-w">
         <div className="mb-7 w-full">
@@ -20,7 +21,8 @@ const Highlights = ({ searchText, onSearch }) => {
           </h1>
         </div>
 
-        <VideoCarousel searchText={searchText} onSearch={onSearch}/>
+        <VideoCarousel onSearch={onSearch}/>
+        <CitySlides onSearch={onSearch}/>
       </div>
     </section>
   );

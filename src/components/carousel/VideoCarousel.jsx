@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { hightlightsSlides } from "../../constants";
 import { pauseImg, playImg, replayImg } from "../../utils/mediaAssets";
 
-const VideoCarousel = ({ searchText, onSearch }) => {
+const VideoCarousel = ({ onSearch }) => {
   const videoRef = useRef([]);
   const videoSpanRef = useRef([]);
   const videoDivRef = useRef([]);
@@ -76,7 +76,7 @@ const VideoCarousel = ({ searchText, onSearch }) => {
         onComplete: () => {
           if (isPlaying) {
             gsap.to(videoDivRef.current[videoId], {
-              width: "12px",
+              width: "8px",
             });
             gsap.to(span[videoId], {
               backgroundColor: "#afafaf",
@@ -146,7 +146,7 @@ const VideoCarousel = ({ searchText, onSearch }) => {
   const handleTextClick = (clickedText) => {
     const searchText = clickedText.split(",")[1].trim().toLowerCase();
     
-    onSearch({ searchText, guests: 1 }); // Assuming guests value is fixed for now
+    onSearch({ searchText, guests: 1 }); 
   };
 
 
@@ -198,12 +198,12 @@ const VideoCarousel = ({ searchText, onSearch }) => {
         ))}
       </div>
 
-      <div className="relative flex-center mt-6">
-        <div className="flex-center py-4 px-5 border-2 backdrop-blur rounded-full">
+      <div className="relative flex-center mt-4">
+        <div className="flex-center py-2 px-3 border-2 rounded-full">
           {videoRef.current.map((_, i) => (
             <span
               key={i}
-              className="mx-2 w-3 h-3 bg-gray-200 rounded-full relative cursor-pointer"
+              className="mx-1 w-2 h-2 bg-gray-200 rounded-full relative"
               ref={(el) => (videoDivRef.current[i] = el)}
             >
               <span
@@ -214,7 +214,7 @@ const VideoCarousel = ({ searchText, onSearch }) => {
           ))}
         </div>
 
-        <button className="ml-4 p-2 rounded-full border-2 backdrop-blur flex items-center">
+        <button className="ml-4 p-1 rounded-full border-2 flex items-center hover:border-gray-400 transition duration-300 ease-in-out">
           <img
             src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
             alt={isLastVideo ? "replay" : !isPlaying ? "play" : "pause"}

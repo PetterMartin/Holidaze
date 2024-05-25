@@ -19,13 +19,10 @@ export default function Calendar({ handleDateChange }) {
   const handleDateClick = (date) => {
     let newSelectedDates = [];
   
-    // If there are already two selected dates
     if (selectedDates.length === 2) {
       if (isDateSelected(date)) {
-        // If the clicked date is already selected, remove it
         newSelectedDates = selectedDates.filter((d) => !d.isSame(date, "day"));
       } else {
-        // Find the closest date and replace it with the clicked date
         const closestDateIndex = selectedDates.findIndex(
           (d) =>
             Math.abs(d.diff(date, "day")) ===
@@ -35,20 +32,15 @@ export default function Calendar({ handleDateChange }) {
         newSelectedDates[closestDateIndex] = date;
       }
     } else if (selectedDates.length === 1) {
-      // If there's only one selected date, add or replace the second one
       if (isDateSelected(date)) {
-        // If the clicked date is already selected, remove it
         newSelectedDates = selectedDates.filter((d) => !d.isSame(date, "day"));
       } else {
-        // Add or replace the second selected date
         newSelectedDates = [...selectedDates, date];
       }
     } else {
-      // If there are no selected dates, add the clicked date
       newSelectedDates = [date];
     }
   
-    // Update the selected dates state and call handleDateChange
     setSelectedDates(newSelectedDates);
     handleDateChange(newSelectedDates);
   };

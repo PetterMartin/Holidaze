@@ -8,7 +8,7 @@ import LoginModal from "../modal/LoginModal.jsx";
 import CreateVenueModal from "../modal/CreateVenueModal.jsx";
 import DefaultUserImage from "../../../public/assets/images/defaultUser.png";
 
-const Navbar = ({ currentRoute }) => {
+const Navbar = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isCreateVenueModalOpen, setIsCreateVenueModalOpen] = useState(false);

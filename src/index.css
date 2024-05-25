@@ -61,14 +61,10 @@ body,
   }
 }
 
-
-
-
 @layer utilities {
   .flex-center {
     @apply flex items-center justify-center
   }
-
 
   .hero-title {
     @apply text-center font-semibold text-3xl text-gray-100 opacity-0 max-md:mb-10

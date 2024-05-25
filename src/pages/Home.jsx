@@ -5,14 +5,13 @@ import useVenueSearch from "../hooks/useVenueSearch";
 import Highlights from "../components/carousel/Highlights";
 
 const Home = () => {
-  const { venues, searchVenues, fetchMoreVenues } = useVenueSearch();
+  const { venues, searchVenues } = useVenueSearch();
   const [selectedVenueId, setSelectedVenueId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [guestNumber, setGuestNumber] = useState(0);
   const [searchClicked, setSearchClicked] = useState(false);
   const [selectedLayout, setSelectedLayout] = useState("grid4");
-  const [page, setPage] = useState(1);
 
   const allVenuesRef = useRef(null);
 
@@ -34,14 +33,12 @@ const Home = () => {
         setSearchText(searchText);
         setGuestNumber(guests);
         setSearchClicked(true);
-        setPage(1);  // Reset to first page on new search
-        await searchVenues({ guests, searchText, page: 1 });
-
+        await searchVenues({ guests, searchText }); // Pass selectedDates here
+  
         // Scroll to AllVenues section with an offset
         if (allVenuesRef.current) {
-          const offset = -100;  // Adjust this value to set how much higher you want to scroll to
           const elementPosition = allVenuesRef.current.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset + offset;
+          const offsetPosition = elementPosition + window.pageYOffset;
           window.scrollTo({
             top: offsetPosition,
             behavior: "smooth",
@@ -59,16 +56,6 @@ const Home = () => {
     setSelectedLayout(layout);
   };
 
-  const handleSeeMore = async () => {
-    try {
-      const nextPage = page + 1;
-      await fetchMoreVenues({ guests: guestNumber, searchText, page: nextPage });
-      setPage(nextPage);
-    } catch (error) {
-      console.error("Error fetching more venues:", error);
-    }
-  };
-
   return (
     <div className="flex flex-col items-center relative">
       <img
@@ -84,13 +71,13 @@ const Home = () => {
         <p className="text-lg">Find and choose the perfect home for you</p>
       </div>
       <div className="absolute top-[390px] w-full z-10">
-        <SearchBar
+      <SearchBar
           onSearch={handleSearch}
           selectedLayout={selectedLayout}
           handleLayoutClick={handleLayoutClick}
         />
       </div>
-      <Highlights searchText={searchText} onSearch={handleSearch}/>
+      <Highlights onSearch={handleSearch}/>
       <div className="mt-auto" ref={allVenuesRef}>
         <AllVenues
           venues={venues}
@@ -102,7 +89,6 @@ const Home = () => {
           guests={guestNumber}
           searchClicked={searchClicked}
           selectedLayout={selectedLayout}
-          onSeeMore={handleSeeMore}  // Pass see more handler
         />
       </div>
     </div>
