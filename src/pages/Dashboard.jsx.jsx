@@ -28,13 +28,13 @@ const Dashboard = () => {
   }, [isModalOpen]);
 
   const onHomeClick = () => {
-    setShowBookings(false); // Set showBookings to false to hide UsersBookings
-    setShowVenues(false); // Set showVenues to false to hide UsersVenues
+    setShowBookings(false);
+    setShowVenues(false); 
   };
 
   const onVenuesClick = () => {
-    setShowBookings(false); // Set showBookings to false to hide UsersBookings
-    setShowVenues(true); // Set showVenues to true to show UsersVenues
+    setShowBookings(false);
+    setShowVenues(true); 
   };
 
   return (

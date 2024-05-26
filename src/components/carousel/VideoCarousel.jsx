@@ -12,6 +12,10 @@ const VideoCarousel = ({ onSearch }) => {
   const videoSpanRef = useRef([]);
   const videoDivRef = useRef([]);
 
+  gsap.config({
+    nullTargetWarn: false
+  });
+
   const [video, setVideo] = useState({
     isEnd: false,
     startPlay: false,
@@ -90,10 +94,12 @@ const VideoCarousel = ({ onSearch }) => {
       }
 
       const animUpdate = () => {
-        anim.progress(
-          videoRef.current[videoId].currentTime /
-            hightlightsSlides[videoId].videoDuration
-        );
+        const videoElement = videoRef.current[videoId];
+        if (videoElement) {
+          anim.progress(
+            videoElement.currentTime / hightlightsSlides[videoId].videoDuration
+          );
+        }
       };
 
       if (isPlaying) {

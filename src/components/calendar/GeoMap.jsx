@@ -8,8 +8,8 @@ import {
 
 import { FaArrowRight } from "react-icons/fa";
 
-export default function GeoMap({ onPositionChange, handleSearch }) {
-  const [city, setCity] = useState("");
+export default function GeoMap({ onPositionChange, handleChange, handleSearch }) {
+  const [searchedCity, setSearchedCity] = useState("");
   const [position, setPosition] = useState({ lat: 53.54, lng: 10 });
   const [zoom, setZoom] = useState(1.7);
   const [searchPerformed, setSearchPerformed] = useState(false);
@@ -17,34 +17,72 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleCityChange = (event) => {
-    setCity(event.target.value);
+    const city = event.target.value;
+    setSearchedCity(city); // Update the searched city in the state
+    handleChange({ target: { name: "city", value: city } }); // Update the city in the form data
   };
 
   const performSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${
-          import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-        }`
-      );
-      const data = await response.json();
-      if (data.results.length === 0) {
-        throw new Error("Location not found. Please try again.");
-      }
-      const location = data.results[0].geometry.location;
-      setPosition({ lat: location.lat, lng: location.lng });
-      onPositionChange({ lat: location.lat, lng: location.lng });
-      if (zoom === 1.7) {
-        setZoom(9);
-      }
-      handleSearch();
-      setSearchPerformed(true);
-      setErrorMessage(""); // Clear error message on successful search
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setErrorMessage(error.message); // Set error message on search failure
+  try {
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${searchedCity}&key=${
+        import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+      }`
+    );
+    const data = await response.json();
+    if (data.results.length === 0) {
+      throw new Error("Location not found. Please try again.");
     }
-  };
+    const location = data.results[0].geometry.location;
+    const newPosition = { 
+      lat: location.lat, 
+      lng: location.lng,
+      country: data.results[0].address_components.find(
+        (component) => component.types.includes("country")
+      )?.long_name || ''
+    };
+
+    const city = data.results[0].address_components.find(
+      (component) => component.types.includes("locality")
+    )?.long_name || '';
+
+    const finalCity = city ? city : searchedCity;
+
+    setSearchedCity(`${finalCity}, ${newPosition.country}`);
+
+    handleChange({
+      target: {
+        name: "city",
+        value: `${finalCity}, ${newPosition.country}` 
+      }
+    });
+
+    handleChange({
+      target: {
+        name: "country",
+        value: newPosition.country
+      }
+    });
+
+    setPosition(newPosition);
+    onPositionChange(newPosition);
+
+    if (zoom === 1.7) {
+      setZoom(9);
+    }
+
+    handleSearch(newPosition.country); 
+
+    setSearchPerformed(true);
+    setErrorMessage("");
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    setErrorMessage(error.message);
+  }
+};
+  
+  
+  
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
@@ -52,7 +90,7 @@ export default function GeoMap({ onPositionChange, handleSearch }) {
         <div className="w-full relative">
           <input
             type="text"
-            value={city}
+            value={searchedCity}
             onChange={handleCityChange}
             className="peer w-full pt-6 pb-2 ps-4 bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
           />

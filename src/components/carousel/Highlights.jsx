@@ -1,13 +1,25 @@
-import { useGSAP } from "@gsap/react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import VideoCarousel from "./VideoCarousel";
-import CitySlides from "./CitySlides"
+import CitySlides from "./CitySlides";
 
 const Highlights = ({ onSearch }) => {
-  useGSAP(() => {
-    gsap.to("#title", { opacity: 1, y: 0 });
-    gsap.to(".link", { opacity: 1, y: 0, duration: 1, stagger: 0.25 });
+  const titleRef = useRef(null);
+  const linkRefs = useRef([]);
+
+  useEffect(() => {
+    gsap.to(titleRef.current, { opacity: 1, y: 0 });
+
+    if (linkRefs.current.length) {
+      gsap.to(linkRefs.current, { opacity: 1, y: 0, duration: 1, stagger: 0.25 });
+    }
   }, []);
+
+  const addLinkRef = (el) => {
+    if (el && !linkRefs.current.includes(el)) {
+      linkRefs.current.push(el);
+    }
+  };
 
   return (
     <section
@@ -16,13 +28,13 @@ const Highlights = ({ onSearch }) => {
     >
       <div className="screen-max-w">
         <div className="mb-7 w-full">
-          <h1 id="title" className="text-3xl font-semibold text-gray-700">
+          <h1 id="title" ref={titleRef} className="text-3xl font-semibold text-gray-700 opacity-0 transform translate-y-5">
             Go around the world
           </h1>
         </div>
 
-        <VideoCarousel onSearch={onSearch}/>
-        <CitySlides onSearch={onSearch}/>
+        <VideoCarousel onSearch={onSearch} addLinkRef={addLinkRef} />
+        <CitySlides onSearch={onSearch} addLinkRef={addLinkRef} />
       </div>
     </section>
   );

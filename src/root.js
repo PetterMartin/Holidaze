@@ -1,7 +1,7 @@
 import { createRouter, createRoute, createRootRoute } from "@tanstack/react-router";
 import Home from "./pages/Home";
-import DashboardPage from "./pages/Dashboard.jsx"; // Ensure this matches your file name
-import Profile from "./pages/Profile.jsx"; // Ensure this matches your file name
+import DashboardPage from "./pages/Dashboard.jsx";
+import Profile from "./pages/Profile.jsx";
 import Root from "./App";
 
 const rootRoute = createRootRoute({

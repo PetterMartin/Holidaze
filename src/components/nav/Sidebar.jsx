@@ -1,3 +1,4 @@
+import { useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useContext, createContext, useRef } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiLogOutCircle } from "react-icons/bi";
@@ -10,7 +11,11 @@ import { useAuth } from "../../context/auth/Auth";
 
 const SidebarContext = createContext();
 
-export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick }) {
+export default function Sidebar({
+  onHomeClick,
+  onBookingsClick,
+  onVenuesClick,
+}) {
   const [expanded, setExpanded] = useState(false);
   const [activeItem, setActiveItem] = useState("Home"); // New state to track active item
   const sidebarRef = useRef(null);
@@ -35,7 +40,7 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
             <div>
               <SidebarItem
                 icon={<TbSmartHome />}
-                text="Home"
+                text="Profile"
                 isActive={activeItem === "Home"} // Pass isActive based on activeItem state
                 onClick={() => {
                   onHomeClick();
@@ -61,10 +66,7 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
                   setActiveItem("Venues"); // Set activeItem to "Bookings" when clicked
                 }}
               />
-              <SidebarItem
-                icon={<LuUsers />}
-                text="Guests"
-              />
+              <SidebarItem icon={<LuUsers />} text="Guests" />
 
               <SidebarItem icon={<BsChatSquareText />} text="Messages" alert />
 
@@ -89,6 +91,7 @@ export default function Sidebar({ onHomeClick, onBookingsClick, onVenuesClick })
 export function SidebarItem({ icon, text, isActive, alert, onClick }) {
   const { expanded } = useContext(SidebarContext);
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   SidebarItem.propTypes = {
     icon: PropTypes.element,
@@ -102,12 +105,7 @@ export function SidebarItem({ icon, text, isActive, alert, onClick }) {
   const isLogout = text === "Logout";
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      window.location.reload();
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
+    await logout(() => navigate({ to: "/" }));
   };
 
   return (

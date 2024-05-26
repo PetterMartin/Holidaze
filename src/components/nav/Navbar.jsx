@@ -14,7 +14,7 @@ const Navbar = () => {
   const [isCreateVenueModalOpen, setIsCreateVenueModalOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
-  const [scrollTimer, setScrollTimer] = useState(null);
+  const [transitioning, setTransitioning] = useState(false);
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
@@ -53,34 +53,35 @@ const Navbar = () => {
 
   const openCreateVenueModal = () => {
     setIsCreateVenueModalOpen(true);
-    setIsNavbarScrolled(false); // Disable navbar scroll effect
   };
 
   const closeCreateVenueModal = () => {
     setIsCreateVenueModalOpen(false);
-    setScrollTimer(setTimeout(() => setIsNavbarScrolled(true), 300));
   };
 
   useEffect(() => {
     const handleScroll = () => {
-      clearTimeout(scrollTimer);
-      setIsNavbarScrolled(window.scrollY > 0);
+      if (window.scrollY > 0) {
+        setIsNavbarScrolled(true);
+        setTransitioning(false);
+      } else {
+        setTransitioning(true);
+        setTimeout(() => setIsNavbarScrolled(false), 10); // delay must match the transition duration in CSS
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      // Apply removing class when scrolling stops and navbar is at the top
-      setIsNavbarScrolled(null);
     };
-  }, [scrollTimer]);
+  }, []);
 
   return (
     <nav
-      className={`navbar fixed top-0 left-0 w-full z-20 bg-transparent ${
-        isNavbarScrolled ? "scrolled" : ""
-      } ${!isNavbarScrolled ? "removing" : ""}`}
+      className={`navbar fixed top-0 left-0 w-full z-20 ${
+        isCreateVenueModalOpen ? "fullscreen" : isNavbarScrolled ? "scrolled" : ""
+      } ${transitioning && !isNavbarScrolled ? "removing" : ""}`}
     >
       <div className="py-4 px-8">
         <div className="flex justify-between items-center text-white relative">
@@ -96,26 +97,30 @@ const Navbar = () => {
           </div>
 
           <div className="flex gap-4 font-bold">
-            <Link
-              to="/dashboard"
-              className={`font-bold hover:underline ${
-                location.pathname === "/dashboard"
-                  ? "text-rose-400"
-                  : "text-white with-shadow"
-              }`}
-            >
-              Dashboard
-            </Link>
-            <button
-              className={`hover:underline ${
-                location.pathname === "/dashboard"
-                  ? "text-rose-400 "
-                  : "text-white with-shadow"
-              }`}
-              onClick={openCreateVenueModal}
-            >
-              Create Venue
-            </button>
+            {isLoggedIn && ( // Only render if user is logged in
+              <Link
+                to="/dashboard"
+                className={`font-bold hover:underline ${
+                  location.pathname === "/dashboard"
+                    ? "text-rose-400"
+                    : "text-white with-shadow"
+                }`}
+              >
+                Dashboard
+              </Link>
+            )}
+            {isLoggedIn && ( // Only render if user is logged in
+              <button
+                className={`hover:underline ${
+                  location.pathname === "/dashboard"
+                    ? "text-rose-400 "
+                    : "text-white with-shadow"
+                }`}
+                onClick={openCreateVenueModal}
+              >
+                Create Venue
+              </button>
+            )}
           </div>
 
           <div className="flex gap-4 items-center">

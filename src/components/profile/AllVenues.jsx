@@ -1,6 +1,7 @@
 import SingleVenueModal from "../../components/modal/singlevenuemodal/SingleVenueModal";
 import LikeButton from "../../components/buttons/LikeButton";
 import LocationDetails from "../../components/modal/singlevenuemodal/LocationDetails";
+import SkeletonVenues from "./SkeletonVenues";
 
 import { FaStar } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
@@ -32,6 +33,11 @@ const AllVenues = ({
       window.event.cancelBubble = true; // For older versions of IE
     }
   };
+
+  if (!venues.length) {
+    return <SkeletonVenues />;
+  }
+
 
   return (
     <div className="mt-6 mx-auto px-14">

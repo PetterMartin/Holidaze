@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/auth/Auth";
+import { getProfile } from "../../libs/api/Profiles";
 import { fetchVenuesByProfile } from "../../libs/api/Venues";
 import SingleVenueModal from "../modal/singlevenuemodal/SingleVenueModal";
 import UpdateVenueModal from "../modal/UpdateVenueModal";
 import LikeButton from "../buttons/LikeButton";
+
 import { FaStar } from "react-icons/fa";
-import { useAuth } from "../../context/auth/Auth";
-import { getProfile } from "../../libs/api/Profiles";
 
 function UsersVenues({ userName }) {
   const [venues, setVenues] = useState([]);
@@ -110,7 +111,7 @@ function UsersVenues({ userName }) {
           ? "My Venues"
           : `${userName}'s Venues`}
       </h1>
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         {venues.map(
           (venue) =>
             venue.media &&
@@ -126,7 +127,7 @@ function UsersVenues({ userName }) {
                       <img
                         src={venue.media[0].url}
                         alt={venue.media[0].alt}
-                        className="w-full h-96 object-cover rounded-t-2xl mb-1"
+                        className="w-full h-48 object-cover rounded-t-2xl mb-1"
                       />
                       {userProfile && userProfile.name === userName && (
                         <div className="absolute top-4 right-4 z-10">
@@ -148,7 +149,7 @@ function UsersVenues({ userName }) {
                       <img
                         src={venue.media[0].url}
                         alt={venue.media[0].alt}
-                        className="w-full h-96 object-cover rounded-2xl mb-1"
+                        className="w-full h-48 object-cover rounded-2xl mb-1"
                       />
                       <div className="absolute top-4 left-4 z-10">
                         <LikeButton onClick={handleLikeButtonClick} />

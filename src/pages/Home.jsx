@@ -58,13 +58,13 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center relative">
-      <img
-        src="/assets/images/House.jpeg"
-        alt="Background"
-        className="w-full h-[450px] object-cover"
-      />
-      <div className="absolute inset-0">
-        <div className="bg-gray-700 opacity-30 h-[450px]"></div>
+      <div className="relative w-full h-[450px]">
+        <img
+          src="/assets/images/House.jpeg"
+          alt="Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gray-700 opacity-30"></div>
       </div>
       <div className="text-container flex flex-col items-center gap-2 absolute top-36 left-[50%] transform translate-x-[-50%] -translate-y-[-50%] text-white z-10">
         <h1 className="with-shadow text-6xl font-bold">Apartments for a day</h1>

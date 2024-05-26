@@ -56,7 +56,7 @@ export async function fetchVenuesById(venuesId) {
  * Fetch venues created by a specific profile
  */
 export async function fetchVenuesByProfile(userName) {
-  const url = new URL(`${apiUrl}/holidaze/profiles/${userName}/venues`);
+  const url = new URL(`${apiUrl}/holidaze/profiles/${userName}/venues?_bookings=true`);
 
   const options = {
     method: "GET",

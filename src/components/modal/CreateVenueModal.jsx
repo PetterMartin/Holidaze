@@ -5,9 +5,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Category from "./createvenue/Category";
 import LocationDetailsForm from "./createvenue/LocationDetailsForm";
 import MediaUrlInput from "./createvenue/MediaUrlInput";
-import NameAndDescription from "./createvenue/NameAndDescription";
 import Information from "./createvenue/Information";
-import Pricing from "./createvenue/Pricing";
 
 const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
   const [step, setStep] = useState(0);
@@ -101,21 +99,30 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "mediaUrl") {
-      setMediaUrl(value);
-    } else if (name === "price" || name === "maxGuests") {
-      const parsedValue = parseInt(value);
-      setFormData({
-        ...formData,
-        [name]: parsedValue,
-      });
-    } else if (name === "lat" || name === "lng") {
+  
+    if (name === "lat" || name === "lng") {
       setFormData({
         ...formData,
         location: {
           ...formData.location,
           [name]: parseFloat(value),
+        },
+      });
+    } else if (name === "country") {
+      // Update country separately
+      setFormData({
+        ...formData,
+        location: {
+          ...formData.location,
+          country: value,
+        },
+      });
+    } else if (name === "city") {
+      setFormData({
+        ...formData,
+        location: {
+          ...formData.location,
+          city: value,
         },
       });
     } else {

@@ -40,19 +40,20 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (userData) => {
+    setUser(userData);
     window.localStorage.setItem("jwt", userData.token);
     window.localStorage.setItem("user_email", userData.email);
     window.localStorage.setItem("user_name", userData.name);
-    setUser(userData);
     setIsLoggedIn(true);
   };
 
-  const logout = async () => {
+  const logout = async (onLogout) => {
     setUser(null);
     localStorage.removeItem("jwt");
     localStorage.removeItem("user_name");
     localStorage.removeItem("user_email");
     setIsLoggedIn(false);
+    onLogout()
   };
 
   return (
