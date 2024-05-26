@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import SingleVenueModal from "../../components/modal/singlevenuemodal/SingleVenueModal";
 import LikeButton from "../../components/buttons/LikeButton";
 import LocationDetails from "../../components/modal/singlevenuemodal/LocationDetails";
@@ -19,7 +20,13 @@ const AllVenues = ({
   searchClicked,
   selectedLayout,
 }) => {
-  const numberOfVenues = venues.length;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (venues.length > 0) {
+      setLoading(false);
+    }
+  }, [venues]);
 
   const handleVenueClick = async (venueId) => {
     setSelectedVenueId(venueId);
@@ -34,10 +41,20 @@ const AllVenues = ({
     }
   };
 
-  if (!venues.length) {
+  if (loading) {
     return <SkeletonVenues />;
   }
 
+  if (venues.length === 0) {
+    return (
+      <div className="mt-6 mx-auto px-14">
+        <h1 id="title" className="mb-6 text-3xl font-semibold text-gray-700">
+          Find your new home
+        </h1>
+        <p className="text-center text-gray-500 mt-6">No venues found</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-6 mx-auto px-14">
@@ -48,7 +65,7 @@ const AllVenues = ({
         <div className="flex items-center gap-2">
           {searchClicked && (
             <p className="mb-3 text-sm text-gray-400">
-              ({numberOfVenues} Results)
+              ({venues.length} Results)
             </p>
           )}
         </div>
