@@ -9,7 +9,7 @@ const EditAvatarModal = ({
   const [newAvatarUrl, setNewAvatarUrl] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showPreview, setShowPreview] = useState(false); // State to control image preview
+  const [showPreview, setShowPreview] = useState(false);
 
   const isValidUrl = (url) => {
     const pattern = /^(ftp|http|https):\/\/[^ "]+$/;

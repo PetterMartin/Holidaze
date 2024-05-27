@@ -20,10 +20,10 @@ const LocationDetailsForm = ({
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold text-gray-800">
+      <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
         Where are you located?
       </h1>
-      <div className="font-light text-neutral-500 mt-2 mb-6">
+      <div className="text-sm md:text-base font-light text-neutral-500 mt-2 mb-6">
         Type in street address, city or country
       </div>
       <div className="flex flex-col">

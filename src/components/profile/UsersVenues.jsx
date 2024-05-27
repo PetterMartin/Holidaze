@@ -5,6 +5,7 @@ import { fetchVenuesByProfile } from "../../libs/api/Venues";
 import SingleVenueModal from "../modal/singlevenuemodal/SingleVenueModal";
 import UpdateVenueModal from "../modal/UpdateVenueModal";
 import LikeButton from "../buttons/LikeButton";
+import SkeletonVenues from "./SkeletonVenues";
 
 import { FaStar } from "react-icons/fa";
 
@@ -14,19 +15,24 @@ function UsersVenues({ userName }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
+  const [status, setStatus] = useState("pending");
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const fetchUserVenues = async () => {
       try {
         if (userName) {
+          setStatus("pending");
           const data = await fetchVenuesByProfile(userName);
           setVenues(data || []);
+          setStatus("success");
         } else {
           console.warn("User name is not provided.");
+          setStatus("error");
         }
       } catch (error) {
         console.error("Error fetching user venues:", error);
+        setStatus("error");
       }
     };
 
@@ -37,10 +43,10 @@ function UsersVenues({ userName }) {
     const fetchUserProfile = async () => {
       try {
         if (isLoggedIn) {
-          const profile = await getProfile(userName); // Use userName here
-          const storedUserName = localStorage.getItem("user_name"); // Get the logged-in user's name from localStorage
+          const profile = await getProfile(userName);
+          const storedUserName = localStorage.getItem("user_name");
           if (profile.data.name === storedUserName) {
-            setUserProfile(profile.data); // Store user profile data in state if it matches
+            setUserProfile(profile.data);
           }
         }
       } catch (error) {
@@ -63,7 +69,6 @@ function UsersVenues({ userName }) {
   };
 
   const handleUpdateVenueSuccess = async (updatedVenueData) => {
-    // Update the venues array with the updated venue data
     setVenues((prevVenues) =>
       prevVenues.map((venue) =>
         venue.id === updatedVenueData.id ? updatedVenueData : venue
@@ -71,7 +76,6 @@ function UsersVenues({ userName }) {
     );
 
     try {
-      // Refetch the venues to get the latest data
       const data = await fetchVenuesByProfile(userName);
       setVenues(data || []);
     } catch (error) {
@@ -81,10 +85,8 @@ function UsersVenues({ userName }) {
 
   const handleDeleteVenueSuccess = async () => {
     try {
-      // Fetch the latest venue data after deletion
       const updatedVenues = await fetchVenuesByProfile(userName);
 
-      // Update the venues array with the latest data
       setVenues(updatedVenues || []);
     } catch (error) {
       console.error("Error updating venue list after deletion:", error);
@@ -92,7 +94,6 @@ function UsersVenues({ userName }) {
   };
 
   useEffect(() => {
-    // Update body overflow based on modal state
     document.body.style.overflow = isModalOpen ? "hidden" : "auto";
   }, [isModalOpen]);
 
@@ -104,6 +105,9 @@ function UsersVenues({ userName }) {
     }
   };
 
+  if (status === "pending") return <SkeletonVenues />;
+  if (status === "error") return <div>Error loading venues.</div>;
+
   return (
     <main className="mt-16">
       <h1 className="text-3xl font-semibold mb-4 ms-1 text-gray-700">
@@ -111,7 +115,7 @@ function UsersVenues({ userName }) {
           ? "My Venues"
           : `${userName}'s Venues`}
       </h1>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {venues.map(
           (venue) =>
             venue.media &&
@@ -133,7 +137,7 @@ function UsersVenues({ userName }) {
                         <div className="absolute top-4 right-4 z-10">
                           <button
                             onClick={(e) => handleUpdateVenueClick(e, venue.id)}
-                            className="text-sm py-2 px-4 bg-white text-black font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-black hover:text-white"
+                            className="text-xs md:text-sm py-2 px-4 bg-white border-2 font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-gray-700 hover:border-gray-700 hover:text-white"
                           >
                             Update Venue
                           </button>

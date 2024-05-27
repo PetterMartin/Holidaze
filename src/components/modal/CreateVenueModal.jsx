@@ -125,10 +125,23 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
           city: value,
         },
       });
-    } else {
+    } else if (name === "mediaUrl") {
+      // No need to update state here
+    } else if (name === "price") {
       setFormData({
         ...formData,
-        [name]: value,
+        [name]: parseFloat(value),
+      });
+    } else {
+      const updatedFormData = { ...formData, [name]: value };
+      setFormData(updatedFormData);
+    }
+  
+    // If name is mediaUrl and value is not empty, add the image URL to media array
+    if (name === "mediaUrl" && value.trim() !== "") {
+      setFormData({
+        ...formData,
+        media: [...formData.media, { url: value, alt: "" }],
       });
     }
   };
@@ -248,10 +261,10 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
       case 4:
         return (
           <div>
-            <h1 className="text-2xl font-semibold text-gray-800">
+            <h1 className="text-xl md:text-2xl font-semibold text-gray-800">
               How would you describe your home?
             </h1>
-            <div className="font-light text-neutral-500 mt-2 mb-6">
+            <div className="text-sm md:text-base text-neutral-500 mt-2 mb-6">
               Short and sweet works best!
             </div>
             <div className="w-full relative mb-6">
@@ -289,7 +302,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
                 value={formData.description}
                 onChange={handleChange}
                 required
-                className="peer w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
+                className="peer w-full p-4 pt-6 bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
               />
               <label
                 className="
@@ -316,8 +329,8 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
       case 5:
         return (
           <div>
-            <h1 className="text-2xl font-semibold">Pricing Details</h1>
-            <div className="font-light text-neutral-500 mt-2">
+            <h1 className="text-xl md:text-2xl font-semibold">Pricing Details</h1>
+            <div className="text-sm md:text-base text-neutral-500 mt-2">
               How much do you charge for a night?
             </div>
             <div className="w-full relative my-6">

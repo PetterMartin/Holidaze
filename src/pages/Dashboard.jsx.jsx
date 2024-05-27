@@ -44,7 +44,7 @@ const Dashboard = () => {
         onBookingsClick={() => setShowBookings(true)}
         onHomeClick={onHomeClick}
       />
-      <div className="mt-16 mx-auto lg:ps-28 px-6">
+      <div className="mx-auto lg:ps-28 px-6">
         {isAuthenticated && (
           <div className="sticky top-0 h-full z-20">
             <Sidebar

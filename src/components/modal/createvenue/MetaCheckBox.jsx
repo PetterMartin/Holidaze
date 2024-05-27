@@ -3,10 +3,10 @@ const MetaCheckBox = ({ name, checked, handleChange }) => {
   let labelText = name === "pets" ? `Can you bring ${name}?` : `Does your venue include ${name}`;
 
   return (
-    <div className="flex justify-between mb-6 pt-6 border-t">
+    <div className="flex justify-between mb-4 md:mb-6 pt-4 md:pt-6 border-t">
       <div>
-        <label className="capitalize font-semibold text-gray-800 mb-1">{name}</label>
-        <div className="text-sm font-light text-neutral-500">{labelText}</div>
+        <label className="text-sm md:text-base capitalize font-semibold text-gray-800 mb-1">{name}</label>
+        <div className="text-xs md:text-sm font-light text-neutral-500">{labelText}</div>
       </div>
       <label className="inline-flex items-center">
         <input

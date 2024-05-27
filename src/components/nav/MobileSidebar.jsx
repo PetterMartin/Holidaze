@@ -16,7 +16,7 @@ export default function MobileSidebar({
   const [activeItem, setActiveItem] = useState("Home"); 
 
   return (
-    <aside className="lg:hidden fixed bottom-0 z-50 bg-white w-full">
+    <aside className="lg:hidden fixed bottom-0 left-0 z-20 bg-white w-full">
       <SidebarContext.Provider value={{}}>
         <ul className="flex justify-around py-4">
           <SidebarItem

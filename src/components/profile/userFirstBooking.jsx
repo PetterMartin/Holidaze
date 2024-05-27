@@ -68,7 +68,7 @@ function UserFirstBooking({ userName }) {
       {!firstBooking ? (
         <h1 className="text-xl font-semibold mb-8 text-gray-700">No upcoming Trip</h1>
       ) : (
-        <div className="flex justify-between gap-16">
+        <div className="flex flex-col md:flex-row justify-between md:gap-16">
           <div className="flex flex-col pt-2 pb-4">
             <h1 className="text-xl font-semibold mb-8 text-gray-700">Next Trip</h1>
             <div className="flex flex-col justify-center gap-1">

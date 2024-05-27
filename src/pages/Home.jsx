@@ -13,40 +13,18 @@ const Home = () => {
   const [guestNumber, setGuestNumber] = useState(0);
   const [searchClicked, setSearchClicked] = useState(false);
   const [selectedLayout, setSelectedLayout] = useState("grid4");
-  const [isSearchBarFixed, setIsSearchBarFixed] = useState(false);
+  const [isSearchBarSticky, setIsSearchBarSticky] = useState(false);
+
+  const allVenuesRef = useRef(null);
   const searchBarRef = useRef(null);
-  const [searchBarInitialTop, setSearchBarInitialTop] = useState(null);
-  const allVenuesRef = useRef(null); // Add a ref for AllVenues
 
   useEffect(() => {
     fetchData();
-
-    const handleScroll = () => {
-      if (searchBarRef.current) {
-        const searchBarTop = searchBarRef.current.getBoundingClientRect().top;
-        if (!isSearchBarFixed && searchBarInitialTop === null) {
-          setSearchBarInitialTop(searchBarRef.current.offsetTop);
-        }
-        setIsSearchBarFixed(searchBarTop <= 0);
-        if (
-          searchBarInitialTop !== null &&
-          window.pageYOffset <= searchBarInitialTop
-        ) {
-          setIsSearchBarFixed(false);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isSearchBarFixed, searchBarInitialTop]);
+  }, []);
 
   const fetchData = async () => {
     try {
-      await searchVenues({ guests: guestNumber, searchText });
+      await searchVenues({ guests: 0, searchText: "" });
     } catch (error) {
       console.error("Error fetching venues:", error);
     }
@@ -54,14 +32,24 @@ const Home = () => {
 
   const handleSearch = async ({ guests, searchText }) => {
     try {
-      setSearchText(searchText);
-      setGuestNumber(guests);
-      setSearchClicked(true);
-      await searchVenues({ guests, searchText });
+      if (guests !== undefined && searchText !== undefined) {
+        setSearchText(searchText);
+        setGuestNumber(guests);
+        setSearchClicked(true);
+        await searchVenues({ guests, searchText });
 
-      // Scroll to AllVenues section with an offset
-      if (allVenuesRef.current) {
-        allVenuesRef.current.scrollIntoView({ behavior: "smooth" });
+        // Scroll to AllVenues section with an offset
+        if (allVenuesRef.current) {
+          const elementPosition =
+            allVenuesRef.current.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      } else {
+        console.error("Error: Guests or searchText is undefined.");
       }
     } catch (error) {
       console.error("Error searching venues:", error);
@@ -71,6 +59,20 @@ const Home = () => {
   const handleLayoutClick = (layout) => {
     setSelectedLayout(layout);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (searchBarRef.current) {
+        const searchBarTop = searchBarRef.current.getBoundingClientRect().top;
+        setIsSearchBarSticky(searchBarTop <= 0);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -93,8 +95,8 @@ const Home = () => {
         </div>
         <div
           ref={searchBarRef}
-          className={`md:absolute md:top-[540px] w-full z-20 ${
-            isSearchBarFixed ? "fixed top-0 left-0" : ""
+          className={`w-full z-10 ${
+            isSearchBarSticky ? "sticky top-0" : "md:absolute md:top-[550px]"
           }`}
         >
           <SearchBar
@@ -104,7 +106,7 @@ const Home = () => {
           />
         </div>
         <Highlights onSearch={handleSearch} />
-        <div className="mt-auto" ref={allVenuesRef}> {/* Add ref here */}
+        <div className="mt-auto" ref={allVenuesRef}>
           <AllVenues
             venues={venues}
             selectedVenueId={selectedVenueId}

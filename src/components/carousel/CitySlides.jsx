@@ -22,17 +22,17 @@ const CitySlides = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex justify-center items-center gap-20 my-10">
+    <div className="flex md:justify-center items-center gap-8 md:gap-20 my-10 mt-2 overflow-x-auto">
       {cities.map((city, index) => (
         <div 
           key={index} 
-          className="flex flex-col items-center cursor-pointer" 
+          className="flex flex-col items-center cursor-pointer mt-8" 
           onClick={() => handleCityClick(city.name)}
         >
-          <div className="rounded-full overflow-hidden w-20 h-20 border-4 border-white hover:border-rose-400 hover:scale-110 transition">
+          <div className="rounded-full overflow-hidden w-16 h-16 md:w-20 md:h-20 border-4 border-white hover:border-rose-400 hover:scale-110 transition">
             <img src={city.image} alt={city.name} className="w-full h-full object-cover" />
           </div>
-          <p className="mt-2">{city.name}</p>
+          <p className="mt-2 text-sm md:text-base">{city.name}</p>
         </div>
       ))}
     </div>

@@ -14,12 +14,12 @@ const categories = [
   ];
   
   const categoryIcons = {
-    Beach: <TbBeach className="text-3xl" size={26} />,
-    Forest: <MdOutlineForest className="text-3xl" size={26} />,
-    Pool: <MdOutlinePool className="text-3xl" size={26} />,
-    Mountains: <LiaMountainSolid className="text-3xl" size={26} />,
-    City: <LiaCitySolid className="text-3xl" size={26} />,
-    Skiing: <LiaSkiingSolid className="text-3xl" size={26} />,
+    Beach: <TbBeach  size={26} />,
+    Forest: <MdOutlineForest  size={26} />,
+    Pool: <MdOutlinePool  size={26} />,
+    Mountains: <LiaMountainSolid  size={26} />,
+    City: <LiaCitySolid  size={26} />,
+    Skiing: <LiaSkiingSolid  size={26} />,
   };
 
 const Category = () => {
@@ -35,27 +35,27 @@ const Category = () => {
   return (
     <div>
         <div className="text-start">
-          <div className="text-2xl font-semibold">
+          <div className="text-xl md:text-2xl font-semibold">
             Which of these best describe your home?
           </div>
-          <div className="font-light text-neutral-500 mt-2 mb-6">
+          <div className="text-sm md:text-base text-neutral-500 mt-2 mb-6">
             Pick a category (Optional)
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-2 md:gap-4">
           {categories.map((category, index) => (
             <div
               key={index}
               onClick={() => handleCategoryClick(category)}
               className={`rounded-xl border-2 p-2 flex flex-col items-start text-gray-500 hover:text-gray-600 hover:border-gray-600 focus:border-gray-600 transition cursor-pointer ${
-                index >= categories.length - 2 ? "hidden sm:flex" : ""
+                index >= categories.length ? "hidden sm:flex" : ""
               }`}
             >
               <div className="flex items-center justify-center ms-5">
                 {categoryIcons[category]}
               </div>
-              <div className="px-5 rounded-full mt-2">
+              <div className="text-sm md:text-base px-5 rounded-full mt-2">
                 <p>{category}</p>
               </div>
             </div>

@@ -49,7 +49,7 @@ const ProfileInformation = ({
 
   return (
     <div className="flex flex-col p-4 rounded-xl">
-      <div className="mx-auto flex">
+      <div className="mx-auto flex flex-col md:flex-row items-center md:items-start">
         <div className="flex flex-col">
           <div className="h-32 w-32 relative">
             <img
@@ -67,7 +67,7 @@ const ProfileInformation = ({
             {isAuthenticated && isUser && (
               <button
                 onClick={handleEditAvatar}
-                className="flex items-center gap-1.5 text-sm py-2 px-4 bg-white border-2 text-gray-700 font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-gray-700 hover:border-gray-700 hover:text-white"
+                className="flex items-center gap-1.5 text-xs md:text-sm py-2 px-4 bg-white border-2 text-gray-700 font-semibold rounded-xl transition duration-200 ease-in-out hover:bg-gray-700 hover:border-gray-700 hover:text-white"
               >
                 {avatarUrl ? <AiOutlineEdit size={16} /> : null}
                 {avatarUrl ? "Edit Avatar" : "Add Custom Avatar"}
@@ -76,8 +76,8 @@ const ProfileInformation = ({
           </div>
         </div>
 
-        <div className="flex flex-col ms-8">
-          <div className="pb-4">
+        <div className="flex flex-col md:ms-8 items-center md:items-start">
+          <div className="flex flex-col items-center md:items-start pb-4">
             <h1 className="text-2xl font-semibold mt-2">{userName}</h1>
             <h2 className="text-sm ms-1 text-gray-500">{userEmail}</h2>
           </div>
@@ -89,8 +89,8 @@ const ProfileInformation = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between mt-4 pt-4 pb-2 border-t">
-        <div className="flex flex-col">
+      <div className="flex flex-col md:flex-row items-center justify-between mt-4 pt-4 pb-2 border-t">
+        <div className="flex flex-col items-center md:items-start">
           <h1 className="text-xl font-semibold">About</h1>
           <p className="text-gray-500">{userBio}</p>
         </div>

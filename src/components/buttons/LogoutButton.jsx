@@ -11,8 +11,9 @@ export default function LogoutButton() {
 
     return (
         <>
-            <Link to="/" className="flex items-center w-full logout-button hover:bg-gray-100/50 p-3 text-rose-500" onClick={handleLogout}>
-                <BiLogOutCircle className="text-xl me-8" />
+            <Link to="/" className="flex items-center justify-between px-4 w-full logout-button hover:bg-gray-100/50 p-3 text-rose-500" onClick={handleLogout}>
+            <p>Logout</p>
+                <BiLogOutCircle className="text-xl" />
             </Link>
         </>
     );

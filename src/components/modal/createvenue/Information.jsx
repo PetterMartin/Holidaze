@@ -4,10 +4,10 @@ import MetaCheckBox from "./MetaCheckBox";
 const Information = ({ formData, handleGuestChange, handleMetaChange }) => {
   return (
     <div>
-      <h1 className="text-2xl font-semibold">
+      <h1 className="text-xl md:text-2xl font-semibold">
       Lodging Details
       </h1>
-      <div className="font-light text-neutral-500 mt-2">
+      <div className="text-sm md:txt-base font-light text-neutral-500 mt-2">
       What features does your place offer?
       </div>
       <div className="flex justify-between mt-6">

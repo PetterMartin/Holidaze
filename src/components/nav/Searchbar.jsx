@@ -99,7 +99,7 @@ const SearchBar = ({
               >
                 <LuCalendarDays size={22} />
                 <div className="flex flex-col">
-                  <p className="text-sm text-gray-400">Date</p>
+                  <p className="text-sm text-gray-400">When do you want go?</p>
                   <button className="flex items-center text-gray-600 font-semibold max-w-[180px] truncate">
                     {"Add Dates"}
                     <MdKeyboardArrowDown size={25} />
@@ -115,7 +115,7 @@ const SearchBar = ({
               <div className="flex items-center gap-6">
                 <PiUsersThree size={28} />
                 <div>
-                  <p className="text-sm text-gray-400">Number of guests</p>
+                  <p className="text-sm text-gray-400">How many will you be?</p>
                   <GuestCounter onGuestChange={setGuests} />
                 </div>
               </div>

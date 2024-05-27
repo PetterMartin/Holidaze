@@ -133,7 +133,7 @@ export default function ProfilePage() {
       {isProfileLoading ? (
         <p>Loading..</p>
       ) : (
-        <div className="relative w-full mt-4">
+        <div className="relative w-full">
           <Banner
             bannerUrl={userProfile?.banner?.url}
             bannerAlt={userProfile?.banner?.alt}
@@ -142,7 +142,7 @@ export default function ProfilePage() {
             handleUpdateBannerUrl={handleUpdateBannerUrl}
             handleBannerUrlChange={handleBannerUrlChange}
           />
-          <div className="flex justify-center gap-8 mt-4">
+          <div className="flex flex-col md:flex-row justify-center gap-8 mt-4">
             <ProfileInformation
               userProfile={userProfile}
               defaultUser={defaultUser}
@@ -164,14 +164,14 @@ export default function ProfilePage() {
                 userName === authUser.data.name && (
                   <div className="flex flex-col gap-4">
                     <div
-                      className={`flex items-center justify-between w-full ${
+                      className={`flex flex-col md:flex-row gap-6 items-center justify-between w-full ${
                         isVenueManager
                           ? "bg-gradient-to-b from-rose-400 to-rose-500"
                           : "bg-white border-2 border-rose-400"
                       } p-4 rounded-3xl`}
                     >
                       {isVenueManager && (
-                        <div className="flex items-center text-white px-4 py-2.5">
+                        <div className="flex flex-col md:flex-row items-center text-white md:px-4 md:py-2.5">
                           <RiShieldCheckFill size={22} />
                           <span className="ml-2">Venue Manager</span>
                         </div>
@@ -192,7 +192,7 @@ export default function ProfilePage() {
                           : "Become Venue Manager"}
                       </button>
                     </div>
-                    <div className="mt-2 pt-4 pb-2 border-t">
+                    <div className="mt-2 pt-4 pb-2 border-t mb-28 md:mb-0">
                       <UsersFirstBooking userName={userName} />
                     </div>
                   </div>

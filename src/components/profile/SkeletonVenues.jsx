@@ -7,7 +7,7 @@ const SkeletonVenues = () => {
       <h1 className="text-3xl font-semibold mb-6 ms-1">
         <Skeleton width={200} />
       </h1>
-      <div className="w-[1300px] grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:overflow-auto">
+      <div className="md:w-[1300px] grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:overflow-auto">
         {Array.from({ length: 8 }, (_, i) => (
           <div key={i} className="border rounded-2xl">
             <div>

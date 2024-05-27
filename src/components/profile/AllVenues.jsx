@@ -112,7 +112,7 @@ const AllVenues = ({
                       src={venue.media[0].url}
                       alt={venue.media[0].alt}
                       className={`w-full ${
-                        selectedLayout === "grid2" ? "h-96" : "md:h-48"
+                        selectedLayout === "grid2" ? "h-96" : "h-72 md:h-48"
                       } object-cover rounded-t-2xl mb-1`}
                     />
                     <div className="absolute top-4 left-4 z-5">

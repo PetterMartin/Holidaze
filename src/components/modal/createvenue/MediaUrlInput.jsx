@@ -9,11 +9,11 @@ const MediaUrlInput = ({ mediaUrl, handleChange, handleAddImageUrl, media, handl
   return (
     <div className="relative flex-auto">
       <div>
-        <div className="flex gap-2 text-2xl font-semibold text-gray-800">
+        <div className="flex gap-2 text-xl md:text-2xl font-semibold text-gray-800">
           Upload an image of your venue{" "}
           <BsCamera size={25} className="m-0.5 ms-2" />
         </div>
-        <div className="font-light text-gray-500 mt-2 mb-6">
+        <div className="text-sm md:text-base text-gray-500 mt-2 mb-6">
           You can add more than one!
         </div>
       </div>
@@ -26,7 +26,7 @@ const MediaUrlInput = ({ mediaUrl, handleChange, handleAddImageUrl, media, handl
             value={mediaUrl}
             onChange={handleChange}
             placeholder={isFocused ? "Image URL goes here" : ""}
-            className={`peer w-full p-4 pt-6 font-light border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer`}
+            className={`peer w-full p-4 pt-6 border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500`}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           />

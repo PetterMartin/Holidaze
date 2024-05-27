@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { gsap } from "gsap";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/auth/Auth.jsx";
 import { getProfile } from "../../libs/api/Profiles.js";
 
@@ -7,6 +8,7 @@ import RegisterModal from "../modal/RegisterModal.jsx";
 import LoginModal from "../modal/LoginModal.jsx";
 import CreateVenueModal from "../modal/CreateVenueModal.jsx";
 import DefaultUserImage from "../../../public/assets/images/defaultUser.png";
+import LogoutButton from "../buttons/LogoutButton.jsx";
 
 import { RxHamburgerMenu } from "react-icons/rx";
 
@@ -16,9 +18,9 @@ const Navbar = () => {
   const [isCreateVenueModalOpen, setIsCreateVenueModalOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
-  const [transitioning, setTransitioning] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for toggling hamburger menu
   const { isLoggedIn } = useAuth();
+  const menuRef = useRef(null);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -37,6 +39,34 @@ const Navbar = () => {
 
     fetchUserProfile();
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsNavbarScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      gsap.fromTo(
+        menuRef.current,
+        { height: 0 },
+        { height: "auto", duration: 0.3, ease: "power1.in" }
+      );
+    } else {
+      gsap.to(menuRef.current, {
+        height: 0,
+        duration: 0.3,
+        ease: "power1.out",
+      });
+    }
+  }, [isMenuOpen]);
 
   const openRegisterModal = () => {
     setIsRegisterModalOpen(true);
@@ -62,34 +92,8 @@ const Navbar = () => {
     setIsCreateVenueModalOpen(false);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsNavbarScrolled(true);
-        setTransitioning(false);
-      } else {
-        setTransitioning(true);
-        setTimeout(() => setIsNavbarScrolled(false), 10); // delay must match the transition duration in CSS
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <nav
-      className={`navbar fixed top-0 left-0 w-full z-20 ${
-        isCreateVenueModalOpen
-          ? "fullscreen"
-          : isNavbarScrolled && !isMenuOpen && window.innerWidth > 768 // Check if menu is closed and screen width is above 768px
-          ? "scrolled"
-          : ""
-      } ${transitioning && !isNavbarScrolled ? "removing" : ""}`}
-    >
+    <nav className="w-full">
       <div className="py-4 px-8">
         <div className="flex justify-between items-center text-white relative">
           <div className="flex gap-8">
@@ -126,7 +130,6 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="block lg:hidden text-white"
             >
-              {/* You can use any icon for the hamburger menu */}
               <div className="p-3 text-gray-700 bg-white rounded-full border-2">
                 <RxHamburgerMenu size={18} />
               </div>
@@ -134,48 +137,61 @@ const Navbar = () => {
           </div>
 
           {/* Dropdown Menu */}
-          {isMenuOpen && (
-            <div className="absolute top-full right-0 bg-white mt-1 rounded-lg shadow-lg">
-              <div className="py-1">
-                {isLoggedIn && (
-                  <>
-                    <Link
-                      to="/dashboard"
-                      className={`block px-4 py-2 text-gray-800 hover:bg-gray-200 ${
-                        location.pathname === "/dashboard"
-                          ? "text-rose-400"
-                          : ""
-                      }`}
-                    >
-                      Dashboard
-                    </Link>
-                    <div
-                      className={`block px-4 py-2 text-gray-800 hover:bg-gray-200`}
-                      onClick={openCreateVenueModal}
-                    >
-                      Create Venue
-                    </div>
-                  </>
-                )}
-                {!isLoggedIn && (
-                  <>
-                    <button
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                      onClick={openLoginModal}
-                    >
-                      Login
-                    </button>
-                    <button
-                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                      onClick={openRegisterModal}
-                    >
-                      Register
-                    </button>
-                  </>
-                )}
-              </div>
+          <div
+            ref={menuRef}
+            className={`absolute top-12 right-0 mt-2 overflow-hidden bg-white rounded-lg shadow-lg z-30 ${
+              isMenuOpen ? "block" : "hidden"
+            }`}
+          >
+            <div className="py-1">
+              {isLoggedIn && (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    My Profile
+                  </Link>
+                  <div className="border border-gray-100 mx-2"></div>
+                  <div
+                    className={`block px-4 py-3 text-gray-800 hover:bg-gray-200`}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      openCreateVenueModal();
+                    }}
+                  >
+                    Create Venue
+                  </div>
+                  <div className="border border-gray-100 mx-2"></div>
+                  <LogoutButton />
+                </>
+              )}
+              {!isLoggedIn && (
+                <>
+                  <button
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      openLoginModal();
+                    }}
+                  >
+                    Login
+                  </button>
+                  <div className="border border-gray-100 mx-2"></div>
+                  <button
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      openRegisterModal();
+                    }}
+                  >
+                    Register
+                  </button>
+                </>
+              )}
             </div>
-          )}
+          </div>
 
           {/* User Profile Section */}
           <div className="hidden lg:flex items-center">
@@ -225,7 +241,6 @@ const Navbar = () => {
           setModalOpen={closeLoginModal}
         />
       )}
-
       {isCreateVenueModalOpen && (
         <CreateVenueModal
           isModalOpen={isCreateVenueModalOpen}
