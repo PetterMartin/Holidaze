@@ -14,8 +14,8 @@ import {
   const Footer = () => {
     return (
       <div className="px-6 md:px-36 border-t mt-10 text-gray-700">
-        <div className="flex justify-between py-10">
-          <div className="flex flex-col gap-4 items-center md:items-start">
+        <div className="flex justify-center md:justify-between py-10">
+          <div className="flex flex-col gap-4 items-center md:items-start md:mt-10">
             <div className="flex gap-2 items-center text-sm">
               <MdPhone size={20} />
               (+47)875-462-0127
@@ -74,9 +74,10 @@ import {
             </div>
           </div>
         </div>
-  
+
+        <div className="hidden md:block">
         <div className="flex items-center justify-between py-10 border-t">
-          <h1 className="font-bold text-2xl mb-2">YourStay</h1>
+          <h1 className="font-bold text-2xl mb-2">Holidaze</h1>
           <h2 className=" text-2xl mb-2">Subscribe to Our Newsletter!</h2>
           <div className="flex gap-4 justify-between items-center mt-2">
             <input
@@ -91,8 +92,9 @@ import {
             </div>
           </div>
         </div>
+        </div>
   
-        <div className="flex flex-col md:flex-row justify-between mt-4 py-6 border-t items-center">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-0 justify-between mt-4 py-6 border-t items-center">
           <div className="flex gap-4 items-center justify-center md:justify-start">
             <FaCcVisa size={27} />
             <FaCcMastercard size={27} />
@@ -100,7 +102,7 @@ import {
             <FaCcAmex size={27} />
             <FaPaypal size={22} />
           </div>
-          <div className="lg:me-20 text-gray-700 text-sm">© 2024 YourStay</div>
+          <div className="lg:me-20 text-gray-700 text-sm">© 2024 Petter</div>
           <div className="flex gap-3 items-center justify-center md:justify-end">
             <FaFacebookF
               size={20}

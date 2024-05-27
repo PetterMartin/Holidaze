@@ -23,6 +23,27 @@ body,
   color: white;
 }
 
+.fade-in {
+  opacity: 0;
+}
+
+@keyframes fadeAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in:nth-child(1) {
+  animation: fadeAnimation 0.5s ease-in-out 0.3s forwards;
+}
+
+.fade-in:nth-child(2) {
+  animation: fadeAnimation 0.5s ease-in-out 0.9s forwards;
+}
+
 @layer utilities {
   .with-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);

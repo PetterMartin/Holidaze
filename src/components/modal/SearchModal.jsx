@@ -47,7 +47,7 @@ const SearchModal = ({ onSearchTextChange, onClose }) => {
   return (
     <div
       id="searchModal"
-      className="absolute flex justify-center items-center w-[270px] bg-white border-2 rounded-3xl mt-28 ms-6 p-4 cursor-pointer z-50"
+      className="absolute flex justify-center items-center w-[270px] bg-white border-2 rounded-3xl mt-3 ms-6 p-4 cursor-pointer z-50"
     >
       <div className="mr-2">
         <FiSearch size={20} />

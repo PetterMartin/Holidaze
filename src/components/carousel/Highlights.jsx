@@ -24,14 +24,12 @@ const Highlights = ({ onSearch }) => {
   return (
     <section
       id="highlights"
-      className="w-screen overflow-hidden h-full px-12 pt-28"
+      className="w-screen overflow-hidden h-full px-4 md:px-12 pt-8 md:pt-28"
     >
       <div className="screen-max-w">
-        <div className="mb-7 w-full">
-          <h1 id="title" ref={titleRef} className="text-3xl font-semibold text-gray-700 opacity-0 transform translate-y-5">
+          <h1 id="title" ref={titleRef} className="mb-5 md:mb-7 text-2xl md:text-3xl font-semibold text-gray-700">
             Go around the world
           </h1>
-        </div>
 
         <VideoCarousel onSearch={onSearch} addLinkRef={addLinkRef} />
         <CitySlides onSearch={onSearch} addLinkRef={addLinkRef} />

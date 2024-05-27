@@ -57,8 +57,8 @@ const AllVenues = ({
   }
 
   return (
-    <div className="mt-6 mx-auto px-14">
-      <h1 id="title" className="mb-6 text-3xl font-semibold text-gray-700">
+    <div className="mt-6 mx-auto px-4 md:px-14">
+      <h1 id="title" className="mb-4 md:mb-6 text-2xl md:text-3xl font-semibold text-gray-700">
         Find your new home
       </h1>
       <div className="flex justify-between mb-2 text-gray-700">
@@ -113,7 +113,7 @@ const AllVenues = ({
                       src={venue.media[0].url}
                       alt={venue.media[0].alt}
                       className={`w-full ${
-                        selectedLayout === "grid2" ? "h-96" : "h-48"
+                        selectedLayout === "grid2" ? "h-96" : "md:h-48"
                       } object-cover rounded-t-2xl mb-1`}
                     />
                     <div className="absolute top-4 left-4 z-10">

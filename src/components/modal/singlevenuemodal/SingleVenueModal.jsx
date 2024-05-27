@@ -112,9 +112,9 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                     <FaArrowLeft size={14} className="text-black" />
                   </button>
                 </div>
-                <div className="ps-8 pe-4">
-                  <div className="flex flex-col md:flex-row py-8 gap-4">
-                    <div className="w-full h-[35vh] md:h-[65vh] overflow-hidden rounded-3xl relative">
+                <div className=" md:ps-8 md:pe-4">
+                  <div className="flex flex-col md:flex-row pb-2 md:py-8 gap-4">
+                    <div className="w-full md:h-[65vh] overflow-hidden md:rounded-3xl relative">
                       <img
                         src={venue.media[0].url}
                         alt=""
@@ -152,19 +152,18 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                   </div>
 
                   {/* Display booked dates */}
-                  <div className="flex flex-col md:flex-row justify-between">
+                  <div className="flex flex-col md:flex-row justify-between ps-4 pe-4 md:ps-0 md:pe-0">
                     {/* Left Side */}
-                    <div className="w-full flex flex-col gap-2 me-8">
+                    <div className="w-full flex flex-col md:gap-2 me-8">
                       <div className="flex justify-between">
                         <h1 className="text-xl md:text-4xl">
                           {venue.name.charAt(0).toUpperCase() +
                             venue.name.slice(1)}
                         </h1>
-                        <div className="flex items-center gap-4">
-                          <div className="bg-gray-100 rounded-full p-2 hover:bg-gray-800 hover:text-white cursor-pointer">
+                        <div>
+                          <div className="flex items-center bg-gray-100 rounded-full p-2 hover:bg-gray-800 hover:text-white cursor-pointer">
                             <LuShare />
                           </div>
-                          <LikeButton />
                         </div>
                       </div>
 
@@ -172,29 +171,31 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                         <LocationDetails venue={venue} />
                       </h2>
 
-                      <div className="flex gap-8 border-b pt-6 pb-8">
-                        <div className="flex items-center gap-3">
+                      <div className="flex justify-center md:justify-start gap-8 border-b pt-6 pb-8">
+                        <div className="flex flex-col md:flex-row items-center gap-3">
                           <FaUsers size={20} />
-                          <p>{venue.maxGuests} guests</p>
+                          <p className="text-xs md:text-base">
+                            {venue.maxGuests} guests
+                          </p>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-col md:flex-row items-center gap-3">
                           <MdBedroomChild size={22} />
-                          <p>2 bedrooms</p>
+                          <p className="text-xs md:text-base">2 bedrooms</p>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-col md:flex-row items-center gap-3">
                           <IoBed size={20} />
-                          <p>4 beds</p>
+                          <p className="text-xs md:text-base">4 beds</p>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-col md:flex-row items-center gap-3">
                           <FaShower size={20} />
-                          <p>2 bathrooms</p>
+                          <p className="text-xs md:text-base">2 bathrooms</p>
                         </div>
                       </div>
 
                       <VenuesFeatures venue={venue} />
 
                       <div className="flex flex-col gap-3 py-6 relative">
-                        <h1 className="text-xl font-semibold">
+                        <h1 className="md:text-xl font-semibold">
                           About this space
                         </h1>
                         <div
@@ -203,7 +204,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                             overflow: "hidden",
                           }}
                         >
-                          <div className="relative">
+                          <div className="relative text-sm md:text-base">
                             <p className="text-gray-500">{venue.description}</p>
                             {!showFullDescription &&
                               venue.description.length > 200 && (
@@ -227,7 +228,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                         {!showFullDescription &&
                           venue.description.length > 200 && (
                             <p
-                              className="text-rose-500 font-semibold hover:underline cursor-pointer"
+                              className="text-rose-500 text-sm md:text-base font-semibold hover:underline cursor-pointer"
                               onClick={() => setShowFullDescription(true)}
                             >
                               Read more
@@ -235,11 +236,11 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                           )}
                       </div>
                       <div className="flex flex-col border-t border-b">
-                        <h1 className="text-xl font-semibold py-8">
+                        <h1 className="md:text-xl font-semibold py-6 md:py-8">
                           Where you'll be
                         </h1>
                         <GoogleMaps venue={venue} />
-                        <p className="text-lg py-6">
+                        <p className="md:text-lg py-6">
                           <LocationDetails venue={venue} />
                         </p>
                       </div>
@@ -250,7 +251,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                     {/* Right Side */}
                     <div className="sticky flex flex-col items-center gap-2 top-0 h-full pt-4">
                       <BookingForm venue={venue} venueId={venueId} />
-                      <div className="flex items-center gap-3 text-gray-600">
+                      <div className="flex items-center gap-3 text-gray-600 mb-28">
                         <AiFillFlag size={18} />
                         <p className="text-sm font-semibold mt-1 underline cursor-pointer">
                           Report this listing

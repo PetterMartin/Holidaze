@@ -79,9 +79,11 @@ const BookingForm = ({ venue }) => {
       )}
       {venue && ( // Add conditional rendering here
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-700">
+          <h1 className="text-lg md:text-2xl font-semibold text-gray-700">
             ${venue.price.toFixed(0)}{" "}
-            <span className="text-base text-gray-500 font-thin">/ night</span>
+            <span className="text-sm md:text-base text-gray-500 font-thin">
+              / night
+            </span>
           </h1>
           <div className="flex gap-2 items-center">
             <FaStar size={14} />
@@ -96,8 +98,8 @@ const BookingForm = ({ venue }) => {
           <button
             type="button"
             onClick={() => setShowDateModal(true)}
-            className="flex items-center gap-4 bg-white text-gray-700 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
-            style={{ minWidth: "160px" }} // Set a fixed width for the button
+            className="flex items-center gap-4 bg-white text-sm md:text-base text-gray-700 mt-1 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
+            style={{ minWidth: "160px" }}
           >
             <BsFillCalendarMinusFill size={16} />
             {selectedDates && selectedDates[0]
@@ -110,8 +112,8 @@ const BookingForm = ({ venue }) => {
           <button
             type="button"
             onClick={() => setShowDateModal(true)}
-            className="flex items-center gap-4 bg-white text-gray-700 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
-            style={{ minWidth: "160px" }} // Set a fixed width for the button
+            className="flex items-center gap-4 bg-white text-sm md:text-base text-gray-700 mt-1 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
+            style={{ minWidth: "160px" }}
           >
             <BsFillCalendarMinusFill size={16} />
             {selectedDates && selectedDates[1]
@@ -139,15 +141,13 @@ const BookingForm = ({ venue }) => {
       </div>
 
       <div className="flex justify-between">
-        <h1 className="text-lg font-semibold">Total:</h1>
-        <p className="text-lg font-semibold">${totalPriceWithCleaningFee}</p>
+        <h1 className="md:text-lg font-semibold">Total:</h1>
+        <p className="md:text-lg font-semibold">${totalPriceWithCleaningFee}</p>
       </div>
-
-      {/* Conditional rendering of DateModal */}
 
       <button
         type="submit"
-        className="bg-gradient-to-b from-rose-400 to-rose-500 text-white py-3 px-4 mb-16 rounded-lg transition duration-300 ease-in-out hover:opacity-80"
+        className="bg-gradient-to-b from-rose-400 to-rose-500 text-white py-2 md:py-3 px-4 md:mb-16 rounded-lg transition duration-300 ease-in-out hover:opacity-80"
       >
         Reserve
       </button>

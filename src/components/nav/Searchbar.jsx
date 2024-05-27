@@ -4,7 +4,8 @@ import DateModal from "../modal/DateModal";
 import GuestCounter from "../buttons/GuestCounter";
 
 import { FaArrowRight } from "react-icons/fa";
-import { IoFilter, IoLocationOutline } from "react-icons/io5";
+import { FiSearch } from "react-icons/fi";
+import { IoLocationOutline } from "react-icons/io5";
 import { LuCalendarDays } from "react-icons/lu";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiUsersThree } from "react-icons/pi";
@@ -68,27 +69,27 @@ const SearchBar = ({
       </div>
 
       {/* Searchbar */}
-      <div className="flex flex-col lg:ms-12">
-        <div className="flex justify-between items-center bg-white border-2 py-2 px-2 ps-8 rounded-3xl mt-6">
-          <div className="flex w-full">
+      <div className="">
+        <div className="flex gap-12 md:gap-0 justify-between items-center bg-white border-2 py-2 px-2 ps-8 rounded-full md:rounded-3xl mt-3">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-0 w-full">
             {/* Location section */}
             <div
-              className="flex items-center gap-8 cursor-pointer"
+              className="flex items-center gap-4 md:gap-8 cursor-pointer"
               onClick={toggleSearchModal}
             >
               <IoLocationOutline size={25} />
               <div className="flex flex-col">
-                <p className="text-sm text-gray-400">
+                <p className="text-xs md:text-sm text-gray-400">
                   Where do you want to go?
                 </p>
-                <button className="flex items-center text-gray-600 font-semibold max-w-[180px] truncate">
+                <button className="flex items-center text-gray-600 text-sm md:text-base font-semibold max-w-[180px] truncate">
                   {searchText || "Search Destinations"}
                   <MdKeyboardArrowDown size={25} />
                 </button>
               </div>
             </div>
 
-            <div className="border border-gray-300 rounded-full mx-6"></div>
+            <div className="hidden md:block border border-gray-300 rounded-full mx-6"></div>
 
             {/* Guests section */}
             <div className="hidden lg:block">
@@ -107,21 +108,23 @@ const SearchBar = ({
               </div>
             </div>
 
-            <div className="border border-gray-300 rounded-full mx-6"></div>
+            <div className="hidden md:block border border-gray-300 rounded-full mx-6"></div>
 
             {/* Guest section */}
-            <div className="flex items-center gap-6">
-              <PiUsersThree size={28} />
-              <div>
-                <p className="text-sm text-gray-400">Number of guests</p>
-                <GuestCounter onGuestChange={setGuests} />
+            <div className="hidden md:block">
+              <div className="flex items-center gap-6">
+                <PiUsersThree size={28} />
+                <div>
+                  <p className="text-sm text-gray-400">Number of guests</p>
+                  <GuestCounter onGuestChange={setGuests} />
+                </div>
               </div>
             </div>
           </div>
 
           {/* Search button */}
           <button
-            className="flex justify-center items-center gap-6 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ms-8 ps-8 pe-4 py-3 rounded-xl relative"
+            className="hidden md:flex justify-center items-center gap-6 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white md:ms-8 ps-8 pe-4 py-3 rounded-xl relative"
             type="button"
             onClick={handleSearch}
             onMouseEnter={() => setIsHovered(true)}
@@ -134,7 +137,16 @@ const SearchBar = ({
               }`}
             >
               <FaArrowRight />
-            </span>{" "}
+            </span>
+          </button>
+
+          {/* Search icon for mobile */}
+          <button
+            className="md:hidden flex justify-center items-center gap-6 font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white p-3 rounded-full relative"
+            type="button"
+            onClick={handleSearch}
+          >
+            <FiSearch size={18}/>
           </button>
         </div>
         {isSearchModalOpen && (
@@ -152,15 +164,6 @@ const SearchBar = ({
             />
           )}
         </div>
-      </div>
-
-      {/* Filter */}
-      <div className="hidden">
-        <button className="flex items-center gap-3 mt-4 border-2 px-5 py-4 rounded-xl text-sm font-semibold hover:border-rose-400 transition duration-300 ease-in-out">
-          {" "}
-          <IoFilter />
-          Filters
-        </button>
       </div>
     </div>
   );

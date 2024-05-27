@@ -8,6 +8,8 @@ import LoginModal from "../modal/LoginModal.jsx";
 import CreateVenueModal from "../modal/CreateVenueModal.jsx";
 import DefaultUserImage from "../../../public/assets/images/defaultUser.png";
 
+import { RxHamburgerMenu } from "react-icons/rx";
+
 const Navbar = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -15,6 +17,7 @@ const Navbar = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for toggling hamburger menu
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
@@ -79,8 +82,12 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`navbar fixed top-0 left-0 w-full z-20 ${
-        isCreateVenueModalOpen ? "fullscreen" : isNavbarScrolled ? "scrolled" : ""
+    className={`navbar lg:fixed relative lg:top-0 lg:left-0 w-full z-20 ${
+        isCreateVenueModalOpen
+          ? "fullscreen"
+          : isNavbarScrolled
+          ? "scrolled"
+          : ""
       } ${transitioning && !isNavbarScrolled ? "removing" : ""}`}
     >
       <div className="py-4 px-8">
@@ -89,68 +96,114 @@ const Navbar = () => {
             <Link
               to="/"
               className={`with-shadow text-xl font-bold hover:underline ${
-                location.pathname === "/dashboard" ? "text-rose-400" : "text-white"
+                location.pathname === "/dashboard"
+                  ? "text-rose-400"
+                  : "text-white"
               }`}
             >
               Holidaze
             </Link>
-          </div>
-
-          <div className="flex gap-4 font-bold">
-            {isLoggedIn && ( // Only render if user is logged in
-              <Link
-                to="/dashboard"
-                className={`font-bold hover:underline ${
-                  location.pathname === "/dashboard"
-                    ? "text-rose-400"
-                    : "text-white with-shadow"
-                }`}
-              >
-                Dashboard
-              </Link>
-            )}
-            {isLoggedIn && ( // Only render if user is logged in
-              <button
-                className={`hover:underline ${
-                  location.pathname === "/dashboard"
-                    ? "text-rose-400 "
-                    : "text-white with-shadow"
-                }`}
-                onClick={openCreateVenueModal}
-              >
-                Create Venue
-              </button>
-            )}
-          </div>
-
-          <div className="flex gap-4 items-center">
-            {isLoggedIn && userProfile ? (
-              <>
-                <Link to="/dashboard">
-                  <img
-                    src={
-                      userProfile.avatar.url ===
-                      "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400"
-                        ? DefaultUserImage
-                        : userProfile.avatar.url
-                    }
-                    alt={userProfile.avatar.alt}
-                    className="w-12 h-12 rounded-full"
-                  />
+            {isLoggedIn && (
+              <div className="hidden lg:flex">
+                <Link
+                  to="/dashboard"
+                  className={` text-white ${
+                    location.pathname === "/dashboard" ? "text-rose-400" : ""
+                  }`}
+                >
+                  Dashboard
                 </Link>
-              </>
+                <div className={` text-white`} onClick={openCreateVenueModal}>
+                  Create Venue
+                </div>
+              </div>
+            )}
+          </div>
+
+
+          {/* Hamburger Menu Button */}
+          <div className="flex items-center">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="block lg:hidden text-white"
+            >
+              <div className="p-3 text-gray-700 bg-white rounded-full border-2">
+                <RxHamburgerMenu size={18} />
+              </div>
+            </button>
+          </div>
+
+          {/* Dropdown Menu */}
+          {isMenuOpen && (
+            <div className="absolute top-full right-0 bg-white mt-1 rounded-lg shadow-lg">
+              <div className="py-1">
+                {isLoggedIn && (
+                  <>
+                    <Link
+                      to="/dashboard"
+                      className={`block px-4 py-2 text-gray-800 hover:bg-gray-200 ${
+                        location.pathname === "/dashboard"
+                          ? "text-rose-400"
+                          : ""
+                      }`}
+                    >
+                      Dashboard
+                    </Link>
+                    <div
+                      className={`block px-4 py-2 text-gray-800 hover:bg-gray-200`}
+                      onClick={openCreateVenueModal}
+                    >
+                      Create Venue
+                    </div>
+                  </>
+                )}
+                {!isLoggedIn && (
+                  <>
+                    <button
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      onClick={openLoginModal}
+                    >
+                      Login
+                    </button>
+                    <button
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      onClick={openRegisterModal}
+                    >
+                      Register
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* User Profile Section */}
+          <div className="hidden lg:flex items-center">
+            {isLoggedIn && userProfile ? (
+              <Link to="/dashboard">
+                <img
+                  src={
+                    userProfile.avatar.url ===
+                    "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400"
+                      ? DefaultUserImage
+                      : userProfile.avatar.url
+                  }
+                  alt={userProfile.avatar.alt}
+                  className="w-12 h-12 rounded-full"
+                />
+              </Link>
             ) : isLoggedIn ? (
               <p>Loading...</p>
             ) : (
               <>
                 <p
-                  className="cursor-pointer text-xl font-bold hover:underline"
+                  className="with-shadow font-semibold hover:underline cursor-pointer"
                   onClick={openLoginModal}
                 >
                   Login
                 </p>
                 <p
-                  className="cursor-pointer text-xl font-bold hover:underline"
+                  className="font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ms-6 px-8 py-2 rounded-lg cursor-pointer"
                   onClick={openRegisterModal}
                 >
                   Register

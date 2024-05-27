@@ -90,7 +90,7 @@ export default function Calendar({ handleDateChange }) {
               return (
                 <div
                   key={index}
-                  className="p-2 text-center h-14 grid place-content-center text-sm border-t"
+                  className="p-2 text-center h-10 md:h-14  grid place-content-center text-xs md:text-sm border-t"
                 >
                   <h1
                     className={cn(
@@ -139,7 +139,7 @@ export default function Calendar({ handleDateChange }) {
             return (
               <h1
                 key={index}
-                className="text-sm text-center h-14 w-14 grid place-content-center text-gray-500 select-none"
+                className="text-xs md:text-sm text-center h-8 w-8 md:h-14 md:w-14 grid place-content-center text-gray-500 select-none"
               >
                 {day}
               </h1>
@@ -153,7 +153,7 @@ export default function Calendar({ handleDateChange }) {
               return (
                 <div
                   key={index}
-                  className="p-2 text-center h-14 grid place-content-center text-sm border-t"
+                  className="p-2 text-center h-10 md:h-14 grid place-content-center text-xs md:text-sm border-t"
                 >
                   <h1
                     className={cn(
