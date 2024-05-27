@@ -19,7 +19,7 @@ const DateModal = ({ onClose, handleDateChange }) => {
   return (
     <div
       id="searchModal"
-      className="md:absolute md:w-[800px] md:h-[500px] bg-white border-2 rounded-3xl mt-3 ms-6 p-6 cursor-pointer z-50"
+      className="absolute w-[400px] md:w-[800px] md:h-[500px] bg-white border-2 rounded-3xl mt-3 ms-6 p-6 cursor-pointer z-50"
     >
       <div className="flex justify-center items-center">
         <Calendar handleDateChange={handleDateChange} />

@@ -82,10 +82,10 @@ const Navbar = () => {
 
   return (
     <nav
-    className={`navbar lg:fixed relative lg:top-0 lg:left-0 w-full z-20 ${
+      className={`navbar fixed top-0 left-0 w-full z-20 ${
         isCreateVenueModalOpen
           ? "fullscreen"
-          : isNavbarScrolled
+          : isNavbarScrolled && !isMenuOpen && window.innerWidth > 768 // Check if menu is closed and screen width is above 768px
           ? "scrolled"
           : ""
       } ${transitioning && !isNavbarScrolled ? "removing" : ""}`}
@@ -120,13 +120,13 @@ const Navbar = () => {
             )}
           </div>
 
-
           {/* Hamburger Menu Button */}
           <div className="flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="block lg:hidden text-white"
             >
+              {/* You can use any icon for the hamburger menu */}
               <div className="p-3 text-gray-700 bg-white rounded-full border-2">
                 <RxHamburgerMenu size={18} />
               </div>

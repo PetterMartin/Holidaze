@@ -61,26 +61,25 @@ const AllVenues = ({
       <h1 id="title" className="mb-4 md:mb-6 text-2xl md:text-3xl font-semibold text-gray-700">
         Find your new home
       </h1>
-      <div className="flex justify-between mb-2 text-gray-700">
+      <div className="flex items-center justify-between mb-3 text-gray-700">
         <div className="flex items-center gap-2">
           {searchClicked && (
-            <p className="mb-3 text-sm text-gray-400">
+            <p className="text-sm text-gray-400">
               ({venues.length} Results)
             </p>
           )}
         </div>
 
         {searchClicked && (
-          <div className="flex gap-6 text-sm pe-4">
+          <div className="flex item gap-4 mb:gap-6 text-sm pe-4">
             <div className="flex items-center gap-2">
               <IoLocationOutline size={20} />
               <p className="capitalize">{searchText}</p>
             </div>
             <div className="flex items-center gap-2">
               <LuCalendarDays size={18} />
-              <p>24-26 july</p>
+              <p>Date</p>
             </div>
-
             <div className="flex items-center gap-2">
               <PiUsersThree size={20} />
               <p>
@@ -116,7 +115,7 @@ const AllVenues = ({
                         selectedLayout === "grid2" ? "h-96" : "md:h-48"
                       } object-cover rounded-t-2xl mb-1`}
                     />
-                    <div className="absolute top-4 left-4 z-10">
+                    <div className="absolute top-4 left-4 z-5">
                       <LikeButton onClick={handleLikeButtonClick} />
                     </div>
                     <div className="absolute top-4 right-4 flex gap-2 items-center text-white py-2 px-3 rounded-full bg-opacity-70 backdrop-filter backdrop-blur-xl">

@@ -14,27 +14,39 @@ const Home = () => {
   const [searchClicked, setSearchClicked] = useState(false);
   const [selectedLayout, setSelectedLayout] = useState("grid4");
   const [isSearchBarFixed, setIsSearchBarFixed] = useState(false);
-
-  const allVenuesRef = useRef(null);
   const searchBarRef = useRef(null);
+  const [searchBarInitialTop, setSearchBarInitialTop] = useState(null);
+  const allVenuesRef = useRef(null); // Add a ref for AllVenues
 
   useEffect(() => {
     fetchData();
+
     const handleScroll = () => {
       if (searchBarRef.current) {
         const searchBarTop = searchBarRef.current.getBoundingClientRect().top;
+        if (!isSearchBarFixed && searchBarInitialTop === null) {
+          setSearchBarInitialTop(searchBarRef.current.offsetTop);
+        }
         setIsSearchBarFixed(searchBarTop <= 0);
+        if (
+          searchBarInitialTop !== null &&
+          window.pageYOffset <= searchBarInitialTop
+        ) {
+          setIsSearchBarFixed(false);
+        }
       }
     };
+
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isSearchBarFixed, searchBarInitialTop]);
 
   const fetchData = async () => {
     try {
-      await searchVenues({ guests: 0, searchText: "" });
+      await searchVenues({ guests: guestNumber, searchText });
     } catch (error) {
       console.error("Error fetching venues:", error);
     }
@@ -42,24 +54,14 @@ const Home = () => {
 
   const handleSearch = async ({ guests, searchText }) => {
     try {
-      if (guests !== undefined && searchText !== undefined) {
-        setSearchText(searchText);
-        setGuestNumber(guests);
-        setSearchClicked(true);
-        await searchVenues({ guests, searchText }); // Pass selectedDates here
+      setSearchText(searchText);
+      setGuestNumber(guests);
+      setSearchClicked(true);
+      await searchVenues({ guests, searchText });
 
-        // Scroll to AllVenues section with an offset
-        if (allVenuesRef.current) {
-          const elementPosition =
-            allVenuesRef.current.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      } else {
-        console.error("Error: Guests or searchText is undefined.");
+      // Scroll to AllVenues section with an offset
+      if (allVenuesRef.current) {
+        allVenuesRef.current.scrollIntoView({ behavior: "smooth" });
       }
     } catch (error) {
       console.error("Error searching venues:", error);
@@ -91,8 +93,8 @@ const Home = () => {
         </div>
         <div
           ref={searchBarRef}
-          className={`md:absolute md:top-[540px] w-full z-10 ${
-            isSearchBarFixed ? "fixed top-0 left-0 shadow" : ""
+          className={`md:absolute md:top-[540px] w-full z-20 ${
+            isSearchBarFixed ? "fixed top-0 left-0" : ""
           }`}
         >
           <SearchBar
@@ -102,7 +104,7 @@ const Home = () => {
           />
         </div>
         <Highlights onSearch={handleSearch} />
-        <div className="mt-auto" ref={allVenuesRef}>
+        <div className="mt-auto" ref={allVenuesRef}> {/* Add ref here */}
           <AllVenues
             venues={venues}
             selectedVenueId={selectedVenueId}

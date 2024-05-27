@@ -93,6 +93,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
           >
             <div id="single-venue" className="flex w-full xl:w-4/5 h-full">
               <div className="hidden xl:block">
+                {/* Duplicate the button for bigger screens */}
                 <button
                   id="closeButton"
                   className="w-9 h-9 m-4 bg-white border-2 rounded-full flex items-center justify-center transition duration-200 ease-in-out hover:bg-gray-700 hover:border-gray-700 hover:text-white"
@@ -103,23 +104,23 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
               </div>
 
               <div className="w-full overflow-y-auto bg-white overflow-hidden shadow-lg relative">
-                <div className="block xl:hidden">
-                  <button
-                    id="closeButton"
-                    className="w-10 h-9 m-4 bg-white rounded-full flex items-center justify-center hover:bg-black"
-                    onClick={closeModal}
-                  >
-                    <FaArrowLeft size={14} className="text-black" />
-                  </button>
-                </div>
                 <div className=" md:ps-8 md:pe-4">
                   <div className="flex flex-col md:flex-row pb-2 md:py-8 gap-4">
-                    <div className="w-full md:h-[65vh] overflow-hidden md:rounded-3xl relative">
+                    <div className="w-full h-[72vh]  md:h-[65vh] overflow-hidden md:rounded-3xl relative">
                       <img
                         src={venue.media[0].url}
                         alt=""
                         className="object-cover w-full h-full"
                       />
+                      <div className="block xl:hidden">
+                        <button
+                          id="closeButton"
+                          className="fixed top-1 left-0 w-9 h-9 m-4 bg-white border rounded-full flex items-center justify-center hover:bg-black z-10"
+                          onClick={closeModal}
+                        >
+                          <FaArrowLeft size={14} className="text-black" />
+                        </button>
+                      </div>
                       <div className="absolute bottom-5 left-5 bg-white py-1.5 px-3 rounded-xl text-sm border-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-700 hover:border-gray-700 hover:text-white">
                         View All Photos
                       </div>
@@ -152,7 +153,7 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                   </div>
 
                   {/* Display booked dates */}
-                  <div className="flex flex-col md:flex-row justify-between ps-4 pe-4 md:ps-0 md:pe-0">
+                  <div className="flex flex-col lg:flex-row justify-between ps-4 pe-4 md:ps-0 md:pe-0">
                     {/* Left Side */}
                     <div className="w-full flex flex-col md:gap-2 me-8">
                       <div className="flex justify-between">

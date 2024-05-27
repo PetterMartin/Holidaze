@@ -70,7 +70,7 @@ const BookingForm = ({ venue }) => {
       className="flex flex-col bg-gray-100 border rounded-xl p-6 gap-6 max-h-[500px]"
     >
       {showDateModal && (
-        <div className="absolute top-40 left-0 ml-[-480px]">
+        <div className="absolute top-40 left-0 ml-[-50px] md:ml-[-480px]">
           <DateModal
             onClose={() => setShowDateModal(false)}
             handleDateChange={handleDateChange}

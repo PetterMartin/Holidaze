@@ -62,29 +62,6 @@ body,
 .navbar.removing {
   background-color: transparent;
 }
-
-.dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #74df82;
-  box-shadow: 0 0 5px #74df82, 0 0 20px #74df82;
-  animation: glowing 1.5s ease-in-out infinite;
-}
-
-@keyframes glowing {
-  0% {
-      box-shadow: 0 0 5px #74df82, 0 0 20px #74df82;
-  }
-  50% {
-      box-shadow: 0 0 20px #74df82, 0 0 40px #74df82;
-  }
-  100% {
-      box-shadow: 0 0 5px #74df82, 0 0 20px #74df82;
-  }
-}
-
 @layer utilities {
   .flex-center {
     @apply flex items-center justify-center

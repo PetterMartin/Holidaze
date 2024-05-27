@@ -55,7 +55,7 @@ export default function Calendar({ handleDateChange }) {
   };
 
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-col md:flex-row gap-2 md:gap-8">
       {/* Current Month Calendar */}
       <div className="w-80 h-80 mr-8">
         <div className="flex items-center justify-between">
@@ -67,7 +67,7 @@ export default function Calendar({ handleDateChange }) {
           >
             <GrFormPrevious className="w-5 h-5 cursor-pointer hover:scale-105 transition-all" />
           </button>
-          <h1 className="select-none text-lg font-semibold">
+          <h1 className="select-none md:text-lg font-semibold">
             {months[today.month()]}, {today.year()}
           </h1>
           <div></div>
