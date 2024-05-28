@@ -1,15 +1,9 @@
-import {
-    FaArrowRight,
-    FaCcVisa,
-    FaApplePay,
-    FaPaypal,
-    FaCcAmex,
-    FaCcMastercard,
-  } from "react-icons/fa";
-  import { HiOutlineMail } from "react-icons/hi";
-  import { GrLocation } from "react-icons/gr";
-  import { MdPhone } from "react-icons/md";
-  import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaArrowRight, FaCcVisa, FaApplePay, FaPaypal, FaCcAmex, FaInstagram, FaCcMastercard } from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
+import { GrLocation } from "react-icons/gr";
+import { LiaPhoneVolumeSolid } from "react-icons/lia";
+import { FaFacebookF } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
   
   const Footer = () => {
     return (
@@ -17,12 +11,12 @@ import {
         <div className="flex justify-center md:justify-between py-10">
           <div className="flex flex-col gap-4 items-center md:items-start md:mt-10">
             <div className="flex gap-2 items-center text-sm">
-              <MdPhone size={20} />
+              <LiaPhoneVolumeSolid size={20} />
               (+47)875-462-0127
             </div>
             <div className="flex gap-2 items-center text-sm">
               <HiOutlineMail size={20} />
-              contact@example.com
+              holidaze@example.com
             </div>
             <div className="flex gap-2 max-w-[150px] text-sm">
               <GrLocation size={30} />
@@ -112,7 +106,7 @@ import {
               size={23}
               className="hover:text-neutral-500 cursor-pointer"
             />
-            <FaTwitter
+            <FaXTwitter
               size={21}
               className="hover:text-neutral-500 cursor-pointer"
             />

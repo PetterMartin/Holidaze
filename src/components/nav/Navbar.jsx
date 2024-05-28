@@ -10,7 +10,12 @@ import CreateVenueModal from "../modal/CreateVenueModal.jsx";
 import DefaultUserImage from "../../../public/assets/images/defaultUser.png";
 import LogoutButton from "../buttons/LogoutButton.jsx";
 
+import { HiOutlineMail } from "react-icons/hi";
+import { LiaPhoneVolumeSolid } from "react-icons/lia";
+import { LuUser } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { SiGooglehome } from "react-icons/si";
+import { TbSmartHome } from "react-icons/tb";
 
 const Navbar = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -93,35 +98,30 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full">
-      <div className="py-4 px-8">
-        <div className="flex justify-between items-center text-white relative">
+    <nav className="w-full shadow-sm">
+      <div className="py-3 px-8">
+        <div className="flex justify-between items-center text-gray-700 relative">
           <div className="flex gap-8">
-            <Link
-              to="/"
-              className={`with-shadow text-xl font-bold hover:underline ${
-                location.pathname === "/dashboard"
-                  ? "text-rose-400"
-                  : "text-white"
-              }`}
-            >
-              Holidaze
-            </Link>
-            {isLoggedIn && (
-              <div className="hidden lg:flex">
-                <Link
-                  to="/dashboard"
-                  className={` text-white ${
-                    location.pathname === "/dashboard" ? "text-rose-400" : ""
-                  }`}
-                >
-                  Dashboard
-                </Link>
-                <div className={` text-white`} onClick={openCreateVenueModal}>
-                  Create Venue
+            <div className="flex items-center gap-4">
+              <div className="text-rose-500/90">
+                <SiGooglehome size={22} />
+              </div>
+              <Link to="/" className="font-semibold text-lg mt-1">
+                Holidaze
+              </Link>
+              <div className="hidden lg:block">
+                <div className="flex gap-4 items-center px-4 border-s border-e">
+                  <div className="flex gap-2 items-center text-sm">
+                    <LiaPhoneVolumeSolid size={20} />
+                    (+47)875-462-0127
+                  </div>
+                  <div className="flex gap-2 items-center text-sm border-s ps-4">
+                    <HiOutlineMail size={20} />
+                    holidaze@example.com
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Hamburger Menu Button */}
@@ -196,18 +196,30 @@ const Navbar = () => {
           {/* User Profile Section */}
           <div className="hidden lg:flex items-center">
             {isLoggedIn && userProfile ? (
-              <Link to="/dashboard">
-                <img
-                  src={
-                    userProfile.avatar.url ===
-                    "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400"
-                      ? DefaultUserImage
-                      : userProfile.avatar.url
-                  }
-                  alt={userProfile.avatar.alt}
-                  className="w-12 h-12 rounded-full"
-                />
-              </Link>
+              <div className="flex items-center gap-4">
+                <div className="flex gap-4 px-4 border-s border-e text-sm">
+                  <Link to="/dashboard" className="flex items-center gap-2">
+                    <LuUser size={18}/>
+                    Dashboard
+                  </Link>
+                  <div className="flex items-center gap-2 border-s ps-4" onClick={openCreateVenueModal}>
+                    <TbSmartHome size={20}/>
+                    Host a venue
+                  </div>
+                </div>
+                <Link to="/dashboard">
+                  <img
+                    src={
+                      userProfile.avatar.url ===
+                      "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400"
+                        ? DefaultUserImage
+                        : userProfile.avatar.url
+                    }
+                    alt={userProfile.avatar.alt}
+                    className="w-12 h-12 rounded-full border-2 hover:border-rose-400 hover:scale-110 transition"
+                  />
+                </Link>
+              </div>
             ) : isLoggedIn ? (
               <p>Loading...</p>
             ) : (

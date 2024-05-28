@@ -90,7 +90,7 @@ const Home = () => {
             Apartments for a day
           </h1>
           <p className="with-shadow md:text-lg fade-in">
-            Find and choose the perfect home for you
+            Find your perfect place
           </p>
         </div>
         <div

@@ -2,7 +2,6 @@ import { gsap } from "gsap";
 import { useEffect, useState, useLayoutEffect } from "react";
 import useVenueData from "../../../hooks/useVenuesById";
 import BookingForm from "./BookingForm";
-import LikeButton from "../../buttons/LikeButton";
 import GoogleMaps from "../../calendar/GoogleMaps";
 import LocationDetails from "./LocationDetails";
 import VenuesFeatures from "./VenuesFeatures";
