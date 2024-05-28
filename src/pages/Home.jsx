@@ -96,7 +96,7 @@ const Home = () => {
         <div
           ref={searchBarRef}
           className={`w-full z-10 ${
-            isSearchBarSticky ? "sticky top-0" : "sticky top-0"
+            isSearchBarSticky ? "sticky top-0" : "md:absolute md:top-[550px]"
           }`}
         >
           <SearchBar
