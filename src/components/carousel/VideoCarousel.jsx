@@ -2,6 +2,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
 import { useEffect, useRef, useState } from "react";
 
 import { hightlightsSlides } from "../../constants";
@@ -12,8 +14,12 @@ const VideoCarousel = ({ onSearch }) => {
   const videoSpanRef = useRef([]);
   const videoDivRef = useRef([]);
 
+  useEffect(() => {
+    defineElement(lottie.loadAnimation);
+  }, []);
+
   gsap.config({
-    nullTargetWarn: false
+    nullTargetWarn: false,
   });
 
   const [video, setVideo] = useState({
@@ -151,10 +157,9 @@ const VideoCarousel = ({ onSearch }) => {
 
   const handleTextClick = (clickedText) => {
     const searchText = clickedText.split(",")[1].trim().toLowerCase();
-    
-    onSearch({ searchText, guests: 1 }); 
-  };
 
+    onSearch({ searchText, guests: 1 });
+  };
 
   return (
     <>
@@ -188,7 +193,7 @@ const VideoCarousel = ({ onSearch }) => {
               </div>
 
               <div className="absolute bottom-10 left-[5%] z-10 text-white">
-              {list.textLists.map((text, j) => (
+                {list.textLists.map((text, j) => (
                   <p
                     key={j}
                     className="md:text-2xl text-xl with-shadow cursor-pointer"
@@ -220,18 +225,37 @@ const VideoCarousel = ({ onSearch }) => {
           ))}
         </div>
 
-        <button className="ml-4 p-1 rounded-full border-2 flex items-center hover:border-gray-400 transition duration-300 ease-in-out">
-          <img
-            src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
-            alt={isLastVideo ? "replay" : !isPlaying ? "play" : "pause"}
-            onClick={
-              isLastVideo
-                ? () => handleProcess("video-reset")
-                : !isPlaying
-                ? () => handleProcess("play")
-                : () => handleProcess("pause")
-            }
-          />
+        <button
+          className="video ml-4 p-1 rounded-full border-2 flex items-center hover:border-gray-400 transition duration-300 ease-in-out"
+          onClick={() =>
+            handleProcess(
+              isLastVideo ? "video-reset" : isPlaying ? "pause" : "play"
+            )
+          }
+        >
+          {/* replace the img tag with the Lordicon */}
+          {isLastVideo ? (
+            <lord-icon
+              src="https://cdn.lordicon.com/rsbokaso.json"
+              trigger="hover"
+              target=".video"
+              style={{ width: 18, height: 18 }} // adjust size as needed
+            ></lord-icon>
+          ) : !isPlaying ? (
+            <lord-icon
+              src="https://cdn.lordicon.com/aklfruoc.json"
+              trigger="hover"
+              target=".video"
+              style={{ width: 18, height: 18 }} // adjust size as needed
+            ></lord-icon>
+          ) : (
+            <lord-icon
+              src="https://cdn.lordicon.com/ptvmrrcc.json"
+              trigger="hover"
+              target=".video"
+              style={{ width: 18, height: 18 }} // adjust size as needed
+            ></lord-icon>
+          )}
         </button>
       </div>
     </>
