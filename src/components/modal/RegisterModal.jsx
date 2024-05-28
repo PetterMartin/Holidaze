@@ -81,7 +81,7 @@ const RegisterModal = ({ isModalOpen, setModalOpen }) => {
         <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/50">
           <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto">
             <div>
-              <div className="h-full lg:h-auo md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-one">
+              <div className="h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-one">
                 <div className="flex items-center py-4 rounded-t justify-center relative border-b-[1px]">
                   <button
                     className="p-1 border-0 hover:text-gray-400 transition absolute left-9"
@@ -93,14 +93,14 @@ const RegisterModal = ({ isModalOpen, setModalOpen }) => {
                 </div>
                 <div className="relative px-6 flex-auto">
                   <div className="text-start">
-                    <div className="text-2xl mt-4">Welcome to Airbnb</div>
-                    <div className="font-light text-neutral-500 mt-2 mb-6">
+                    <div className="text-xl md:text-2xl mt-4">Welcome to Airbnb</div>
+                    <div className="text-sm md:text-base text-neutral-500 mt-2 mb-6">
                       Create an account
                     </div>
                   </div>
 
                   {labels.map((label, index) => (
-                    <div className="w-full relative mb-4" key={index}>
+                    <div className="text-sm md:text-base w-full relative mb-4" key={index}>
                       <input
                         type={
                           label.toLowerCase() === "email"
@@ -165,14 +165,14 @@ const RegisterModal = ({ isModalOpen, setModalOpen }) => {
 
 
                   <button
-                    className="w-full p-4 bg-gradient-to-b from-rose-600 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out hover:opacity-80"
+                    className="w-full p-4 bg-gradient-to-b from-rose-400 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out hover:opacity-80"
                     onClick={handleRegistration}
                   >
                     Continue
                   </button>
                 </div>
                 {/* FOOTER */}
-                <div className="flex flex-col gap-4 p-6">
+                <div className="text-sm md:text-base flex flex-col gap-4 p-6">
                   <hr />
                   <button className="flex items-center w-full p-3 font-light bg-white border-2 border-gray-800 rounded-md outline-none transition duration-200 ease-in-out hover:bg-gray-800 hover:text-white">
                     <FcGoogle size={24} className="mr-2" />

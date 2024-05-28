@@ -137,6 +137,7 @@ const BookingForm = ({ venue }) => {
               : "End Date"}
           </button>
         </div>
+        {message && <p className="text-red-500">{message}</p>}
       </div>
       <div>
         <p className="text-sm text-gray-400">Number of guests</p>
@@ -167,7 +168,6 @@ const BookingForm = ({ venue }) => {
       >
         Reserve
       </button>
-      {message && <p className="text-red-500">{message}</p>}
     </form>
   );
 };

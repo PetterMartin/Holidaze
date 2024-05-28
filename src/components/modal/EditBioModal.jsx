@@ -90,7 +90,7 @@ const EditBioModal = ({ handleUpdateBio, handleBioChange, onClose }) => {
                 <button
                   onClick={handleUpdate}
                   disabled={loading}
-                  className={`w-full p-3 bg-gradient-to-b from-rose-600 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out ${
+                  className={`text-sm md:text-base w-full p-3 bg-gradient-to-b from-rose-400 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out ${
                     loading ? "opacity-50 cursor-not-allowed" : "hover:opacity-80"
                   }`}
                 >

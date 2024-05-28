@@ -92,7 +92,7 @@ const ProfileInformation = ({
       <div className="flex flex-col md:flex-row items-center justify-between mt-4 pt-4 pb-2 border-t">
         <div className="flex flex-col items-center md:items-start">
           <h1 className="text-xl font-semibold">About</h1>
-          <p className="text-gray-500">{userBio}</p>
+          <p className="text-gray-500 max-w-96">{userBio}</p>
         </div>
         <div className="mt-4 ms-0.5">
           {isAuthenticated && isUser && (

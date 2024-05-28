@@ -85,14 +85,14 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
                 </div>
                 <div className="relative p-6 flex-auto">
                   <div className="text-start">
-                    <div className="text-2xl">Welcome back</div>
-                    <div className="font-light text-neutral-500 mt-2 mb-6">
+                    <div className="text-xl md:text-2xl">Welcome back</div>
+                    <div className="text-sm md:text-base text-neutral-500 mt-2 mb-6">
                       Login to your account
                     </div>
                   </div>
 
                   {labels.map((label, index) => (
-                    <div className="w-full relative mb-6" key={index}>
+                    <div className="text-sm md:text-base w-full relative mb-6" key={index}>
                       <input
                         data-cy={label}
                         type={
@@ -103,7 +103,7 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
                           handleInputChange(label, e.target.value)
                         }
                         autoComplete={label.toLowerCase() === "email" ? "email":label.toLowerCase() === "password" ? "current-password": ""}
-                        className="peer w-full p-4 pt-6 font-light bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
+                        className="peer w-full p-4 pt-6 bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
                       />
                       <label
                         className="
@@ -139,7 +139,7 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
                       </p>
                       <button
                         data-cy="login-btn"
-                        className="w-full p-4 bg-gradient-to-b from-rose-600 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out hover:opacity-80"
+                        className="text-sm md:text-base w-full p-4 bg-gradient-to-b from-rose-400 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out hover:opacity-80"
                         onClick={handleLogin}
                       >
                         Continue
@@ -148,7 +148,7 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
                   ) : (
                     <button
                       data-cy="login-btn"
-                      className="w-full p-4 bg-gradient-to-b from-rose-600 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out hover:opacity-80"
+                      className="text-sm md:text-base w-full p-4 bg-gradient-to-b from-rose-400 to-rose-500 text-white font-semibold rounded-md transition duration-200 ease-in-out hover:opacity-80"
                       onClick={handleLogin}
                     >
                       Continue
@@ -156,7 +156,7 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
                   )}
                 </div>
                 {/* FOOTER */}
-                <div className="flex flex-col gap-4 p-6">
+                <div className="text-sm md:text-base flex flex-col gap-4 p-6">
                   <hr />
                   <button className="flex items-center w-full p-3 font-light bg-white border-2 border-gray-800 rounded-md outline-none transition duration-200 ease-in-out hover:bg-gray-800 hover:text-white">
                     <FcGoogle size={24} className="mr-2" />

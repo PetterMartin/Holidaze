@@ -173,20 +173,30 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/dashboard"
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                    className="flex items-center justify-between px-4 py-2 text-gray-800 hover:bg-gray-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    My Profile
+                    Dashboard
+                    <lord-icon
+                      src="https://cdn.lordicon.com/kthelypq.json"
+                      trigger="hover"
+                      style={{ width: 22, height: 22 }}
+                    ></lord-icon>
                   </Link>
                   <div className="border border-gray-100 mx-2"></div>
                   <div
-                    className={`block px-4 py-3 text-gray-800 hover:bg-gray-200`}
+                    className={`flex items-center justify-between gap-4 px-4 py-3 text-gray-800 hover:bg-gray-200`}
                     onClick={() => {
                       setIsMenuOpen(false);
                       openCreateVenueModal();
                     }}
                   >
-                    Create Venue
+                    Host a venue
+                    <lord-icon
+                      src="https://cdn.lordicon.com/cnpvyndp.json"
+                      trigger="hover"
+                      style={{ width: 22, height: 22 }}
+                    ></lord-icon>
                   </div>
                   <div className="border border-gray-100 mx-2"></div>
                   <LogoutButton />
@@ -266,7 +276,7 @@ const Navbar = () => {
             ) : (
               <>
                 <p
-                  className="with-shadow font-semibold hover:underline cursor-pointer"
+                  className=" hover:underline cursor-pointer"
                   onClick={openLoginModal}
                 >
                   Login

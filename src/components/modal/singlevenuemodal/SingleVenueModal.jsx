@@ -210,7 +210,6 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                               venue.description.length > 200 && (
                                 <div
                                   className="absolute bottom-0 left-0 w-full"
-                                  style={{ zIndex: 1 }}
                                 >
                                   <div
                                     className="h-20 bg-gradient-to-t from-white via-white to-transparent"
