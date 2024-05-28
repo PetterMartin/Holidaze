@@ -38,7 +38,6 @@ const Home = () => {
         setSearchClicked(true);
         await searchVenues({ guests, searchText });
 
-        // Scroll to AllVenues section with an offset
         if (allVenuesRef.current) {
           const elementPosition =
             allVenuesRef.current.getBoundingClientRect().top;
@@ -85,14 +84,6 @@ const Home = () => {
           />
           <div className="absolute inset-0 bg-gray-700 opacity-30"></div>
         </div>
-        <div className="text-container w-full flex flex-col items-center gap-3 absolute top-20 md:top-48 left-[50%] transform translate-x-[-50%] -translate-y-[-50%] text-white z-10">
-          <h1 className="with-shadow text-2xl md:text-6xl font-bold fade-in">
-          Your Home Away from Home
-          </h1>
-          <p className="with-shadow md:text-lg fade-in">
-            Find your perfect hideaway
-          </p>
-        </div>
         <div
           ref={searchBarRef}
           className={`w-full z-10 ${
@@ -104,6 +95,14 @@ const Home = () => {
             selectedLayout={selectedLayout}
             handleLayoutClick={handleLayoutClick}
           />
+        </div>
+        <div className="text-container w-full flex flex-col items-center gap-3 absolute top-20 md:top-48 left-[50%] transform translate-x-[-50%] -translate-y-[-50%] text-white z-10">
+          <h1 className="with-shadow text-2xl md:text-6xl font-bold fade-in">
+          Your Home Away from Home
+          </h1>
+          <p className="with-shadow md:text-lg fade-in">
+            Find your perfect hideaway
+          </p>
         </div>
         <Highlights onSearch={handleSearch} />
         <div className="mt-auto" ref={allVenuesRef}>
