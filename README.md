@@ -1,6 +1,6 @@
 # React + Vite
 
-![image](/src//assets/images/Holidaze-Screenshot.png)
+![image](/src//assets/images//Holidaze-Screenshot.png)
 
 - Deployed site: https://polite-sable-e2644b.netlify.app/
 
