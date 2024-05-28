@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { gsap } from "gsap";
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
 import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/auth/Auth.jsx";
 import { getProfile } from "../../libs/api/Profiles.js";
@@ -26,6 +28,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State for toggling hamburger menu
   const { isLoggedIn } = useAuth();
   const menuRef = useRef(null);
+
+  useEffect(() => {
+    defineElement(lottie.loadAnimation);
+  }, []);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -97,27 +103,49 @@ const Navbar = () => {
     setIsCreateVenueModalOpen(false);
   };
 
+  const handleMouseEnter = () => {
+    gsap.to(".googlehome-icon", { rotation: 100, duration: 0.3, repeat: 1, yoyo: true });
+  };
+
+
+
   return (
     <nav className="w-full shadow-sm">
       <div className="py-1 px-8">
         <div className="flex justify-between items-center text-gray-700 relative">
           <div className="flex gap-8">
             <div className="flex items-center gap-4">
-              <Link
+            <Link
                 to="/"
-                className="flex gap-2 font-semibold text-lg mt-1"
+                className="flex gap-2 font-semibold text-lg mt-1 items-center"
+                onMouseEnter={handleMouseEnter}
               >
-                <SiGooglehome size={22} className="text-rose-500/90" />
-                Holidaze
+                <SiGooglehome
+                  size={22}
+                  className="text-rose-500/90 googlehome-icon"
+                  style={{ transition: "transform 0.5s" }}
+                />
+                <span>Holidaze</span>
               </Link>
+
               <div className="hidden lg:block">
                 <div className="flex gap-4 items-center px-4 border-s border-e">
-                  <div className="flex gap-2 items-center text-sm">
-                    <LiaPhoneVolumeSolid size={20} />
+                  <div className="phone flex gap-2 items-center text-sm">
+                    <lord-icon
+                      src="https://cdn.lordicon.com/rsvfayfn.json"
+                      trigger="hover"
+                      target=".phone"
+                      style={{ width: 22, height: 22 }}
+                    ></lord-icon>
                     (+47)875-462-0127
                   </div>
-                  <div className="flex gap-2 items-center text-sm border-s ps-4">
-                    <HiOutlineMail size={20} />
+                  <div className="email flex gap-2 items-center text-sm border-s ps-4">
+                    <lord-icon
+                      src="https://cdn.lordicon.com/nzixoeyk.json"
+                      trigger="hover"
+                      target=".email"
+                      style={{ width: 22, height: 22 }}
+                    ></lord-icon>
                     holidaze@example.com
                   </div>
                 </div>
@@ -199,15 +227,28 @@ const Navbar = () => {
             {isLoggedIn && userProfile ? (
               <div className="flex items-center gap-4">
                 <div className="flex gap-4 px-4 border-s border-e text-sm">
-                  <Link to="/dashboard" className="flex items-center gap-2">
-                    <LuUser size={18} />
+                  <Link
+                    to="/dashboard"
+                    className="person flex items-center gap-2"
+                  >
+                    <lord-icon
+                      src="https://cdn.lordicon.com/kthelypq.json"
+                      trigger="hover"
+                      target=".person"
+                      style={{ width: 22, height: 22 }}
+                    ></lord-icon>
                     Dashboard
                   </Link>
                   <div
-                    className="flex items-center gap-2 border-s ps-4"
+                    className="house flex items-center gap-2 border-s ps-4 cursor-pointer"
                     onClick={openCreateVenueModal}
                   >
-                    <TbSmartHome size={20} />
+                    <lord-icon
+                      src="https://cdn.lordicon.com/cnpvyndp.json"
+                      trigger="hover"
+                      target=".house"
+                      style={{ width: 22, height: 22 }}
+                    ></lord-icon>
                     Host a venue
                   </div>
                 </div>

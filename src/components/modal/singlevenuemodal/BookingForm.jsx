@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
 import { createBooking } from "../../../libs/api/Bookings";
 import DateModal from "../DateModal";
 import GuestCounter from "../../buttons/GuestCounter";
@@ -17,6 +19,10 @@ const BookingForm = ({ venue }) => {
   const [totalNights, setTotalNights] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalPriceWithCleaningFee, setTotalPriceWithCleaningFee] = useState(0);
+
+  useEffect(() => {
+    defineElement(lottie.loadAnimation);
+  }, []);
 
   const handleDateChange = (dates) => {
     console.log("Selected dates:", dates);
@@ -98,10 +104,15 @@ const BookingForm = ({ venue }) => {
           <button
             type="button"
             onClick={() => setShowDateModal(true)}
-            className="flex items-center gap-4 bg-white text-sm md:text-base text-gray-700 mt-1 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
+            className="date flex items-center gap-4 bg-white text-sm md:text-base text-gray-700 mt-1 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
             style={{ minWidth: "160px" }}
           >
-            <BsFillCalendarMinusFill size={16} />
+            <lord-icon
+              src="https://cdn.lordicon.com/abfverha.json"
+              trigger="hover"
+              target=".date"
+              style={{ width: 22, height: 22 }}
+            ></lord-icon>
             {selectedDates && selectedDates[0]
               ? selectedDates[0].format("YYYY/MM/DD")
               : "Start Date"}
@@ -112,10 +123,15 @@ const BookingForm = ({ venue }) => {
           <button
             type="button"
             onClick={() => setShowDateModal(true)}
-            className="flex items-center gap-4 bg-white text-sm md:text-base text-gray-700 mt-1 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
+            className="date flex items-center gap-4 bg-white text-sm md:text-base text-gray-700 mt-1 py-2 px-4 rounded-lg border-2 border-white hover:border-rose-400 transition duration-300 ease-in-out"
             style={{ minWidth: "160px" }}
           >
-            <BsFillCalendarMinusFill size={16} />
+            <lord-icon
+              src="https://cdn.lordicon.com/abfverha.json"
+              trigger="hover"
+              target=".date"
+              style={{ width: 22, height: 22 }}
+            ></lord-icon>
             {selectedDates && selectedDates[1]
               ? selectedDates[1].format("YYYY/MM/DD")
               : "End Date"}

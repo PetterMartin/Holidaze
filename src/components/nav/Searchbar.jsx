@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
 import SearchModal from "../modal/SearchModal";
 import DateModal from "../modal/DateModal";
 import GuestCounter from "../buttons/GuestCounter";
@@ -6,10 +8,11 @@ import GuestCounter from "../buttons/GuestCounter";
 import { FaArrowRight } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
-import { LuCalendarDays } from "react-icons/lu";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiUsersThree } from "react-icons/pi";
 import { TfiLayoutGrid2Alt, TfiLayoutGrid4Alt } from "react-icons/tfi";
+
+// Define the custom element
 
 const SearchBar = ({
   onSearch,
@@ -44,6 +47,10 @@ const SearchBar = ({
     setIsDateModalOpen(false);
   };
 
+  useEffect(() => {
+    defineElement(lottie.loadAnimation);
+  }, []);
+
   return (
     <div className="flex justify-center w-full px-6 pb-2">
       {/* Venue Switch */}
@@ -74,10 +81,15 @@ const SearchBar = ({
           <div className="flex flex-col md:flex-row gap-4 md:gap-0 w-full">
             {/* Location section */}
             <div
-              className="flex items-center gap-4 md:gap-8 cursor-pointer"
+              className="place-search flex items-center gap-4 md:gap-8 cursor-pointer"
               onClick={toggleSearchModal}
             >
-              <IoLocationOutline size={25} />
+              <lord-icon
+                src="https://cdn.lordicon.com/kkvxgpti.json"
+                trigger="hover"
+                target=".place-search"
+                style={{ width: 28, height: 28 }}
+              ></lord-icon>
               <div className="flex flex-col">
                 <p className="text-xs md:text-sm text-gray-400">
                   Where do you want to go?
@@ -91,15 +103,22 @@ const SearchBar = ({
 
             <div className="hidden md:block border border-gray-300 rounded-full mx-6"></div>
 
-            {/* Guests section */}
+            {/* Dates section */}
             <div className="hidden lg:block">
               <div
-                className="flex items-center gap-8 cursor-pointer mt-1"
+                className="flex items-center gap-8 cursor-pointer mt-1 date-section"
                 onClick={toggleDateModal}
               >
-                <LuCalendarDays size={22} />
+                <lord-icon
+                  src="https://cdn.lordicon.com/abfverha.json"
+                  trigger="hover"
+                  target=".date-section"
+                  style={{ width: 28, height: 28 }}
+                ></lord-icon>
                 <div className="flex flex-col">
-                  <p className="text-sm text-gray-400">When do you want go?</p>
+                  <p className="text-sm text-gray-400">
+                    When do you want to go?
+                  </p>
                   <button className="flex items-center text-gray-600 font-semibold max-w-[180px] truncate">
                     {"Add Dates"}
                     <MdKeyboardArrowDown size={25} />
@@ -110,7 +129,7 @@ const SearchBar = ({
 
             <div className="hidden md:block border border-gray-300 rounded-full mx-6"></div>
 
-            {/* Guest section */}
+            {/* Guests section */}
             <div className="hidden md:block">
               <div className="flex items-center gap-6">
                 <PiUsersThree size={28} />
@@ -146,7 +165,7 @@ const SearchBar = ({
             type="button"
             onClick={handleSearch}
           >
-            <FiSearch size={18}/>
+            <FiSearch size={18} />
           </button>
         </div>
         {isSearchModalOpen && (
