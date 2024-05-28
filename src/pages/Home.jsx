@@ -85,12 +85,12 @@ const Home = () => {
           />
           <div className="absolute inset-0 bg-gray-700 opacity-30"></div>
         </div>
-        <div className="text-container w-full flex flex-col items-center gap-2 absolute top-20 md:top-48 left-[50%] transform translate-x-[-50%] -translate-y-[-50%] text-white z-10">
+        <div className="text-container w-full flex flex-col items-center gap-3 absolute top-20 md:top-48 left-[50%] transform translate-x-[-50%] -translate-y-[-50%] text-white z-10">
           <h1 className="with-shadow text-2xl md:text-6xl font-bold fade-in">
-            Apartments for a day
+          Your Home Away from Home
           </h1>
           <p className="with-shadow md:text-lg fade-in">
-            Find your perfect place
+            Find your perfect hideaway
           </p>
         </div>
         <div

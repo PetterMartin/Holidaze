@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
+import { Toaster, toast } from "sonner";
 import gsap from "gsap";
 import { createVenue } from "../../libs/api/Venues";
 import { AiOutlineClose } from "react-icons/ai";
@@ -99,7 +100,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "lat" || name === "lng") {
       setFormData({
         ...formData,
@@ -136,7 +137,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
       const updatedFormData = { ...formData, [name]: value };
       setFormData(updatedFormData);
     }
-  
+
     // If name is mediaUrl and value is not empty, add the image URL to media array
     if (name === "mediaUrl" && value.trim() !== "") {
       setFormData({
@@ -194,6 +195,9 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
     try {
       const response = await createVenue(formData);
       console.log("Venue created:", response);
+      toast.success(`Listing Created`, {
+        duration: 2000,
+      });
       setModalOpen(false);
     } catch (error) {
       console.error("Error creating venue:", error);
@@ -329,7 +333,9 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
       case 5:
         return (
           <div>
-            <h1 className="text-xl md:text-2xl font-semibold">Pricing Details</h1>
+            <h1 className="text-xl md:text-2xl font-semibold">
+              Pricing Details
+            </h1>
             <div className="text-sm md:text-base text-neutral-500 mt-2">
               How much do you charge for a night?
             </div>
@@ -365,8 +371,13 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
         );
       case 6:
         return (
-          <div>
-            <h1>Hello</h1>
+          <div className="mb-8">
+            <h1 className="text-xl md:text-2xl font-semibold">
+              Ready to share your space with the world?
+            </h1>
+            <div className="text-sm md:text-base text-neutral-500 mt-2">
+              Remember, you can always come back to make adjustments.
+            </div>
           </div>
         );
       default:
@@ -376,6 +387,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
 
   return (
     <>
+      <Toaster richColors />
       {isModalOpen && (
         <div
           id="modalBackground"
@@ -449,7 +461,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
                     {step === 6 && (
                       <button
                         type="submit"
-                        className="w-full bg-gradient-to-b from-rose-600 to-rose-500 text-white rounded-md p-4 transition duration-200 ease-in-out hover:opacity-80"
+                        className="w-full bg-gradient-to-b from-rose-400 to-rose-500 text-white rounded-md p-4 transition duration-200 ease-in-out hover:opacity-80"
                       >
                         Create Venue
                       </button>

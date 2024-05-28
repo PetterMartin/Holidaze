@@ -7,7 +7,6 @@ import LocationDetails from "./LocationDetails";
 import VenuesFeatures from "./VenuesFeatures";
 import Host from "./Host";
 
-import { AiFillFlag } from "react-icons/ai";
 import { FaShower, FaUsers } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoBed } from "react-icons/io5";
@@ -250,12 +249,6 @@ const SingleVenueModal = ({ isModalOpen, setModalOpen, venueId }) => {
                     {/* Right Side */}
                     <div className="sticky flex flex-col items-center gap-2 top-0 h-full pt-4">
                       <BookingForm venue={venue} venueId={venueId} />
-                      <div className="flex items-center gap-3 text-gray-600 mb-28">
-                        <AiFillFlag size={18} />
-                        <p className="text-sm font-semibold mt-1 underline cursor-pointer">
-                          Report this listing
-                        </p>
-                      </div>
                     </div>
                   </div>
                 </div>

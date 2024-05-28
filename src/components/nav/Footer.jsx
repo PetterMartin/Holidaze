@@ -54,7 +54,7 @@ import { FaXTwitter } from "react-icons/fa6";
             </div>
           </div>
           <div className="hidden md:flex flex-col gap-3 items-center md:items-start">
-            <h2 className="font-semibold text-lg mb-2">Airbnb</h2>
+            <h2 className="font-semibold text-lg mb-2">Info</h2>
             <div className="flex flex-col gap-2 text-gray-700 text-sm">
               <p className="hover:underline cursor-pointer">Customer Service</p>
               <p className="hover:underline cursor-pointer">Contact Us</p>
@@ -64,7 +64,7 @@ import { FaXTwitter } from "react-icons/fa6";
               <p className="hover:underline cursor-pointer">
                 Investors
               </p>
-              <p className="hover:underline cursor-pointer">new features</p>
+              <p className="hover:underline cursor-pointer">New features</p>
             </div>
           </div>
         </div>
