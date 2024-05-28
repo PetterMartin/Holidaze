@@ -61,6 +61,7 @@ export default function Calendar({ handleDateChange }) {
         <div className="flex items-center justify-between">
           <button
             className="flex gap-10 items-center"
+            type="button"
             onClick={() => {
               setToday(today.month(today.month() - 1));
             }}
@@ -127,6 +128,7 @@ export default function Calendar({ handleDateChange }) {
           </h1>
           <button
             className="flex gap-10 items-center"
+            type="button"
             onClick={() => {
               setToday(nextMonth.month(nextMonth.month() + 1));
             }}
