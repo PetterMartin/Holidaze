@@ -12,12 +12,8 @@ import CreateVenueModal from "../modal/CreateVenueModal.jsx";
 import DefaultUserImage from "../../../public/assets/images/defaultUser.png";
 import LogoutButton from "../buttons/LogoutButton.jsx";
 
-import { HiOutlineMail } from "react-icons/hi";
-import { LiaPhoneVolumeSolid } from "react-icons/lia";
-import { LuUser } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SiGooglehome } from "react-icons/si";
-import { TbSmartHome } from "react-icons/tb";
 
 const Navbar = () => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);

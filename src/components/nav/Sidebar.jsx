@@ -1,14 +1,11 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useContext, createContext, useRef } from "react";
 import PropTypes from "prop-types";
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
 import { useAuth } from "../../context/auth/Auth";
 
-import { AiOutlineHeart } from "react-icons/ai";
 import { BiLogOutCircle } from "react-icons/bi";
-import { BsChatSquareText } from "react-icons/bs";
-import { LuCalendarDays, LuUsers } from "react-icons/lu";
-import { PiWarehouse } from "react-icons/pi";
-import { TbHelpSquareRounded, TbSmartHome } from "react-icons/tb";
 
 const SidebarContext = createContext();
 
@@ -18,8 +15,12 @@ export default function Sidebar({
   onVenuesClick,
 }) {
   const [expanded, setExpanded] = useState(false);
-  const [activeItem, setActiveItem] = useState("Home"); // New state to track active item
+  const [activeItem, setActiveItem] = useState("Home");
   const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    defineElement(lottie.loadAnimation);
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -40,17 +41,17 @@ export default function Sidebar({
           <ul className="flex-1 px-4 py-2 text-lg">
             <div>
               <SidebarItem
-                icon={<TbSmartHome />}
-                text="Profile"
-                isActive={activeItem === "Home"} // Pass isActive based on activeItem state
+                icon={<LordIconVenues isActive={activeItem === "Home"} />}
+                text="Dashboard"
+                isActive={activeItem === "Home"}
                 onClick={() => {
                   onHomeClick();
-                  setActiveItem("Home"); // Set activeItem to "Home" when clicked
+                  setActiveItem("Home");
                 }}
               />
 
               <SidebarItem
-                icon={<LuCalendarDays />}
+                icon={<LordIconBooking isActive={activeItem === "Bookings"} />}
                 text="Bookings"
                 isActive={activeItem === "Bookings"} // Pass isActive based on activeItem state
                 onClick={() => {
@@ -59,19 +60,19 @@ export default function Sidebar({
                 }}
               />
               <SidebarItem
-                icon={<PiWarehouse />}
+                icon={<LordIconSmartHome isActive={activeItem === "Venues"} />}
                 text="Venues"
-                isActive={activeItem === "Venues"} // Pass isActive based on activeItem state
+                isActive={activeItem === "Venues"}
                 onClick={() => {
                   onVenuesClick();
-                  setActiveItem("Venues"); // Set activeItem to "Bookings" when clicked
+                  setActiveItem("Venues");
                 }}
               />
-              <SidebarItem icon={<LuUsers />} text="Guests" />
+              <SidebarItem icon={<LordIconGuest />} text="Guests" />
 
-              <SidebarItem icon={<BsChatSquareText />} text="Messages" alert />
+              <SidebarItem icon={<LordIconChat />} text="Messages" alert />
 
-              <SidebarItem icon={<AiOutlineHeart />} text="Favorites" />
+              <SidebarItem icon={<LordIconHeart />} text="Favorites" />
             </div>
 
             <div className="px-2 py-14">
@@ -79,7 +80,10 @@ export default function Sidebar({
             </div>
 
             <div>
-              <SidebarItem icon={<TbHelpSquareRounded />} text="Support" />
+              <SidebarItem
+                icon={<LordIconSupport isActive={activeItem === "Support"} />}
+                text="Support"
+              />
               <SidebarItem icon={<BiLogOutCircle />} text="Logout" />
             </div>
           </ul>
@@ -112,7 +116,7 @@ export function SidebarItem({ icon, text, isActive, alert, onClick }) {
   return (
     <li
       className={`
-        relative flex items-center py-1 px-2 my-4 mx-1
+      icon-group relative flex items-center py-1 px-2 my-4 mx-1
         font-medium rounded-xl border-2 border-transparent cursor-pointer
         transition-colors group
         ${
@@ -120,7 +124,7 @@ export function SidebarItem({ icon, text, isActive, alert, onClick }) {
             ? "bg-gradient-to-b from-rose-400 to-rose-500 text-white"
             : "hover:bg-gray-100 hover:border-gray-50 text-gray-700 "
         }
-        ${isLogout ? "text-rose-500" : ""}
+        ${isLogout ? "text-rose-500 hover:scale-110" : ""}
     `}
       style={{ fontSize: "20px" }}
       onClick={isLogout ? handleLogout : onClick}
@@ -154,5 +158,109 @@ export function SidebarItem({ icon, text, isActive, alert, onClick }) {
         </div>
       )}
     </li>
+  );
+}
+
+function LordIconSmartHome({ isActive }) {
+  const colors = isActive ? "primary:#ffffff" : "";
+
+  return (
+    <lord-icon
+      src="https://cdn.lordicon.com/cnpvyndp.json"
+      trigger="hover"
+      target=".icon-group"
+      colors={colors}
+      style={{
+        width: 23,
+        height: 23,
+      }}
+    ></lord-icon>
+  );
+}
+
+function LordIconVenues({ isActive }) {
+  const colors = isActive ? "primary:#ffffff" : "";
+
+  return (
+    <lord-icon
+      src="https://cdn.lordicon.com/kthelypq.json"
+      trigger="hover"
+      target=".icon-group"
+      colors={colors}
+      style={{
+        width: 23,
+        height: 23,
+      }}
+    ></lord-icon>
+  );
+}
+
+function LordIconBooking({ isActive }) {
+  const colors = isActive ? "primary:#ffffff" : "";
+
+  return (
+    <lord-icon
+      src="https://cdn.lordicon.com/abfverha.json"
+      trigger="hover"
+      target=".icon-group"
+      colors={colors}
+      style={{ width: 23, height: 23 }}
+    ></lord-icon>
+  );
+}
+
+function LordIconChat({ isActive }) {
+  const colors = isActive ? "primary:#ffffff" : "";
+
+  return (
+    <lord-icon
+      src="https://cdn.lordicon.com/fdxqrdfe.json"
+      trigger="hover"
+      target=".icon-group"
+      colors={colors}
+      style={{ width: 23, height: 23 }}
+    ></lord-icon>
+  );
+}
+
+function LordIconGuest({ isActive }) {
+  const colors = isActive ? "primary:#ffffff" : "";
+
+  return (
+    <lord-icon
+      src="https://cdn.lordicon.com/spukaklw.json"
+      trigger="hover"
+      target=".icon-group"
+      colors={colors}
+      style={{ width: 23, height: 23 }}
+    ></lord-icon>
+  );
+}
+
+function LordIconHeart({ isActive }) {
+  const colors = isActive ? "primary:#ffffff" : "";
+
+  return (
+    <lord-icon
+      src="https://cdn.lordicon.com/xyboiuok.json"
+      trigger="hover"
+      target=".icon-group"
+      colors={colors}
+      style={{ width: 23, height: 23 }}
+    ></lord-icon>
+  );
+}
+
+function LordIconSupport({ isActive }) {
+  const colors = isActive ? "primary:#ffffff" : "";
+
+  return (
+    <lord-icon
+      src="https://cdn.lordicon.com/axteoudt.json"
+      trigger="hover"
+      target=".icon-group"
+      colors={colors}
+      style={{ width: 23, height: 23 }}
+    ></lord-icon>
   );
 }
