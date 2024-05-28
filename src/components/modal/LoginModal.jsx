@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Toaster, toast } from "sonner";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/auth/Auth";
 import { loginUser } from "../../libs/api/Authentication";
@@ -49,6 +50,9 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
 
       setLoginStatus("success");
       setModalOpen(false);
+      toast.success("Welcome", {
+        duration: 3000,
+      });
 
       window.location.reload();
     } catch (error) {
@@ -69,6 +73,7 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
 
   return (
     <>
+      <Toaster richColors />
       {isModalOpen && (
         <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/50">
           <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto h-full lg:h-auto md:h-auto">
@@ -92,7 +97,10 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
                   </div>
 
                   {labels.map((label, index) => (
-                    <div className="text-sm md:text-base w-full relative mb-6" key={index}>
+                    <div
+                      className="text-sm md:text-base w-full relative mb-6"
+                      key={index}
+                    >
                       <input
                         data-cy={label}
                         type={
@@ -102,7 +110,13 @@ const LoginModal = ({ isModalOpen, setModalOpen }) => {
                         onChange={(e) =>
                           handleInputChange(label, e.target.value)
                         }
-                        autoComplete={label.toLowerCase() === "email" ? "email":label.toLowerCase() === "password" ? "current-password": ""}
+                        autoComplete={
+                          label.toLowerCase() === "email"
+                            ? "email"
+                            : label.toLowerCase() === "password"
+                            ? "current-password"
+                            : ""
+                        }
                         className="peer w-full p-4 pt-6 bg-white border-2 rounded-md outline-none transition hover:border-gray-500 focus:border-gray-500 cursor-pointer"
                       />
                       <label
