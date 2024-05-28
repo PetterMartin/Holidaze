@@ -99,14 +99,15 @@ const Navbar = () => {
 
   return (
     <nav className="w-full shadow-sm">
-      <div className="py-3 px-8">
+      <div className="py-1 px-8">
         <div className="flex justify-between items-center text-gray-700 relative">
           <div className="flex gap-8">
             <div className="flex items-center gap-4">
-              <div className="text-rose-500/90">
-                <SiGooglehome size={22} />
-              </div>
-              <Link to="/" className="font-semibold text-lg mt-1">
+              <Link
+                to="/"
+                className="flex gap-2 font-semibold text-lg mt-1"
+              >
+                <SiGooglehome size={22} className="text-rose-500/90" />
                 Holidaze
               </Link>
               <div className="hidden lg:block">
@@ -199,11 +200,14 @@ const Navbar = () => {
               <div className="flex items-center gap-4">
                 <div className="flex gap-4 px-4 border-s border-e text-sm">
                   <Link to="/dashboard" className="flex items-center gap-2">
-                    <LuUser size={18}/>
+                    <LuUser size={18} />
                     Dashboard
                   </Link>
-                  <div className="flex items-center gap-2 border-s ps-4" onClick={openCreateVenueModal}>
-                    <TbSmartHome size={20}/>
+                  <div
+                    className="flex items-center gap-2 border-s ps-4"
+                    onClick={openCreateVenueModal}
+                  >
+                    <TbSmartHome size={20} />
                     Host a venue
                   </div>
                 </div>
