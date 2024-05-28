@@ -1,5 +1,10 @@
 # React + Vite
 
+![image](/src//assets/images/Holidaze-Screenshot.png)
+
+- Deployed site: https://polite-sable-e2644b.netlify.app/
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
