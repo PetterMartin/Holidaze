@@ -7,12 +7,10 @@ import GuestCounter from "../buttons/GuestCounter";
 
 import { FaArrowRight } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
-import { IoLocationOutline } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { PiUsersThree } from "react-icons/pi";
 import { TfiLayoutGrid2Alt, TfiLayoutGrid4Alt } from "react-icons/tfi";
 
-// Define the custom element
 
 const SearchBar = ({
   onSearch,

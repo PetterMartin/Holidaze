@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
 import Sidebar from "../components/nav/Sidebar";
 import UsersBookings from "../components/profile/UsersBookings";
 import UsersVenues from "../components/profile/UsersVenues";
@@ -26,6 +28,10 @@ const Dashboard = () => {
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? "hidden" : "auto";
   }, [isModalOpen]);
+
+  useEffect(() => {
+    defineElement(lottie.loadAnimation);
+  }, []);
 
   const onHomeClick = () => {
     setShowBookings(false);

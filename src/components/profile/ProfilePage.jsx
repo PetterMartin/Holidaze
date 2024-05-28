@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
 import { useAuth } from "../../context/auth/Auth";
 import { getProfile, updateProfile } from "../../libs/api/Profiles";
 import defaultUser from "../../../public/assets/images/defaultUser.png";
@@ -104,7 +106,7 @@ export default function ProfilePage() {
     try {
       const updatedProfile = await updateProfile(
         userProfile.name,
-        { bio: newBio }, // Update bio
+        { bio: newBio },
         localStorage.getItem("jwt")
       );
       setUserProfile(updatedProfile.data);
@@ -128,10 +130,21 @@ export default function ProfilePage() {
     }
   };
 
+  useEffect(() => {
+    defineElement(lottie.loadAnimation);
+  }, []);
+
   return (
     <div className="w-full">
       {isProfileLoading ? (
-        <p>Loading..</p>
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+          <lord-icon
+            src="https://cdn.lordicon.com/pxwxddbb.json"
+            trigger="hover"
+            colors="primary:#ee6d66"
+            style={{ width: "50px", height: "50px" }}
+          />
+        </div>
       ) : (
         <div className="relative w-full">
           <Banner
@@ -151,8 +164,8 @@ export default function ProfilePage() {
               isVenueManager={isVenueManager}
               handleUpdateAvatarUrl={handleUpdateAvatarUrl}
               handleAvatarUrlChange={handleAvatarUrlChange}
-              handleUpdateBio={handleUpdateBio} // Pass bio update handler
-              handleBioChange={handleBioChange} // Pass bio change handle
+              handleUpdateBio={handleUpdateBio}
+              handleBioChange={handleBioChange}
               venuesCount={venuesCount}
               bookingsCount={bookingsCount}
               guestsCount={guestsCount}

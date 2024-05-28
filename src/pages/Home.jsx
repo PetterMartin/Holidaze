@@ -18,10 +18,6 @@ const Home = () => {
   const allVenuesRef = useRef(null);
   const searchBarRef = useRef(null);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
     try {
       await searchVenues({ guests: 0, searchText: "" });
@@ -29,6 +25,10 @@ const Home = () => {
       console.error("Error fetching venues:", error);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleSearch = async ({ guests, searchText }) => {
     try {
