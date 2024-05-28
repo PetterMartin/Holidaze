@@ -228,7 +228,7 @@ function LordIconGuest({ isActive }) {
 
   return (
     <lord-icon
-      src="https://cdn.lordicon.com/spukaklw.json"
+    src="https://cdn.lordicon.com/zyzoecaw.json"
       trigger="hover"
       target=".icon-group"
       colors={colors}
