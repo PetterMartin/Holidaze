@@ -53,7 +53,7 @@ function UserFirstBooking({ userName }) {
   }, [userName, userProfile]);
 
   if (!firstBooking) {
-    return <div>Loading...</div>;
+    return <div>No Upcoming Bookings</div>;
   }
 
   const formatDate = (dateString) => {

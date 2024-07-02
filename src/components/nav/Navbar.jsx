@@ -282,7 +282,7 @@ const Navbar = () => {
                   Login
                 </p>
                 <p
-                  className="font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ms-6 px-8 py-2 rounded-lg cursor-pointer"
+                  className="font-semibold bg-gradient-to-b from-rose-400 to-rose-500 text-white ms-6 px-8 py-2 rounded-lg cursor-pointer transition duration-200 ease-in-out hover:opacity-85"
                   onClick={openRegisterModal}
                 >
                   Register

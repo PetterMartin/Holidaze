@@ -17,12 +17,12 @@ const Banner = ({
   };
 
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex justify-center items-center mt-4">
       {bannerUrl ? (
         <img
           src={bannerUrl}
           alt={bannerAlt}
-          className="w-[1400px] h-32 md:h-64 object-cover rounded-3xl"
+          className="w-[1400px] h-32 md:h-80 object-cover rounded-3xl"
         />
       ) : (
         <div className="bg-gradient-to-r h-full from-blue-600 to-blue-400 w-full rounded-3xl"></div>
