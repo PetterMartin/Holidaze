@@ -209,7 +209,7 @@ const CreateVenueModal = ({ isModalOpen, setModalOpen }) => {
     if (isModalOpen && !hasOpened) {
       gsap.fromTo(
         "#single-venue",
-        { y: "100%" }, // Start from the bottom
+        { y: "100%" }, 
         { duration: 0.5, y: 0, ease: "power1.out" }
       );
       setHasOpened(true);

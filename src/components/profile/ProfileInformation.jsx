@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EditAvatarModal from "../modal/EditAvatarModal";
-import EditBioModal from "../modal/EditBioModal"; // Import EditBioModal
+import EditBioModal from "../modal/EditBioModal";
 import ProfileFeatures from "./ProfileFeatures";
 
 import { AiOutlineEdit } from "react-icons/ai";
@@ -33,7 +33,7 @@ const ProfileInformation = ({
 
   if (!userProfile) {
     // Handle case where userProfile is null (e.g., after logging out)
-    return null; // or return a loading indicator, error message, or any other appropriate UI
+    return null;
   }
 
   const avatarUrl =
@@ -117,8 +117,8 @@ const ProfileInformation = ({
 
       {showEditBioModal && (
         <EditBioModal
-          handleUpdateBio={handleUpdateBio} // Pass bio update handler
-          handleBioChange={handleBioChange} // Pass bio change handler
+          handleUpdateBio={handleUpdateBio} 
+          handleBioChange={handleBioChange} 
           onClose={() => setShowEditBioModal(false)}
         />
       )}

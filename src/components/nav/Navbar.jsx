@@ -21,7 +21,7 @@ const Navbar = () => {
   const [isCreateVenueModalOpen, setIsCreateVenueModalOpen] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const [isNavbarScrolled, setIsNavbarScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for toggling hamburger menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isLoggedIn } = useAuth();
   const menuRef = useRef(null);
 

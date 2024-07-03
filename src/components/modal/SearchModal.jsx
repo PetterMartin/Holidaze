@@ -58,11 +58,11 @@ const SearchModal = ({ onSearchTextChange, onClose }) => {
         placeholder="Search..."
         value={searchText}
         onChange={handleChange}
-        onKeyDown={handleKeyDown} // Add key down event handler
-        className="flex-1 outline-none cursor-pointer bg-transparent"
+        onKeyDown={handleKeyDown}
+        className="flex-1 text-gray-600 text-sm md:text-base font-semibold max-w-[180px] truncate outline-none cursor-pointer bg-transparent"
       />
       {searchText && (
-        <div className="ml-2 cursor-pointer" onClick={clearSearch}>
+        <div className="ml-2 cursor-pointer text-gray-300 hover:text-gray-600" onClick={clearSearch}>
           <FaTimes />
         </div>
       )}
