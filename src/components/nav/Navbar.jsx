@@ -99,10 +99,6 @@ const Navbar = () => {
     setIsCreateVenueModalOpen(false);
   };
 
-  const handleMouseEnter = () => {
-    gsap.to(".googlehome-icon", { rotation: 100, duration: 0.3, repeat: 1, yoyo: true });
-  };
-
 
 
   return (
@@ -113,15 +109,14 @@ const Navbar = () => {
             <div className="flex items-center gap-4">
             <Link
                 to="/"
-                className="flex gap-2 font-semibold text-lg mt-1 items-center"
-                onMouseEnter={handleMouseEnter}
+                className="flex gap-2 font-semibold mt-1 items-center"
               >
                 <SiGooglehome
                   size={22}
                   className="text-rose-500/90 googlehome-icon"
                   style={{ transition: "transform 0.5s" }}
                 />
-                <span>Holidaze</span>
+                <span className="mt-0.5 text-xl">Holidaze</span>
               </Link>
 
               <div className="hidden lg:block">
