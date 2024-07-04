@@ -5,9 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 import lottie from "lottie-web";
 import { defineElement } from "@lordicon/element";
 import { useEffect, useRef, useState } from "react";
-
 import { hightlightsSlides } from "../../constants";
-import { pauseImg, playImg, replayImg } from "../../utils/mediaAssets";
 
 const VideoCarousel = ({ onSearch }) => {
   const videoRef = useRef([]);
@@ -233,27 +231,26 @@ const VideoCarousel = ({ onSearch }) => {
             )
           }
         >
-          {/* replace the img tag with the Lordicon */}
           {isLastVideo ? (
             <lord-icon
               src="https://cdn.lordicon.com/rsbokaso.json"
               trigger="hover"
               target=".video"
-              style={{ width: 18, height: 18 }} // adjust size as needed
+              style={{ width: 18, height: 18 }} 
             ></lord-icon>
           ) : !isPlaying ? (
             <lord-icon
               src="https://cdn.lordicon.com/aklfruoc.json"
               trigger="hover"
               target=".video"
-              style={{ width: 18, height: 18 }} // adjust size as needed
+              style={{ width: 18, height: 18 }} 
             ></lord-icon>
           ) : (
             <lord-icon
               src="https://cdn.lordicon.com/ptvmrrcc.json"
               trigger="hover"
               target=".video"
-              style={{ width: 18, height: 18 }} // adjust size as needed
+              style={{ width: 18, height: 18 }} 
             ></lord-icon>
           )}
         </button>
